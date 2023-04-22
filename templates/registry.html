@@ -8,13 +8,15 @@
     <title>Login </title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-login.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
+
 <body>
 <!-- this is login -->
-
     <div class="box_login">
         <div class="position">
-            <form class="container_login" id="container_login" >
+            <form method="post" action="/account/login" class="container_login" id="container_login" >
                 <div class="centering-wrapper">
                     <div class="section1 text-center">
                         <div class="primary-header">Welcome back!</div>
@@ -23,14 +25,14 @@
                             <div class="form-group">
                                 <h5 class="input-placeholder" id="email-txt">Email<span class="error-message"
                                         id="email-error"></span></h5>
-                                <input type="email" required="true" name="logemail" class="form-style" id="logemail"
+                                <input type="email" required="true" name="email" class="form-style" id="logemail"
                                     autocomplete="off" style="margin-bottom: 20px;">
                                 <i class="input-icon uil uil-at"></i>
                             </div>
                             <div class="form-group">
                                 <h5 class="input-placeholder" id="pword-txt">Password<span class="error-message"
                                         id="password-error"></span></h5>
-                                <input type="password" required="true" name="logpass" class="form-style" id="logpass"
+                                <input type="password" required="true" name="password" class="form-style" id="logpass"
                                     autocomplete="on">
                                 <i class="input-icon uil uil-lock-alt"></i>
                             </div>
@@ -58,7 +60,11 @@
                 </div>
             </form>
             <!--  this is register form ----- -->
-            <form method="post" action="/account/register" enctype="multipart/form-data" class="container_register" id="container_register" style="display:none"> 
+            <form 
+                method="post" action="/account/register" 
+                enctype="multipart/form-data" class="container_register" 
+                id="container_register" style="display:none" > 
+                
                 <div class="centering-wrapper">
                     <div class="section2 text-center">
                         <div class="primary-header">Create New User</div>
@@ -120,6 +126,29 @@
             window.location.href = "";
         }
     </script>
+    {% if message %}
+    <script>
+        var message = "{{ message }}";
+        if (message == "Account already exists"){
+            Swal.fire({
+                title: "Registration Error",
+                text: "{{ message }}",
+                icon: "error",
+                button: "OK",
+            });
+            showRegisterForm();
+        }
+        else if (message == "success"){
+            Swal.fire({
+                title: "Registration Success",
+                text: "{{ message }}",
+                icon: "success",
+                button: "OK",
+            });
+        }
+    </script>
+    {% endif %}
+
     <script>
         history.replaceState("", document.title, window.location.pathname + window.location.search);
 

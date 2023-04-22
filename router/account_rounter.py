@@ -39,28 +39,15 @@ async def register(request: Request, email: EmailStr = Form(...), username: str 
                     image.file.close()
         else:
             user.avatar = 'static/assets/DiscordDefaultAvatar.jpg'
-        return templates.TemplateResponse("registry.html", {"request": request})
+        return templates.TemplateResponse("registry.html", {"request": request, 'message': 'success'})
+        #return JSONResponse(content={'status': 'success'}, status_code=201)
     else:
         del user
-        raise HTTPException(status_code=409, detail='Account already exists')
-
-@router.post("/upload")
-def upload(request: Request, file: UploadFile = File(...)):
-    try:
-        contents = file.file.read()
-        with open("uploaded_" + file.filename, "wb") as f:
-            f.write(contents)
-    except Exception:
-        return {"message": "There was an error uploading the file"}
-    finally:
-        file.file.close()
-
-    base64_encoded_image = base64.b64encode(contents).decode("utf-8")
-
-    return templates.TemplateResponse("display.html", {"request": request,  "myImage": base64_encoded_image})
+        return templates.TemplateResponse('registry.html', {'request': request, 'message': "Account already exists"})
 
 @router.post('/login', status_code=200, tags=['user'])
-async def login(user: LoginSchema, request: Request, resp: Response):
+async def login(request: Request, resp: Response, email: EmailStr = Form(...), password: str = Form(...)):
+    user = LoginSchema(email=email, password=password)
     print(user.email, user.password)
     if discord_account.user_login(user):
         # if user.email in system.logged_in_users:
@@ -83,7 +70,7 @@ async def login(user: LoginSchema, request: Request, resp: Response):
 
         # system.logged_in_users.add(user.email)
 
-        return {'status_code': 200, 'detail': 'Authorized'}
+        return templates.TemplateResponse("registry.html", {"request": request})
     else:
         raise HTTPException(status_code=401, detail='Unauthorized')
 
