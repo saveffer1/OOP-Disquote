@@ -1,0 +1,53 @@
+body {
+    display: flex;
+}
+
+.avatar {
+    margin: 10px 0 0 -1px ;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+}
+
+.line {
+    margin: 0 0 0 5px ;
+    justify-content: center;
+    width: 80%;
+    height: 10px;
+}
+
+.navtab {
+    background-color: rgb(30,31,34);
+    justify-content: center;
+    height: 100vh;   
+    width: 75px;
+    border-top-right-radius:15px ;
+}
+
+.create_server {
+    margin: -10px 20px -10px -7px ;
+    padding: 10px 10px 10px 10px; 
+    height: 45px;
+}
+
+.create_server_btn:hover{
+    border-radius: 30%;
+    background-color: rgb(35,165,89);
+    transition: all 0.1s ease-in-out;
+}
+
+/* .create_server:hover {
+    border-radius: 30%;
+    background-color: rgb(35,165,89);
+    transition: all 0.4s ease-in-out;
+} */
+
+.create_server_btn {
+    margin: 10px 0 0 10px ;
+    padding: 10px 10px 10px 10px;
+    width: 55px;
+    height: 55px;
+    border-radius: 60%;
+    background-color: rgb(49,51,56);
+}
+
