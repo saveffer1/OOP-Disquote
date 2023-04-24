@@ -10,7 +10,7 @@ import base64
 
 from router import router_document, router_account
 
-ALLOWED_ORIGINS = ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://localhost']
+ALLOWED_ORIGINS = ['http://localhost', '0.0.0.0']
 
 def create_app():
     fast_app = FastAPI(title='Discord Clone', docs_url=None,

@@ -102,7 +102,7 @@
                             <br>                            
                             <div class="form-group">
                                 <h5 class="input-placeholder" id="upload">Avatar<span ></span></h5>
-                                <input type="file" onchange={onFileUpload} name="fileupload" class="form-style" id="fileupload"/>
+                                <input type="file" onchange={onFileUpload} name="image" class="form-style" id="fileupload"/>
                                 <i class="input-icon uil uil-lock-alt"></i>
                             </div>
                             <br>
@@ -127,23 +127,38 @@
             window.location.href = "";
         }
     </script>
-    {% if message %}
+    {% if reg_message %}
     <script>
-        var message = "{{ message }}";
-        if (message == "Account already exists"){
-            Swal.fire({
-                title: "Registration Error",
-                text: "{{ message }}",
-                icon: "error",
-                button: "OK",
-            });
-            showRegisterForm();
-        }
-        else if (message == "success"){
+        var message = "{{ reg_message }}";
+        if (message == "success"){
             Swal.fire({
                 title: "Registration Success",
-                text: "{{ message }}",
+                text: "{{ reg_message }}",
                 icon: "success",
+                button: "OK",
+            });
+        }
+        else{
+            Swal.fire({
+                title: "Registration Error",
+                text: "{{ reg_message }} {{ detail }}",
+                icon: "error",
+                button: "OK",
+            }).then(function() {
+                showRegisterForm();
+            });
+        }
+    </script>
+    {% endif %}
+
+    {% if login_message %}
+    <script>
+        var message = "{{ login_message }}";
+        if (message == "Wrong email or password!"){
+            Swal.fire({
+                title: "Login Error",
+                text: "{{ login_message }}",
+                icon: "error",
                 button: "OK",
             });
         }

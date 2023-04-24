@@ -2,10 +2,11 @@ from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Respons
 from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse, FileResponse
 from fastapi.encoders import jsonable_encoder
 from jose import JWTError
-from model import UserStatus, EmailStr, TokenData
+from model import TokenData, UserStatus, EmailStr
 from schema import UserSchema, LoginSchema, UpdateUserModel
 from fastapi.templating import Jinja2Templates
 import base64
+import shutil
 from .discord import discord_account, discord_server
 import configparser
 config = configparser.ConfigParser()
@@ -24,26 +25,29 @@ async def register(request: Request, email: EmailStr = Form(...), username: str 
     if discord_account.add_user(user):
         user = discord_account.user_account[user.email]
         if image:
-            if image.content_type not in ['image/png', 'image/jpeg', 'image/gif']:
-                raise HTTPException(
-                    status_code=415, detail='Unsupported Media Type')
+            if len(await image.read()) <= 8388608:
+                print("image uploaded", image.content_type)
+                if image.content_type not in ['image/png', 'image/jpeg', 'image/gif']:
+                    return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'Unsupported Media Type', 'detail': ''})
+                else:
+                    try:
+                        file_name = image.filename
+                        file_location = f"static/resource/user_avatar/{user.id}_{file_name}"
+                        with open(file_location, "wb+") as file_object:
+                            file_object.write(image.file.read())
+                    except Exception as e:
+                        return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'file error', 'detail': f'{e}'})
+                    finally:
+                        user.avatar = file_location
+                        image.file.close()
             else:
-                try:
-                    contents = image.file.read()
-                    with open("static/assets/resource/user_avatar/"+user.id+"_" + image.filename, "wb") as f:
-                        f.write(contents)
-                except Exception:
-                    return {"message": "There was an error uploading the file"}
-                finally:
-                    user.avatar = "static/assets/resource/user_avatar/"+user.id+"_" + image.filename
-                    image.file.close()
+                return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'max size 8MB', 'detail': ''})
         else:
             user.avatar = 'static/assets/DiscordDefaultAvatar.jpg'
-        return templates.TemplateResponse("registry.html", {"request": request, 'message': 'success'})
-        #return JSONResponse(content={'status': 'success'}, status_code=201)
+        return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'success', 'detail': ''})
     else:
         del user
-        return templates.TemplateResponse('registry.html', {'request': request, 'message': "Account already exists"})
+        return templates.TemplateResponse('registry.html', {'request': request, 'reg_message': "Account already exists", 'detail': ''})
 
 @router.post('/login', status_code=200, tags=['user'])
 async def login(request: Request, resp: Response, email: EmailStr = Form(...), password: str = Form(...)):
@@ -69,10 +73,10 @@ async def login(request: Request, resp: Response, email: EmailStr = Form(...), p
         )
 
         # system.logged_in_users.add(user.email)
-
+        
         return templates.TemplateResponse("registry.html", {"request": request})
     else:
-        raise HTTPException(status_code=401, detail='Unauthorized')
+        return templates.TemplateResponse("registry.html", {"request": request, "login_message": "Wrong email or password!"})
 
 
 @router.get('/logout', status_code=200, tags=['user'])
