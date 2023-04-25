@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Discord UI Clone</title>
-    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
-    <link rel="stylesheet" href="../style/style-chatboard.css">
-    <script src="../script/jquery.js"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
+    <script src="/static/script/jquery.js"></script>
 </head>
 
 <body ng-controller="testCtrl">
@@ -27,7 +28,7 @@
                 <div class="usermenuicons">
                     <div class="mic" id="micToggle"></div>
                     <div class="headphone" id="headphoneToggle"></div>
-                    <div class="settings" id="settingsToggle"></div>
+                    <div class="settings" id="settingsToggle" ></div>
                 </div>
             </div>
         </div>
@@ -87,96 +88,31 @@
             </div>
 
         </div>
-        <div class="container">
-            <div class="nav-chat">
-                <div class="ch-name">
-                    <h5># ch_ name</h5>
-                </div>
-                <div class="nav-menu">
-                    <div class="icon-menu-chat">
-                        <img src="/src/assets/pin.ico" alt="">
-                    </div>                    
-                    <div class="icon-menu-chat">
-                        <img src="/src/assets/member.png" alt="">
-                    </div>
-                    <div class="icon-menu-chat">
-                        <h5>member?</h5>
-                    </div>
-                    <div class="search-menu-chat">
-                        <input class="search-chat" type="text" placeholder="Search" >
-                        <button class="search-btn"> <img src="/src/assets/search-icon.png" alt=""></button>
-                        
-                    </div>
-                    
-
-                </div>
-            </div>
-            
-            <div class="input-message">
-                <input class="chat-input" type="text" >
-                <button class="chat-emoji">emoji</button>
-                <button class="chat-strickers">strickers</button>
-            </div>
-
-
-            <div class="chatbox">
-                <h1>chat box area</h1>
-            </div>
-            <div class="members">
-                <div class="box-member">
-                    <h2>this is box member</h2>
-                    <!-- <h2>this is box member</h2>
-                    <h2>this is box member</h2>
-                    <h2>this is box member</h2>
-                    <h2>this is box member</h2> -->
-                </div>
-            </div>
+        <div id="chat-board" class="container">
+            <!-- load chat board here -->
         </div>
         
     </div>
     
     <!-- user-box section -->
-    <script src="../script/user-box.js" defer></script>
+    <script src="/static/script/user-box.js" defer></script>
     <script>
-        var host = "";
-            function getHost() {
-                return fetch('../../host.json')
-                    .then(response => response.json())
-                    .then(data => JSON.parse(JSON.stringify(data)).hostname)
-                    .then(hostname => {
-                        host = hostname;
-                        return hostname;
-                    });
-            }
-        
         authen();
         //var t = setInterval(authen, 20000);
 
-        async function getJSON() {
-            await getHost();
-            return fetch(`${host}/account/auth`, {
-                method: 'GET',
-                credentials: 'include'
-            })
-            .then((response) => response.json())
-            .then((responseJson) => { return responseJson });
-        }
-
         async function authen() {
-            await getHost();
-            url = `${host}/account/me`;
+            url = `/account/authen`;
             const json = await this.getJSON();
             if (json.detail == "Authorized") {
                 getinfo(url);
                 console.log("Authorized")
             }
             else{
-                window.location.href = "/src/page/registry.html";
+                window.location.href = "/login";
             }
         }
 
         async function getinfo(url) {
-            host = await getHost();
             let response = await fetch(url, {
                 method: 'GET',
                 credentials: 'include'
@@ -195,24 +131,10 @@
             })
         }
 
-        async function logout(){
-            await getHost();
-            let response = await fetch(`${host}/account/logout`, {
-                method: 'GET',
-                credentials: 'include'
-            })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                window.location.href = "/src/page/registry.html";
-            })
-        }
-
         const toogle_setting = document.getElementById("settingsToggle");
         toogle_setting.addEventListener("click", function () {
             if (confirm("Are you sure you want to logout?") == true){
-                logout();
+                window.location.href = "/account/logout";
             }
         });
 
@@ -220,20 +142,8 @@
     </script>
 
     <script>
-        //navbar section
-        function getHost() {
-            return fetch('../../host.json')
-                .then(response => response.json())
-                .then(data => JSON.parse(JSON.stringify(data)).hostname)
-                .then(hostname => {
-                    host = hostname;
-                    return hostname;
-                });
-        }
-
         async function get_server_list() {
-            await getHost();
-            return fetch(`${host}/server/get_list`, {
+            return fetch(`/server/get_list`, {
                 method: 'GET',
                 credentials: 'include'
             })

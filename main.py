@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.templating import Jinja2Templates
 import base64
 
-from router import router_document, router_account
+from router import router_document, router_account, router_server
 
 ALLOWED_ORIGINS = ['http://localhost', '0.0.0.0']
 
@@ -49,7 +49,10 @@ def initial_startup():
             os.mkdir(resource + '/' + folder)
     
     
-
+@app.exception_handler(404)
+def handle_404(e: Exception, request: Request):
+    return templates.TemplateResponse("404.html", {"request": e}, status_code=404)
+    
 @app.get('/ping', status_code=200, tags=['healthcheck'])
 @app.post('/ping', status_code=200, tags=['healthcheck'])
 async def healthchk():
@@ -63,13 +66,19 @@ def mainindex(request: Request):
 def registry(request: Request):
     return templates.TemplateResponse("registry.html", {"request": request})
 
-
 @app.get("/register", response_class=HTMLResponse)
 def registry(request: Request):
     return templates.TemplateResponse("registry.html", {"request": request})
 
+@app.get("/server", response_class=HTMLResponse)
+def server(request: Request):
+    if request.cookies.get('token'):
+        return templates.TemplateResponse("server.html", {"request": request})
+    else:
+        return templates.TemplateResponse("registry.html", {"request": request}, status_code=401)
+
 app.include_router(router_account, prefix='/account')
-# app.include_router(router_server, prefix='/server')
+app.include_router(router_server, prefix='/server')
 app.include_router(router_document, prefix='/admin')
 
 if __name__ == "__main__":

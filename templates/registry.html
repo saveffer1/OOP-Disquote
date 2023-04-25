@@ -102,7 +102,7 @@
                             <br>                            
                             <div class="form-group">
                                 <h5 class="input-placeholder" id="upload">Avatar<span ></span></h5>
-                                <input type="file" onchange={onFileUpload} name="image" class="form-style" id="fileupload"/>
+                                <input type="file" name="image" class="form-style" id="fileupload"/>
                                 <i class="input-icon uil uil-lock-alt"></i>
                             </div>
                             <br>
@@ -124,7 +124,7 @@
 
     <script>
         if (document.cookie.split(';').some((cookie) => cookie.trim().startsWith('authen='))) {
-            window.location.href = "";
+            window.location.href = "/server";
         }
     </script>
     {% if reg_message %}
@@ -139,13 +139,13 @@
             });
         }
         else{
-            Swal.fire({
+            showRegisterForm().then( function() {
+                Swal.fire({
                 title: "Registration Error",
                 text: "{{ reg_message }} {{ detail }}",
                 icon: "error",
                 button: "OK",
-            }).then(function() {
-                showRegisterForm();
+            })
             });
         }
     </script>
@@ -184,6 +184,34 @@
             showRegisterForm();
         }
 
+
+        
+
+    </script>
+
+
+    <script>
+        $(function(){
+        $("#nav-placeholder").load("../page/navbar.html", function () {
+                $("#dm.homebutton").on("click", function (e) {
+                    e.preventDefault();
+                    var page = $(this).data("page");
+                    $("#chat-menu").load("../page/chat-dm.html");
+                    e.preventDefault();
+                    var page = $(this).data("page");
+                    $("#chat-board").load("../page/container-dm.html");
+                });
+                $(".server").on("click", function (e) {
+                    e.preventDefault();
+                    var page = $(this).data("page");
+                    $("#chat-menu").load("../page/chat-guild.html");
+                    e.preventDefault();
+                    var page = $(this).data("page");
+                    $("#chat-board").load("../page/container-server.html");
+                });
+                    
+            });
+        });
     </script>
 
 </body>
