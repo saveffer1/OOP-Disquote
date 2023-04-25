@@ -52,6 +52,10 @@ def initial_startup():
 @app.exception_handler(404)
 def handle_404(e: Exception, request: Request):
     return templates.TemplateResponse("404.html", {"request": e}, status_code=404)
+
+@app.exception_handler(500)
+def handle_500(e: Exception, request: Request):
+    return templates.TemplateResponse("500.html", {"request": e}, status_code=500)
     
 @app.get('/ping', status_code=200, tags=['healthcheck'])
 @app.post('/ping', status_code=200, tags=['healthcheck'])
@@ -62,18 +66,18 @@ async def healthchk():
 def mainindex(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/login", response_class=HTMLResponse)
+@app.get("/account/login", response_class=HTMLResponse)
 def registry(request: Request):
     return templates.TemplateResponse("registry.html", {"request": request})
 
-@app.get("/register", response_class=HTMLResponse)
+@app.get("/account/register", response_class=HTMLResponse)
 def registry(request: Request):
     return templates.TemplateResponse("registry.html", {"request": request})
 
-@app.get("/server", response_class=HTMLResponse)
+@app.post("/server", response_class=HTMLResponse)
 def server(request: Request):
-    if request.cookies.get('token'):
-        return templates.TemplateResponse("server.html", {"request": request})
+    if request.cookies.get('authen'):
+        return templates.TemplateResponse("chatboard.html", {"request": request})
     else:
         return templates.TemplateResponse("registry.html", {"request": request}, status_code=401)
 

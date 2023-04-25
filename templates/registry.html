@@ -169,18 +169,18 @@
         history.replaceState("", document.title, window.location.pathname + window.location.search);
 
         function showLoginForm() {
-            history.pushState('', document.title, '/login');
+            history.pushState('', document.title, '/account/login');
             document.getElementById('container_login').style.display = 'block';
             document.getElementById('container_register').style.display = 'none';
         }
 
         function showRegisterForm() {
-            history.pushState('', 'register', '/register');
+            history.pushState('', 'register', '/account/register');
             document.getElementById('container_login').style.display = 'none';
             document.getElementById('container_register').style.display = 'block';
         }
 
-        if (window.location.pathname === '/register') {
+        if (window.location.pathname === '/account/register') {
             showRegisterForm();
         }
 

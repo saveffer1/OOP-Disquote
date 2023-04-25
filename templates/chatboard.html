@@ -7,21 +7,122 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Discord UI Clone</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboardv2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-setting.css') }}">
     <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
     <script src="/static/script/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
 <body ng-controller="testCtrl">
     <noscript>Please enable JavaScript to access this website.</noscript>
-    <div class="rootDiv">
+    
+    <!-- Setting -->
+    <div class="settpage" id="settpage">
+        <section class="container_setting">
+    
+            <div class="column1">
+                <div class="section">
+                <div class="section_black"></div>
+                <div class="section_s">
+                <a style="font-family:Mukta"><b>USER SETTING</b></a>
+                    <div class="btn_a">
+                        <li><button class="btn_s active"><a href="#">My Account</a></button></li>
+                        <li><button class="btn_s"><a href="#">Profiles</a></button></li>
+                        <!-- <li><button class="btn_s "><a href="#">Privacy & Safety</a></button></li>
+                        <li><button class="btn_s"><a href="#">Authorized Apps</a></button></li>
+                        <li><button class="btn_s"><a href="#">Devices</a></button></li>
+                        <li><button class="btn_s"><a href="#">Connections</a></button></li>
+                        <li><button class="btn_s" ><a href="#">Friend Requests</a></button></li> -->
+                        
+                    </div>
+                    <div class="line-4">
+                        <hr>
+                    </div>
+                <a style="font-family:Mukta"><b>APP SETTING</b></a>
+                    <div class="btn_a">
+                        <!-- <li><button class="btn_s"><a href="#">Appearance</a></button></li>
+                        <li><button class="btn_s"><a href="#">Accessibility</a></button></li> -->
+                        <li><button class="btn_s "><a href="#">Vocie & Video</a></button></li>
+                        <!-- <li><button class="btn_s"><a href="#">Text & Images</a></button></li>
+                        <li><button class="btn_s"><a href="#">Notifications</a></button></li>
+                        <li><button class="btn_s"><a href="#">Keybinds</a></button></li>
+                        <li><button class="btn_s" ><a href="#">Language</a></button></li>
+                        <li><button class="btn_s" ><a href="#">Streamer Mode</a></button></li>
+                        <li><button class="btn_s" ><a href="#">Advanced</a></button></li> -->
+                        
+                    </div>
+                
+        
+                    <div class="line-4">
+                        <hr>
+                    </div>
+                        <a style="font-family:Mukta"><b>Program</b></a>
+                    <div class="btn_a">
+                    <li ><button class="btn_s" id="logoutmenu"><a href="#">Log out</a></button></li>
+                        
+                        
+                    </div>
+                        <div class="line-4">
+                            <hr>
+                        </div>
+                </div>
+                </div>
+            </div>
+        
+            <div class="column2">
+                <div class="section_content">
+                    <div class="MyAccount">
+                        <a style="font-family:Mukta" class="content_head"><b>My Account</b></a>
+                    </div>
+                    <div class="escbtn">
+
+                        <button type="texr" style="font-family:mukta" class="btn_out_esc" id="btn_out_esc" ><a class="iconx" ><i class="fa-solid fa-xmark"></i></a>
+                            <br>
+                            ESC</button>
+                    </div>
+                </div>
+            
+            </div>
+        
+        
+            <div id="popupout">
+                    
+                
+        
+                    <div class="popup_log_content">
+                        <div class="head_text"><b>Log Out</b></div>
+                        <p style="font-family:mukta">Are you sure you want to logout?</p>
+                    
+                        
+                        <div class="btn_section">
+                        
+                    
+                        <a href="#" class="btn_cancel" id="btn_cancel_out"  style="font-family:mukta">Cancel</a>
+                        <button type="text" style="font-family:mukta" class="btn_out" id="btn_out" >Log Out</button>
+                        </div>
+                    
+                        
+                        </div>
+                
+                
+                </div>
+                </section>
+    </div>
+    
+
+
+    <div class="rootDiv" id="rootDiv">
         <div class="side-bar">
             <div id="chat-menu" class="nav">
                 <!-- load chat from server or dm -->
             </div>
             <div id="user-box" class="userBox">
                 <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" id="avatar" class="userAvatar">
-                <div class="userinfo">
+                <div class="Username" id="userinfo">
                     <h4 id="username" class="username">Username</h4>
                     <h6 id="discriminator" class="discriminator">#1234</h6>
                 </div>
@@ -76,13 +177,34 @@
                 <!-- Modal content -->
                 <div class="modal-content">
                     <span class="close" id="closeCreateServerPopup">&times;</span>
-                    <h2>Create Server</h2>
-                    <form>
-                        <label for="serverName">Server Name:</label>
-                        <input type="text" id="serverName" name="serverName"><br><br>
-                        <label for="serverImage">Server Image:</label>
-                        <input type="file" id="serverImage" name="serverImage"><br><br>
-                        <input type="submit" value="Create">
+                    <h2>Customize your server</h2>
+                    <form onsubmit="return createtheserver()">
+
+                        <div class="uploadCreateRoom">
+                            <img src="{{ url_for('static', path='assets/Upload.png') }}" width="80" height="80" alt="" >
+                                <div class ="round">
+                                    <input type ="file">
+                                    <i class="fa-solid fa-circle-plus" style="color : #fff;"></i>
+                                </div>
+                        </div>
+                        <div class="roomnameinput">
+                            <h4>SERVER NAME</h4>
+                            
+                            <input type="text" id="serverName" name="serverName" class="inputnameserver">
+                        <br><br> <br> 
+                        <div class="forbtn"> 
+                            <div>
+
+                            </div>
+
+                            <div>
+                                <input type="submit" value="Create" class="btncreate">
+                            </div>
+                        
+                        </div>
+                        
+                        </div>
+                        
                     </form>
                 </div>
             </div>
@@ -100,24 +222,12 @@
         authen();
         //var t = setInterval(authen, 20000);
 
-        async function authen() {
-            url = `/account/authen`;
-            const json = await this.getJSON();
-            if (json.detail == "Authorized") {
-                getinfo(url);
-                console.log("Authorized")
-            }
-            else{
-                window.location.href = "/login";
-            }
-        }
-
         async function getinfo(url) {
             let response = await fetch(url, {
                 method: 'GET',
                 credentials: 'include'
             })
-            .then(function (response) {
+            .then(async function (response) {
                 return response.json();
             })
             .then(async function (data) {
@@ -131,17 +241,30 @@
             })
         }
 
-        const toogle_setting = document.getElementById("settingsToggle");
-        toogle_setting.addEventListener("click", function () {
-            if (confirm("Are you sure you want to logout?") == true){
-                window.location.href = "/account/logout";
+        async function getJSON() {
+            return fetch(`/account/auth`, {
+                method: 'GET',
+                credentials: 'include'
+            })
+                .then((response) => response.json())
+                .then((responseJson) => { return responseJson });
+        }
+        async function authen() {
+            url = `/account/auth`;
+            const json = await this.getJSON();
+            if (json.detail == "Authorized") {
+                await getinfo('/account/me');
+                console.log("Authorized")
             }
-        });
-
+            else{
+                window.location.href = "/account/login";
+            }
+        }
 
     </script>
 
     <script>
+
         async function get_server_list() {
             return fetch(`/server/get_list`, {
                 method: 'GET',
@@ -192,6 +315,49 @@
             }
         }
     </script>
+
+    <script>
+         //scripy ของ setting  div
+        const settingprogram = document.getElementById('settingsToggle');
+        const divroot = document.getElementById('rootDiv');
+        const divsetting = document.getElementById('settpage');
+        const closebtnsetting = document.getElementById('btn_out_esc');
+    
+        settingprogram.addEventListener('click', () => {
+            divroot.style.display ='none';
+            divsetting.classList.add("show");
+        });
+    
+        closebtnsetting.addEventListener('click', () => {
+            divroot.style.display ='grid';
+            divsetting.classList.remove("show");
+        });
+    
+            const logoutmenu = document.getElementById('logoutmenu');
+            const logoutcancel = document.getElementById('btn_cancel_out');
+            const Popupout = document.getElementById('popupout');
+
+            logoutmenu.addEventListener('click', () => {
+                Popupout.style.display ='block';
+            });
+
+            logoutcancel.addEventListener('click', () => {
+                Popupout.style.display ='none';
+            });
+
+        
+        
+        const log_out_btn = document.getElementById('btn_out');
+        log_out_btn.addEventListener('click', () => {
+            window.location.href = "/account/logout";
+            
+        });
+        
+        
+    </script>
+
+
+    
 </body>
 
 </html>

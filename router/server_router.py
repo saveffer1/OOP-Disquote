@@ -19,3 +19,6 @@ token_manager = TokenData(secret=SECRET, algorithm='HS256')
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
+router.get("/get_list", status_code=200, tags=["server"])
+async def get_list_server():
+    return {"test": "eiei"}

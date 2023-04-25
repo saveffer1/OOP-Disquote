@@ -1,0 +1,257 @@
+/* body {
+    margin: 0;
+    
+  } */
+  
+  .container_setting {
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;
+    gap: 0rem;
+  
+    height: 100vh;
+  }
+  
+  .column1 {
+    padding: 1rem;
+   
+    background-color: rgba(43, 45, 49, 1);
+    
+  }
+  
+  .column2 {
+    padding: 1rem;
+    
+    background-color: rgba(49, 51,56, 1);
+  }
+  
+  .section_s a {
+    text-decoration:none;
+    color: rgb(170,175,181);
+    font-size: 0.9rem;
+    transition: 0.4s;
+    
+  }
+  .section_content{
+    margin-left: 50px;
+  }
+
+  .section{
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    gap: 0rem;
+  
+  }
+
+  li {
+    list-style: none;
+}
+
+.btn_s {
+    background:  rgba(43, 45, 49, 1);
+    padding:  15px;
+    
+    font-weight: bolder;
+    border: none;
+    font-size: 14px;
+    border-radius: 7px;
+    color: #ffffff;
+    width: 100%;
+    text-decoration: none;
+    transition: 0.4s;
+    text-align: left;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+
+.btn_s:hover {
+    background: rgba(53, 55, 60, 0.8);
+}
+
+.active {
+    background: rgba(53, 55, 60, 1);
+    color: #ffffff;
+}
+
+
+
+
+
+
+.danger {
+  color: red;
+}
+
+
+.line-4 hr {
+    height: 1px;
+    border: 0;
+    background: rgba(53, 55, 60);
+  }
+
+  .content_head {
+    color: #ffffff;
+    font-size: 1.5rem;
+  }
+
+
+
+
+
+.popup_log_content{
+    height: 135px;
+    width: 500px;
+    background:#303338;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative  ;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    top: 30%;
+    left: 40%;
+    transform:scale(1.2);
+    transition: opacity 0.2s 0s ease-in-out ,                         transform 0.2s 0s ease-in-out;
+    -webkit-transition: opacity 0.2s 0s ease-in-out ,         ;
+    -moz-transition: opacity 0.2s 0s ease-in-out ,         ;
+    -ms-transition: opacity 0.2s 0s ease-in-out ,         ;
+    -o-transition: opacity 0.2s 0s ease-in-out ,         ;
+}
+
+.popup_log_content h3 {
+color: #FFFFFF;
+}
+
+.popup_log_content p {
+color: #FFFFFF;
+}
+
+
+
+.btn_out { background:rgba(218, 55,60, 1); 
+    padding: 10px 15px; 
+    color: #ffffff; 
+    font-weight: bolder; 
+    font-size: 15px; 
+    border-radius: 5px; 
+    box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.2); 
+    border: none;
+    text-decoration: none; 
+    transition: 0.4s;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px; 
+      -o-border-radius: 5px;
+    font-size: 1rem;
+    
+}
+
+.btn_section {
+    text-align: right;
+    
+}
+
+.btn_out:hover {
+    background:rgba(161, 40,40, 0.8); 
+
+
+}
+
+
+
+.btn_cancel {
+
+padding: 10px 15px;
+color: #ffffff;
+font-weight: bolder;
+text-transform: uppercase;
+font-size: 10px;
+border-radius: 5px;
+
+margin-top: 25px;
+text-decoration: none;
+transition: 0.4s;
+}
+
+.popup_add_content a {
+font-family: mukta, sans-serif;
+}
+
+input {
+
+display: flex;
+width: 50%;
+padding: 6px;
+border: 1px solid gray;
+}
+
+
+#popupout {
+
+background: rgba(0,0,0,0.6);
+width: 100%;
+height: 100%;
+position: absolute;
+top: 0;
+display: none;
+justify-content: center;
+
+
+}
+
+#popupout h2 {
+margin-top: 0;
+}
+
+#popupout label {
+display: block;
+margin-bottom: 10px;
+}
+
+#popupout input[type="text"] {
+width: 100%;
+padding: 5px;
+margin-bottom: 10px;
+}
+
+
+.head_text{
+    font-size:20;
+    color: #FFFFFF;
+    font-family: mukta, sans-serif;
+    
+}
+
+.section_content{
+    display: grid;
+    grid-template-columns: 1.5fr 0.5fr;
+    gap: 0rem;
+  
+  }
+
+  .btn_out_esc{
+    background:rgba(49, 51,56, 1);
+    padding: 10px 15px;
+    color: rgba(177, 182,189, 1);
+    font-weight: bolder;
+    font-size: 15px;
+    border-radius: 25px;
+    border: 6cm;
+ 
+    text-decoration: none;
+    transition: 0.4s;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    font-size: 1.2rem;
+}
+.btn_out_esc:hover{
+    color: #FFFFFF;
+}
+
+.iconx {
+    font-size: 2.5rem;
+
+   
+
+}

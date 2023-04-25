@@ -63,7 +63,8 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
 
         token = jsonable_encoder(access_token)
 
-        resp = templates.TemplateResponse("chatboard.html", {"request": request, "login_message": "You have been logged in!"}, status_code=200)
+        #resp = templates.TemplateResponse("chatboard.html", {"request": request, "login_message": "success"}, status_code=200)
+        resp = RedirectResponse(url='/server')
         resp.set_cookie(
             "authen",
             value=f"{token}",
@@ -72,6 +73,8 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
             httponly=True,
             max_age=43200,
         )
+
+        # resp = RedirectResponse(url='/server', )
         # system.logged_in_users.add(user.email)
         return resp
     else:
@@ -81,7 +84,7 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
 @router.get('/logout', status_code=200, tags=['user'])
 async def logout(resp: Response, request: Request):
     #resp.delete_cookie(key="authen")
-    resp = templates.TemplateResponse("registry.html", {"request": request, "login_message": "You have been logged out!"}, status_code=200)
+    resp = RedirectResponse(url="/login")
     resp.delete_cookie(key="authen")
     return resp
 
