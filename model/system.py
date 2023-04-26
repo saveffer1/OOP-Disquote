@@ -67,11 +67,11 @@ class AccountSystem():
             return False
         elif schema.email in self.user_account:
             is_login_pass = self.check_password(
-                schema.password, self.user_account[schema.email].password
+                schema.password, self.get_user_account(schema.email).password
             )
             login_state = is_login_pass
             if is_login_pass:
-                self.user_account[schema.email].login()
+                self.get_user_account(schema.email).login()
             return login_state
         else:
             return False
@@ -82,7 +82,7 @@ class AccountSystem():
             return False
         elif schema.email in self.admin_account:
             is_login_pass = self.check_password(
-                schema.password, self.admin_account[schema.email].password
+                schema.password, self.get_user_account(schema.email).password
             )
             login_state = is_login_pass
             if is_login_pass:

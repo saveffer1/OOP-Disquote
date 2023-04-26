@@ -48,5 +48,6 @@ async def get_dm(request: Request):
     if token:
         user_email = token_manager.decode_access_token(token)
         user_id = discord_account.get_user_id(user_email)
+        
         dm_channel = templates.TemplateResponse("chatboard.html", {"request": request, "svdm": "dm"})
-        return {"user_id": user_id, "user_email": user_email}
+        return dm_channel
