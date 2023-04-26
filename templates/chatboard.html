@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboardv2.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-setting.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-sidebar.css') }}">
     <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
     <script src="/static/script/jquery.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -32,11 +33,6 @@
                     <div class="btn_a">
                         <li><button class="btn_s active"><a href="#">My Account</a></button></li>
                         <li><button class="btn_s"><a href="#">Profiles</a></button></li>
-                        <!-- <li><button class="btn_s "><a href="#">Privacy & Safety</a></button></li>
-                        <li><button class="btn_s"><a href="#">Authorized Apps</a></button></li>
-                        <li><button class="btn_s"><a href="#">Devices</a></button></li>
-                        <li><button class="btn_s"><a href="#">Connections</a></button></li>
-                        <li><button class="btn_s" ><a href="#">Friend Requests</a></button></li> -->
                         
                     </div>
                     <div class="line-4">
@@ -44,15 +40,8 @@
                     </div>
                 <a style="font-family:Mukta"><b>APP SETTING</b></a>
                     <div class="btn_a">
-                        <!-- <li><button class="btn_s"><a href="#">Appearance</a></button></li>
-                        <li><button class="btn_s"><a href="#">Accessibility</a></button></li> -->
                         <li><button class="btn_s "><a href="#">Vocie & Video</a></button></li>
-                        <!-- <li><button class="btn_s"><a href="#">Text & Images</a></button></li>
-                        <li><button class="btn_s"><a href="#">Notifications</a></button></li>
-                        <li><button class="btn_s"><a href="#">Keybinds</a></button></li>
-                        <li><button class="btn_s" ><a href="#">Language</a></button></li>
-                        <li><button class="btn_s" ><a href="#">Streamer Mode</a></button></li>
-                        <li><button class="btn_s" ><a href="#">Advanced</a></button></li> -->
+                        
                         
                     </div>
                 
@@ -116,9 +105,10 @@
 
 
     <div class="rootDiv" id="rootDiv">
+        
         <div class="side-bar">
             <div id="chat-menu" class="nav">
-                <!-- load chat from server or dm -->
+            <!-- load chat from server or dm -->
             </div>
             <div id="user-box" class="userBox">
                 <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" id="avatar" class="userAvatar">
@@ -144,10 +134,10 @@
             </div>
             <hr class="server-divider" />
             <div id="server">
-                <!-- <div class="server active">
+                <div class="server active">
                     <p class="servericon">SN</p>
                 </div>
-                <div class="server">
+                <div class="server active">
                     <p class="servericon">S1</p>
                 </div>
                 <div class="server">
@@ -167,7 +157,7 @@
                 </div>
                 <div class="server">
                     <img class="servericon" src="https://cdn.discordapp.com/embed/avatars/4.png">
-                </div> -->
+                </div>
             </div>
             <div class="server invite" id="invite">
                 <p class="inviteButton">+</p>
@@ -179,7 +169,6 @@
                     <span class="close" id="closeCreateServerPopup">&times;</span>
                     <h2>Customize your server</h2>
                     <form onsubmit="return createtheserver()">
-
                         <div class="uploadCreateRoom">
                             <img src="{{ url_for('static', path='assets/Upload.png') }}" width="80" height="80" alt="" >
                                 <div class ="round">
@@ -189,22 +178,14 @@
                         </div>
                         <div class="roomnameinput">
                             <h4>SERVER NAME</h4>
-                            
                             <input type="text" id="serverName" name="serverName" class="inputnameserver">
-                        <br><br> <br> 
-                        <div class="forbtn"> 
-                            <div>
-
+                            <br><br> <br> 
+                            <div class="forbtn"> <div></div>
+                                <div>
+                                    <button type="submit" value="Create" class="btncreate" onclick="createDiv()"> Create </button>
+                                </div>
                             </div>
-
-                            <div>
-                                <input type="submit" value="Create" class="btncreate">
-                            </div>
-                        
                         </div>
-                        
-                        </div>
-                        
                     </form>
                 </div>
             </div>
@@ -213,7 +194,6 @@
         <div id="chat-board" class="container">
             <!-- load chat board here -->
         </div>
-        
     </div>
     
     <!-- user-box section -->
@@ -226,11 +206,9 @@
             let response = await fetch(url, {
                 method: 'GET',
                 credentials: 'include'
-            })
-            .then(async function (response) {
+            }).then(async function (response) {
                 return response.json();
-            })
-            .then(async function (data) {
+            }).then(async function (data) {
                 console.log(data);
                 let username = document.getElementById("username");
                 username.innerHTML = data.username;
@@ -317,7 +295,7 @@
     </script>
 
     <script>
-         //scripy ของ setting  div
+         //script ของ setting  div
         const settingprogram = document.getElementById('settingsToggle');
         const divroot = document.getElementById('rootDiv');
         const divsetting = document.getElementById('settpage');
@@ -332,15 +310,13 @@
             divroot.style.display ='grid';
             divsetting.classList.remove("show");
         });
-    
+
             const logoutmenu = document.getElementById('logoutmenu');
             const logoutcancel = document.getElementById('btn_cancel_out');
             const Popupout = document.getElementById('popupout');
-
             logoutmenu.addEventListener('click', () => {
                 Popupout.style.display ='block';
             });
-
             logoutcancel.addEventListener('click', () => {
                 Popupout.style.display ='none';
             });
@@ -350,10 +326,44 @@
         const log_out_btn = document.getElementById('btn_out');
         log_out_btn.addEventListener('click', () => {
             window.location.href = "/account/logout";
-            
         });
-        
-        
+
+        // -----------------------chang to dm container-----------------------------------
+        document.getElementById('dm').addEventListener('click' , (e) =>{
+            $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
+            $(document).ready(function() { $("#chat-board").load("/container-dm");}) });
+        // -----------------------change to server container-----------------------------------
+        const serverDivs = document.getElementsByClassName("server");
+        for (let i = 0; i < serverDivs.length; i++) {
+        serverDivs[i].addEventListener('click', (e) => {
+            console.log("click");
+            $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
+            $(document).ready(function() { $("#chat-board").load("/container-server");}) }); }
+        // --------------------------------------------------------------------------
+
+        // ----------------------- create server <div> -----------------------------------
+            function createDiv() {
+                var div = document.createElement("div");
+                // div.className = "server";
+                div.innerHTML = "kl";
+                document.body.appendChild(div); //ขอละ
+                serverhub.appendChild(div); //ได้ไหม กูกดล่ะ
+                // เก็บข้อมูลใน Local Storage
+                localStorage.setItem("myDiv", div.innerHTML);
+            }
+            
+            window.onload = function() {
+                // ดึงข้อมูลจาก Local Storage และสร้าง div ใหม่
+                var serverhub = document.getElementById('server');
+                var myDiv = localStorage.getItem("myDiv");
+                if (myDiv !== null) {
+                var div = document.createElement("div");
+                div.className = "server";
+                div.innerHTML = myDiv;
+                // document.body.appendChild(div);
+                serverhub.appendChild(div);
+                }
+            }
     </script>
 
 

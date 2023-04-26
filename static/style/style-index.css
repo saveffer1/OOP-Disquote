@@ -9,6 +9,33 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+/* ซ่อน scrollbar ในทุก browser */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+  /* ซ่อน scrollbar ใน Firefox */
+body {
+    scrollbar-width: none;
+} 
+
+/* ซ่อน scrollbar ใน <div> */
+div::-webkit-scrollbar {
+    display: none;
+}
+
+  /* ซ่อน scrollbar ใน <iframe> */
+iframe::-webkit-scrollbar {
+    display: none;
+}
+
+  /* ซ่อน scrollbar ใน <iframe> ด้วย overflow: hidden */
+iframe {
+    overflow: hidden;
+}
+
+
+
 .hidescroll {
     /* background-color: #eee; */
     /* width: 200px;

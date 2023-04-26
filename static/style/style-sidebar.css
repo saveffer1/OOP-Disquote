@@ -1,12 +1,5 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600&display=swap');
-  
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Open Sans','san-serif';
-}
 
 .sidebar {
     background-color: rgb(30,31,34);

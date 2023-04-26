@@ -75,15 +75,43 @@ def registry(request: Request):
 def registry(request: Request):
     return templates.TemplateResponse("registry.html", {"request": request})
 
-# @app.post("/server", response_class=HTMLResponse)
-# @app.get("/server", response_class=HTMLResponse)
-# def server(request: Request):
-#     if request.cookies.get('authen'):
-#         return templates.TemplateResponse("chatboard.html", {"request": request})
-#     else:
-#         print("test")
-#         resp = RedirectResponse(url='/account/login')
-#         return resp
+@app.post("/server", response_class=HTMLResponse)
+@app.get("/server", response_class=HTMLResponse)
+def server(request: Request):
+    if request.cookies.get('authen'):
+        return templates.TemplateResponse("chatboard.html", {"request": request})
+    else:
+        print("test")
+        resp = RedirectResponse(url='/account/login')
+        return resp
+
+# # test
+@app.get("/container-dm", response_class=HTMLResponse)
+def mainindex(request: Request):
+    return templates.TemplateResponse("container-dm.html", {"request": request})
+# # test
+
+
+# # test
+@app.get("/chat-dm", response_class=HTMLResponse)
+def mainindex(request: Request):
+    return templates.TemplateResponse("chat-dm.html", {"request": request})
+# # test
+
+
+
+# # test
+@app.get("/chat-guild", response_class=HTMLResponse)
+def mainindex(request: Request):
+    return templates.TemplateResponse("chat-guild.html", {"request": request})
+# # test
+
+# # test
+@app.get("/container-server", response_class=HTMLResponse)
+def mainindex(request: Request):
+    return templates.TemplateResponse("container-server.html", {"request": request})
+# # test
+
 
 
 app.include_router(router_server, prefix='/channels')
