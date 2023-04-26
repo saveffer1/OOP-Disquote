@@ -124,7 +124,7 @@
 
     <script>
         if (document.cookie.split(';').some((cookie) => cookie.trim().startsWith('authen='))) {
-            window.location.href = "/server";
+            window.location.href = "/channels/@me";
         }
     </script>
     {% if reg_message %}

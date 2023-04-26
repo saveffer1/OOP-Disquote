@@ -19,6 +19,34 @@ token_manager = TokenData(secret=SECRET, algorithm='HS256')
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-router.get("/get_list", status_code=200, tags=["server"])
-async def get_list_server():
-    return {"test": "eiei"}
+router.get("/get_list", status_code=200, tags=['server'])
+async def get_list_server(request: Request):
+    token = request.cookies.get("authen")
+    if token:
+        user_email = token_manager.decode_access_token(token)
+        user_id = discord_account.get_user_id(user_email)
+        return discord_server.list_server(user_id)
+
+router.get("/{server_id}", status_code=200, tags=['server'])
+async def get_server(request: Request, server_id: str):
+    token = request.cookies.get("authen")
+    if token:
+        user_email = token_manager.decode_access_token(token)
+        # user_id = discord_account.get_user_id(user_email)
+        #return discord_server.get_server_info(server_id)
+        return {"server_id": server_id, "user_email": user_email}
+    
+
+@router.get('/ping', status_code=200, tags=['server'])
+@router.post('/ping', status_code=200, tags=['server'])
+async def healthchk():
+    return {'status_code': 200, 'detail': 'pong'}
+
+@router.get("/@me", status_code=200, tags=['server'])
+async def get_dm(request: Request):
+    token = request.cookies.get("authen")
+    if token:
+        user_email = token_manager.decode_access_token(token)
+        user_id = discord_account.get_user_id(user_email)
+        dm_channel = templates.TemplateResponse("chatboard.html", {"request": request, "svdm": "dm"})
+        return {"user_id": user_id, "user_email": user_email}

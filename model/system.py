@@ -14,11 +14,17 @@ class AccountSystem():
     user_id: int = 1
     admin_id: int = 1
 
-    def get_user_account(self):
+    def get_user_list(self) -> list:
         return [user for user in self.user_account.values()]
 
-    def get_admin_account(self):
+    def get_admin_list(self) -> list:
         return [admin for admin in self.admin_account.values()]
+    
+    def get_user_account(self, email: EmailStr) -> User:
+        return self.user_account[email]
+    
+    def get_user_id(self, email: EmailStr) -> int:
+        return self.get_user_account(email).id
 
     def add_user(self, schema: UserSchema):
         """ register function add the user obj to user_account """
@@ -55,7 +61,7 @@ class AccountSystem():
         """ function check the password """
         return bcrypt.checkpw(input_password.encode('utf-8'), check_password)
 
-    def user_login(self, schema: LoginSchema):
+    def user_login(self, schema: LoginSchema) -> bool:
         """ login function check email and password in user_account """
         if not self.user_account:
             return False
@@ -70,7 +76,7 @@ class AccountSystem():
         else:
             return False
 
-    def admin_login(self, schema: LoginSchema):
+    def admin_login(self, schema: LoginSchema) -> bool:
         """ login function check email and password in admin_account """
         if not self.admin_account:
             return False
@@ -85,7 +91,7 @@ class AccountSystem():
         else:
             return False
 
-    def get_status(self, email: EmailStr):
+    def get_status(self, email: EmailStr) -> UserStatus:
         """ get user status """
         return self.user_account[email].status
 
@@ -93,7 +99,7 @@ class AccountSystem():
         """ set user status """
         self.user_account[email].status = status
 
-    def get_avatar(self, email: EmailStr):
+    def get_avatar(self, email: EmailStr) -> str:
         """ get user avatar """
         return self.user_account[email].avatar
 
@@ -101,6 +107,20 @@ class AccountSystem():
         """ set user avatar """
         self.user_account[email].avatar = avatar
     
+    def get_username_by_id(self, user_id: int) -> str:
+        """ get username by user id """
+        for user in self.user_account.values():
+            if user.id == user_id:
+                return user.username
+        return None
+    
+    def get_friend_list(self, email: EmailStr) -> dict:
+        """ get user friend list """
+        friends = dict()
+        for friend_id in self.get_user_account(email).get_friend_list():
+            friend_name = self.get_username_by_id(friend_id)
+            friends[friend_id] = friend_name
+        return friends
 
 @dataclass
 class ServerSystem():

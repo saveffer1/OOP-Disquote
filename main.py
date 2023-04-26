@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request, Response
+from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 import base64
 
@@ -74,15 +75,19 @@ def registry(request: Request):
 def registry(request: Request):
     return templates.TemplateResponse("registry.html", {"request": request})
 
-@app.post("/server", response_class=HTMLResponse)
-def server(request: Request):
-    if request.cookies.get('authen'):
-        return templates.TemplateResponse("chatboard.html", {"request": request})
-    else:
-        return templates.TemplateResponse("registry.html", {"request": request}, status_code=401)
+# @app.post("/server", response_class=HTMLResponse)
+# @app.get("/server", response_class=HTMLResponse)
+# def server(request: Request):
+#     if request.cookies.get('authen'):
+#         return templates.TemplateResponse("chatboard.html", {"request": request})
+#     else:
+#         print("test")
+#         resp = RedirectResponse(url='/account/login')
+#         return resp
 
+
+app.include_router(router_server, prefix='/channels')
 app.include_router(router_account, prefix='/account')
-app.include_router(router_server, prefix='/server')
 app.include_router(router_document, prefix='/admin')
 
 if __name__ == "__main__":

@@ -62,6 +62,9 @@ class User(Account):
     def profile_image(self, input: str):
         self.avatar = input
 
+    def get_friend_list(self):
+        return self.friends
+    
     def get_info(self):
         if self.avatar:
             return {'id': self.id, 'email': self.email, 'username': self.username, 'tag': self.tag, 'avatar': self.avatar, 'status': self.status}
