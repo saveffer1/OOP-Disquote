@@ -144,12 +144,12 @@ class ServerSystem():
                 server_list.append(server)
         return server_list
 
-    def get_server_info(self, server_id: int):
-        """ get server info """
+    def get_server_by_id(self, server_id: int) -> Server:
+        """ get server instance by server id """
         for server in self.servers:
             if server.id == server_id:
                 return server
-        return None
+        return self.servers
     
     def get_server_id(self):
         return self.server_id

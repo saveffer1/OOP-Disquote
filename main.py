@@ -137,6 +137,16 @@ def mainindex(request: Request):
     return templates.TemplateResponse("container-server.html", {"request": request})
 # # test
 
+@app.get("/friendslist", response_class=HTMLResponse)
+def mainindex(request: Request):
+    return templates.TemplateResponse("friendslist.html", {"request": request})
+# # test
+
+# # test
+@app.get("/addfriend", response_class=HTMLResponse)
+def mainindex(request: Request):
+    return templates.TemplateResponse("addfriend.html", {"request": request})
+# # test
 
 
 app.include_router(router_server, prefix='/channels')

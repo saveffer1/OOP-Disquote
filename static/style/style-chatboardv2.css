@@ -32,8 +32,8 @@ body {
   height: 100vh;
   transition: translate(-50%,-50%);
   transition: top 0ms ease-in-out 300ms, 
-   opacity 300ms ease-in-out,  margin-top 300ms ease-in-out ;
- 
+  opacity 300ms ease-in-out,  margin-top 300ms ease-in-out ;
+
 }
 
 .settpage.show {
@@ -378,7 +378,7 @@ body {
   margin: 0px 15px 0px 15px;
 }
 
-.menu-dm-btn{
+.menuDM-btn{
   display: flex;  
   justify-content: center;
   align-items: center;
@@ -391,7 +391,7 @@ body {
   cursor: pointer;
 }
 
-.menu-dm-btn:active{
+.menuDM-btn:active{
   background-color: rgb(49,51,56);
   color: rgb(36,128,70);
 }
@@ -534,7 +534,7 @@ body {
 }
 
 
-.menu-dm{
+.menuDM{
   cursor: pointer;
 }
 
@@ -786,12 +786,10 @@ body {
   user-select: none;
 }
 
-
-
-
 .modal-content p {
   color: #000;
   font-family: mukta, sans-serif;
   margin-top : 0;
   margin-bottom: 25px;
 }
+

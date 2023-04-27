@@ -44,6 +44,9 @@ class Server:
             if channel.id == channel_id:
                 self.channels.remove(channel)
 
+    def get_channel_list(self):
+        return self.channels
+    
     def add_role(self, role: Role):
         self.roles.append(role)
         self.role_id += 1

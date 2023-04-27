@@ -1,6 +1,12 @@
 import multiprocessing
 import os
 import platform
+import socket
+import ctypes
+import subprocess
+import psutil, shutil
+import string
+import wmi
 from datetime import timedelta
 from dataclasses import dataclass
 
@@ -11,106 +17,46 @@ class Report():
         """
         Get uptime
         """
+        data = ""
         try:
-            with open("/proc/uptime", "r") as f:
-                uptime_seconds = float(f.readline().split()[0])
-                uptime_time = str(timedelta(seconds=uptime_seconds))
-                data = uptime_time.split(".", 1)[0]
-
+            if platform.system() == 'Windows':
+                lib = ctypes.windll.kernel32
+                t = lib.GetTickCount64()
+                t = int(str(t)[:-3])
+                mins, sec = divmod(t, 60)
+                hour, mins = divmod(mins, 60)
+                days, hour = divmod(hour, 24)
+                data = (f"{days} days, {hour:02}:{mins:02}:{sec:02}")
+            else:  # Assuming Linux
+                data = os.popen('uptime -p').read()[:-1]
         except Exception as err:
             data = str(err)
-
-        return data
-
-    # def get_ipaddress(self):
-    #     """
-    #     Get the IP Address
-    #     """
-    #     data = []
-    #     try:
-    #         eth = os.popen("ip addr | grep LOWER_UP | awk '{print $2}'")
-    #         iface = eth.read().strip().replace(":", "").split("\n")
-    #         eth.close()
-    #         del iface[0]
-
-    #         for i in iface:
-    #             pipe = os.popen(
-    #                 "ip addr show "
-    #                 + i
-    #                 + "| awk '{if ($2 == \"forever\"){!$2} else {print $2}}'"
-    #             )
-    #             data1 = pipe.read().strip().split("\n")
-    #             pipe.close()
-    #             if len(data1) == 2:
-    #                 data1.append("unavailable")
-    #             if len(data1) == 3:
-    #                 data1.append("unavailable")
-    #             data1[0] = i
-    #             data.append(data1)
-
-    #         ips = {"interface": iface, "itfip": data}
-
-    #         data = ips
-
-    #     except Exception as err:
-    #         data = str(err)
-
-    #     return data
-
-
-    def get_ipaddress(self):
-        """
-        Get the IP Address and other information for all network interfaces
-        """
-        data = []
-        try:
-            eth = os.popen("ip addr | grep LOWER_UP | awk '{print $2}'")
-            iface = eth.read().strip().replace(":", "").split("\n")
-            eth.close()
-
-            for i in iface:
-                pipe = os.popen(
-                    "ip addr show "
-                    + i
-                    + "| awk '{if ($2 == \"forever\"){!$2} else {print $2}}'"
-                )
-                data1 = pipe.read().strip().split("\n")
-                pipe.close()
-                if len(data1) == 2:
-                    data1.append("unavailable")
-                if len(data1) == 3:
-                    data1.append("unavailable")
-                data1.insert(0, i)
-                data.append(data1)
-
-            ips = {"interface": iface, "itfip": data}
-
-            data = ips
-
-        except Exception as err:
-            data = str(err)
-
-        return data
+        finally:
+            return data
 
     def get_cpus(self):
         """
         Get the number of CPUs and model/type
         """
+        data = {}
         try:
-            pipe = os.popen("cat /proc/cpuinfo |" + "grep 'model name'")
-            data = pipe.read().strip().split(":")[-1]
-            pipe.close()
-
-            if not data:
-                pipe = os.popen("cat /proc/cpuinfo |" + "grep 'Processor'")
-                data = pipe.read().strip().split(":")[-1]
-                pipe.close()
-
-            cpus = multiprocessing.cpu_count()
-
-            data = {"cpus": cpus, "type": data}
-
-        except Exception as err:
+            if platform.system() == 'Windows':
+                output = subprocess.check_output(
+                    'wmic cpu get name /format:csv', shell=True)
+                lines = output.decode().strip().split('\r\r\n')
+                # Count the number of rows in the CSV file
+                data['type'] = lines[1].split(',')[1].strip()
+                data['cpus'] = os.cpu_count()
+            else:  # Assuming Linux
+                pipe = subprocess.Popen(
+                    ['cat', '/proc/cpuinfo'], stdout=subprocess.PIPE)
+                output = subprocess.check_output(
+                    ['grep', 'model name'], stdin=pipe.stdout)
+                pipe.stdout.close()
+                lines = output.decode().strip().split('\n')
+                data['type'] = lines[0].split(':')[-1].strip()
+                data['cpus'] = os.cpu_count()
+        except subprocess.CalledProcessError as err:
             data = str(err)
 
         return data
@@ -133,37 +79,37 @@ class Report():
             data = str(err)
 
         return data
+    
+    def get_ipaddress(self):
+        """
+        Get the IP Address and other information for all network interfaces
+        """
+        return socket.gethostbyname(socket.gethostname())
+        #return socket.gethostbyname_ex(socket.gethostname())[-1]
 
     def get_traffic(self, request):
         """
         Get the traffic for the specified interface
         """
+        data = {}
         try:
-            pipe = os.popen(
-                "cat /proc/net/dev |" + "grep " +
-                request + "| awk '{print $1, $9}'"
-            )
-            data = pipe.read().strip().split(":", 1)[-1]
-            pipe.close()
-
-            if not data[0].isdigit():
-                pipe = os.popen(
-                    "cat /proc/net/dev |" + "grep " +
-                    request + "| awk '{print $2, $10}'"
-                )
-                data = pipe.read().strip().split(":", 1)[-1]
-                pipe.close()
-
-            data = data.split()
-
-            traffic_in = int(data[0])
-            traffic_out = int(data[1])
-
-            all_traffic = {"traffic_in": traffic_in, "traffic_out": traffic_out}
-
-            data = all_traffic
-
-        except Exception as err:
+            if platform.system() == 'Windows':
+                output = subprocess.check_output('netstat -e', shell=True)
+                lines = output.decode().split('\r\n')
+                for line in lines:
+                    if request in line:
+                        data['traffic_in'] = int(line.split()[1])
+                        data['traffic_out'] = int(line.split()[4])
+                        break
+            else:  # Assuming Linux
+                output = subprocess.check_output('cat /proc/net/dev', shell=True)
+                lines = output.decode().split('\n')
+                for line in lines:
+                    if request in line:
+                        data['traffic_in'] = int(line.split(':')[1].split()[0])
+                        data['traffic_out'] = int(line.split(':')[1].split()[8])
+                        break
+        except subprocess.CalledProcessError as err:
             data = str(err)
 
         return data
@@ -172,34 +118,36 @@ class Report():
         """
         Get the OS name, hostname and kernel
         """
-        try:
-            osname = " ".join(platform.linux_distribution())
-            uname = platform.uname()
-
-            if osname == "  ":
-                osname = uname[0]
-
-            data = {"osname": osname, "hostname": uname[1], "kernel": uname[2]}
-
-        except Exception as err:
-            data = str(err)
-
-        return data
+        return platform.system()
 
     def get_disk(self):
         """
         Get disk usage
         """
         try:
-            pipe = os.popen(
-                "df -Ph | "
-                + "grep -v Filesystem | "
-                + "awk '{print $1, $2, $3, $4, $5, $6}'"
-            )
-            data = pipe.read().strip().split("\n")
-            pipe.close()
+            if platform.system() == 'Windows':
+                drives = []
+                for letter in string.ascii_uppercase:
+                    if os.path.exists(letter + ":\\"):
+                        drives.append(letter + ":\\")
 
-            data = [i.split(None, 6) for i in data]
+                data = []
+                for drive in drives:
+                    total, used, free = shutil.disk_usage(drive)
+                    percent = (used / total) * 100
+                    disk_usage = {"drive": drive, "total": total,
+                                "used": used, "free": free, "percent": percent}
+                    data.append(disk_usage)
+            else:
+                pipe = os.popen(
+                    "df -Ph | "
+                    + "grep -v Filesystem | "
+                    + "awk '{print $1, $2, $3, $4, $5, $6}'"
+                )
+                data = pipe.read().strip().split("\n")
+                pipe.close()
+
+                data = [i.split(None, 6) for i in data]
 
         except Exception as err:
             data = str(err)
@@ -211,34 +159,48 @@ class Report():
         Get the disk reads and writes
         """
         try:
-            pipe = os.popen(
-                "cat /proc/partitions | grep -v 'major' | awk '{print $4}'")
-            data = pipe.read().strip().split("\n")
-            pipe.close()
+            if platform.system() == 'Windows':
+                c = wmi.WMI()
+                partitions = []
+                for disk in c.Win32_LogicalDisk():
+                    partitions.append({
+                        'device': disk.DeviceID,
+                        'mountpoint': disk.Caption,
+                        'filesystem': disk.FileSystem,
+                        'total_size': int(disk.Size),
+                        'used': int(disk.Size) - int(disk.FreeSpace),
+                        'free': int(disk.FreeSpace),
+                        'percent_used': int(disk.Size - disk.FreeSpace) / int(disk.Size) * 100
+                    })
+            else:
+                pipe = os.popen(
+                    "cat /proc/partitions | grep -v 'major' | awk '{print $4}'")
+                data = pipe.read().strip().split("\n")
+                pipe.close()
 
-            rws = []
-            for i in data:
-                if i.isalpha():
+                rws = []
+                for i in data:
+                    if i.isalpha():
+                        pipe = os.popen(
+                            "cat /proc/diskstats | grep -w '" +
+                            i + "'|awk '{print $4, $8}'"
+                        )
+                        rw = pipe.read().strip().split()
+                        pipe.close()
+
+                        rws.append([i, rw[0], rw[1]])
+
+                if not rws:
                     pipe = os.popen(
                         "cat /proc/diskstats | grep -w '" +
-                        i + "'|awk '{print $4, $8}'"
+                        data[0] + "'|awk '{print $4, $8}'"
                     )
                     rw = pipe.read().strip().split()
                     pipe.close()
 
-                    rws.append([i, rw[0], rw[1]])
+                    rws.append([data[0], rw[0], rw[1]])
 
-            if not rws:
-                pipe = os.popen(
-                    "cat /proc/diskstats | grep -w '" +
-                    data[0] + "'|awk '{print $4, $8}'"
-                )
-                rw = pipe.read().strip().split()
-                pipe.close()
-
-                rws.append([data[0], rw[0], rw[1]])
-
-            data = rws
+                data = rws
 
         except Exception as err:
             data = str(err)
@@ -249,33 +211,48 @@ class Report():
         """
         Get memory usage
         """
+        data = dict()
         try:
-            pipe = os.popen("free -tm | " + "grep 'Mem' | " +
-                            "awk '{print $2,$4,$6,$7}'")
-            data = pipe.read().strip().split()
-            pipe.close()
+            if platform.system() == 'Windows':
+                mem = psutil.virtual_memory()
+                allmem = mem.total
+                freemem = round(mem.available / (1024**3), 2)
+                usage = round(mem.used / (1024**3), 2)
+                percent = mem.percent
+                mem_usage = {
+                    "usage": usage,
+                    "free": freemem,
+                    "percent": percent,
+                }
+                
+                data = mem_usage
+            else:
+                pipe = os.popen("free -tm | " + "grep 'Mem' | " +
+                                "awk '{print $2,$4,$6,$7}'")
+                data = pipe.read().strip().split()
+                pipe.close()
 
-            allmem = int(data[0])
-            freemem = int(data[1])
-            buffers = int(data[2])
-            cachedmem = int(data[3])
+                allmem = int(data[0])
+                freemem = int(data[1])
+                buffers = int(data[2])
+                cachedmem = int(data[3])
 
-            # Memory in buffers + cached is actually available, so we count it
-            # as free. See http://www.linuxatemyram.com/ for details
-            freemem += buffers + cachedmem
+                # Memory in buffers + cached is actually available, so we count it
+                # as free. See http://www.linuxatemyram.com/ for details
+                freemem += round((buffers + cachedmem) / (1024**3), 2)
 
-            percent = 100 - ((freemem * 100) / allmem)
-            usage = allmem - freemem
+                percent = 100 - ((freemem * 100) / allmem)
+                usage = round((allmem - freemem) / (1024**3), 2)
 
-            mem_usage = {
-                "usage": usage,
-                "buffers": buffers,
-                "cached": cachedmem,
-                "free": freemem,
-                "percent": percent,
-            }
+                mem_usage = {
+                    "usage": usage,
+                    "buffers": buffers,
+                    "cached": cachedmem,
+                    "free": freemem,
+                    "percent": percent,
+                }
 
-            data = mem_usage
+                data = mem_usage
 
         except Exception as err:
             data = str(err)
@@ -286,26 +263,60 @@ class Report():
         """
         Get the CPU usage and running processes
         """
+        data = {}
         try:
-            pipe = os.popen("ps aux --sort -%cpu,-rss")
-            data = pipe.read().strip().split("\n")
-            pipe.close()
+            if platform.system() == 'Windows':
+                process_list = []
+                for process in psutil.process_iter(['pid', 'name', 'cpu_percent']):
+                    try:
+                        if process.info['name'] == 'systemd' or process.info['cpu_percent'] == 0.0:
+                            continue
+                        
+                        if process.info['pid'] != 0:
+                            process_list.append({
+                                'pid': process.info['pid'],
+                                'name': process.info['name'],
+                                'cpu_percent': process.info['cpu_percent']
+                            })
+                        
+                    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                        pass
+                process_list = sorted(process_list, key=lambda x: x['cpu_percent'], reverse=True)
 
-            usage = [i.split(None, 10) for i in data]
-            del usage[0]
+                # Get the total CPU usage
+                cpu_percent = psutil.cpu_percent(interval=1)
+                num_cpus = psutil.cpu_count(logical=True)
 
-            total_usage = []
+                cpu_used = {
+                    'free': 100 - cpu_percent,
+                    'used': cpu_percent,
+                    'all': process_list
+                }
 
-            for element in usage:
-                usage_cpu = element[2]
-                total_usage.append(usage_cpu)
+                data = cpu_used
+            else:  # Assuming Linux
+                pipe = os.popen("ps aux --sort -%cpu,-rss")
+                data = pipe.read().strip().split("\n")
+                pipe.close()
 
-            total_usage = sum(float(i) for i in total_usage)
+                usage = [i.split(None, 10) for i in data]
+                del usage[0]
 
-            total_free = (100 * int(self.get_cpus()["cpus"])) - float(total_usage)
+                
+                total_usage = []
 
-            cpu_used = {"free": total_free,
-                        "used": float(total_usage), "all": usage}
+                for element in usage:
+                    usage_cpu = element[2]
+                    if usage_cpu == "-----": # Handle this special case in Linux implementation
+                        continue
+                    total_usage.append(float(usage_cpu))
+
+                total_usage = sum(total_usage)
+
+                total_free = (100 * int(self.get_cpus()["cpus"])) - total_usage
+
+                cpu_used = {"free": total_free,
+                            "used": total_usage, "all": usage}
 
             data = cpu_used
 
@@ -318,8 +329,13 @@ class Report():
         """
         Get load average
         """
+        data = ""
         try:
-            data = os.getloadavg()[0]
+            if platform.system() == 'Windows':
+                data = psutil.cpu_percent()
+            else:  # Assuming Linux
+                with open('/proc/loadavg', 'r') as f:
+                    data = f.read().strip().split()[0]
         except Exception as err:
             data = str(err)
 

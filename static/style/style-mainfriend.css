@@ -1,0 +1,181 @@
+/* 
+
+.AddFriend {
+    margin-left:10px ;
+
+}
+
+.AddFriend h2 {
+
+}
+
+.AddFriend p {
+    
+
+}
+
+.AddFriend .inputAddfriend{
+
+} */
+
+/* .AddFriend .btnaddfriend {
+    background:  rgba(88, 101, 242, 1);
+    padding:  15px;
+    font-weight: bolder;
+    border: none;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #ffffff;
+    width: 100%;
+    text-decoration: none;
+    transition: 0.4s;
+    text-align: left;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+
+  
+/* .AddFriend .btnaddfriend:hover {
+    background:  #4752c4ff;
+  } */
+
+
+.friend-direct {
+    width: 100%;
+    border-radius: 10px;
+    background-color:rgba(47, 49,54, 1);
+    
+}
+
+
+.friend-direct:hover {
+    background-color:rgba(64, 66,73, 0.5);
+}
+
+.gridProfile {
+    display: grid;
+    grid-template-columns: 0.2fr 1.4fr;
+    gap: 0rem;
+    align-items: center;
+   
+}
+
+.txtnamedirect{
+    text-align: left;
+    font-size: 1.1rem;
+    color: rgba(148, 155,164, 1);
+}
+
+
+.txtnamedirect:hover {  
+    color:rgba(220, 222,225, 1);    
+}
+
+.friendalldirect {
+    height: 90%;
+}
+
+
+.sendbox{
+    width: 100%;
+    background-color: #ffffff;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    background:rgba(30, 31,34, 1);
+    border:1px solid #000000;
+}
+
+.sendbox input {
+    width:100%;
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background:rgba(30, 31,34, 1);
+
+}
+
+.sendbox button {
+    background:  rgba(88, 101, 242, 1);
+    
+
+    border-radius: 10px;
+    margin-right: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px; 
+    padding: 6px;
+    width:220px;
+    height: 50px;
+    /* pointer-events: none;
+    opacity: 0; */
+    cursor: pointer;
+    border:none;
+    font-size: 1.1rem;
+    /* color:rgba(143, 143,145, 1); */
+    background:  #4752c4ff;
+    color: #ffffff;
+}
+
+.line-4 hr {
+    margin-top: 0;
+    height: 2px;
+    border: 0;
+    background: rgba(63, 65,72, 1);
+  }
+
+  .statuslist h2 {
+    font-size: 1.1rem;
+    color: rgba(181, 186,193, 1);
+  }
+
+  .grid_3 {
+    display:grid;
+    grid-template-columns: 0.1fr 1.6fr 0.5fr;
+    gap: 0;
+  }
+
+  .forbtnfriend button {
+    width: 100%;
+    height: 65px;
+    border-radius: 10px;
+    background: rgba(55, 57,63, 1);
+  }
+
+  .forbtnfriend button:hover {
+    background: rgba(56, 60,66, 1);
+  }
+
+  .avatarname{
+    
+    text-align: left;
+    
+    margin-left: 0;
+    
+  }
+
+  .avatarname h2 {
+    font-size: 1.2rem;
+  }
+
+  .avatarname label {
+    font-size :1rem
+  }
+  .avatarbtn {
+    align-items: center ;
+  }
+  .avatarbtn i {
+    width: 30px;
+    height: 30px;
+
+  }

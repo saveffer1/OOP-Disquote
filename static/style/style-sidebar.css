@@ -42,12 +42,11 @@ header:hover , header:active{
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .navbar .logo a {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .navbar .links {
@@ -57,7 +56,7 @@ header:hover , header:active{
 
 .navbar .toggle_btn{
     color: rgb(170,175,181);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     cursor: pointer;
     
 }
@@ -115,116 +114,53 @@ header:hover , header:active{
 }
 
 
-/*Responsive */
-/* @media (max-width:992px)
-{ */
-    .navbar .links,
-    .navbar .action_btn {
-        display: none;
-    }
-    .navbar .toggle_btn{
-        display: block;
-    }
-    
 
-    .dropdown_menu{
-        display: block;
-    }
-/* } */
-
-/* @media (max-width: 992px) { */
-    .dropdown_menu {
-        left: 2rem;
-        width: unset;
-    }
-/* } */
-
-
-
-.textch a {
-    font-size: 1.5rem;
-    font-weight: bold;
+.navbar .links, .navbar .action_btn {
+    display: none;
+}
+.navbar .toggle_btn{
+    display: block;
+}
+.dropdown_menu{
+    display: block;
 }
 
-.textch  {
-    width: 80%;
+
+.dropdown_menu {
+    left: 2rem;
+    width: unset;
+}
+
+
+.textch , .voicech {
+    width: 85%;
     height:auto;
-    
     margin: 0 auto;
-    
+    padding-top: 10px;
     align-items: start;
-    
     color: darkgray;
     text-align: left;
 }
 
-.ch_room  {
+.ch_room , .voice_room {
     width: 90%;
     height:auto;
-    
     margin: 0 auto;
-    
     align-items: start;
-    
     color: darkgray;
     text-align: left;
 }
 
-
-
-
-.ch_room a {
-    font-size: 1.3rem;
-    font-weight: bold;
+.textch a , .ch_room a , .voice_room a {
+    font-size: 16px;
+    padding: 5px;
 }
-
-
-.voicech a {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.voicech  {
-    width: 80%;
-    height:auto;
-    
-    margin: 0 auto;
-    
-    align-items: start;
-    
-    color: darkgray;
-    text-align: left;
-}
-
-.voice_room  {
-    width: 90%;
-    height:auto;
-    
-    margin: 0 auto;
-    
-    align-items: start;
-    
-    color: darkgray;
-    text-align: left;
-}
-
-
-
-
-.voice_room a {
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-
 
 .popup_add_text_ch{
         background: rgba(0,0,0,0.6);
-        
-        
         position: fixed;
         top: 50%;
         left: 50%;
-        
         background: white;
         padding: 20px;
         display: none;
@@ -232,6 +168,9 @@ header:hover , header:active{
 
 }
 
+.ch_room ul , .voice_room ul {
+    padding-left: 10px;
+}
 
 .popup_add_content{
     height: 270px;
@@ -256,7 +195,6 @@ header:hover , header:active{
 }
 
 .btn_add {
-   
     background: rgba(87, 100, 242, 0.4);
     padding: 10px 15px;
     color: #ffffff;
@@ -272,21 +210,15 @@ header:hover , header:active{
 
 .btn_add:hover {
     background: #5764F2;
-    
-
 }
 
-
-
 .btn_cancel {
-    
     padding: 10px 15px;
     color: #ffffff;
     font-weight: bolder;
     text-transform: uppercase;
     font-size: 10px;
     border-radius: 5px;
-    
     margin-top: 25px;
     text-decoration: none;
     transition: 0.4s;
@@ -305,78 +237,65 @@ input {
 }
 
 
-  #popupTxt {
+#popupTxt {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  
     padding: 20px;
     display: none;
     z-index: 9999;
-   
-  }
-  
-  #popupTxt h2 {
+}
+#popupTxt h2 {
     margin-top: 0;
-  }
-  
-  #popupTxt label {
+}
+
+#popupTxt label {
     display: block;
     margin-bottom: 10px;
-  }
-  
-  #popupTxt input[type="text"] {
+}
+
+#popupTxt input[type="text"] {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-  }
-  
+}
 
-  
-
-  
-  #todoListTxt li {
+#todoListTxt li {
     list-style: none;
-    
-  }
+}
 
-  #todoListV li {
+#todoListV li {
     list-style: none;
-    
-  }
+}
 
-  #popupV {
+#popupV {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  
     padding: 20px;
     display: none;
     z-index: 9999;
-   
-  }
-  
-  #popupV h2 {
+}
+#popupV h2 {
     margin-top: 0;
-  }
-  
-  #popupV label {
+}
+
+#popupV label {
     display: block;
     margin-bottom: 10px;
-  }
-  
-  #popupV input[type="text"] {
+}
+
+#popupV input[type="text"] {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-  }
-  
+}
 
-  button {
+button {
     border: 0;
-  }
+}
 
 .ch_room li {
     font-family: 'Font Name', sans-serif;
@@ -387,44 +306,30 @@ input {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-  }
+}
 
-  .bottom-button-set {
+.bottom-button-set {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     background-color: #f5f5f5;
-  }
-  
-  .bottom-button-set button {
+}
+
+.bottom-button-set button {
     background-color: transparent;
     border: none;
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
-  }
-  
-  .bottom-button-set button.active {
+}
+
+.bottom-button-set button.active {
     color: #333;
     border-bottom: 2px solid #333;
-  }
-  
-  .bottom-button-set button i {
+}
+
+.bottom-button-set button i {
     display: block;
     font-size: 24px;
-  }
-  
-  
-  
-  .bottom-button-set .nameuser-button i {
-    /* Add your icon here */
-  }
-  
-  .bottom-button-set .speaker-button i {
-    /* Add your icon here */
-  }
-  
-  .bottom-button-set .mic-button i {
-    /* Add your icon here */
-  }
+}

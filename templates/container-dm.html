@@ -1,78 +1,34 @@
-<div class="in-container-dm">
 
+
+<div class="in-container-dm">
     <div class="nav-chat-dm">
-        <div class="ch-name">
-            <h5>#my friends</h5>
-        </div>
+        <div class="ch-name">   <h5>#my friends</h5>    </div>
         <div class="line"></div>
         <div class="nav-dm">
-            <div class="menu-dm">
-                <h5>Friends List</h5>
-            </div>                    
-            <div class="menu-dm">
-                <button class="menu-dm-btn">
-                    <h5>Add Friends</h5>
-                </button>
+            <div class="menuDM">   <h5 id="friendlistload" >Friends List</h5>   </div>                    
+            <div class="menuDM">
+                <button class="menuDM-btn" id="addfriendload">   <h5>Add Friends</h5>    </button>
             </div>
-
-        
-        
-    </div>
-    </div>
-
-
-
-    <div class="friend-list">
-        <div class="search-friends-box">
-            <input class="input-friends-box" type="text" placeholder="Search">
-            <button class="search-friend-btn">
-                <img src="{{ url_for('static', path='/assets/search-icon.png') }}" alt="">
-            </button>
-        </div>
-        
-            <br>
-        
-        <div class="status-row">
-            <p1>online</p1>
-        </div>
-        <div class="user-row" id="user" >
-            <p1>ling jeak jeak</p1>
-        </div>
-        <br>
-
-        <div class="status-row">
-            <p1>offline</p1>
-        </div>
-        <div class="user-row" >
-            <p1>ling jeak jeak but offline</p1>
-        </div>
-        
-    </div>
-
-
-    <div class="members">
-        <div class="box-member">
-            
         </div>
     </div>
-</div>
+
+    <div class="friend-list" id="friend-list">
+        <!-- load friend list -->
+    </div>
+        <div class="members">
+            <div class="box-member">
+                
+            </div>
+        </div>
 </div>
 
 
-<!-- 
-<script>
-    
-    async function getOnline(url) {
-        console.log(data);
-        let response = await fetch(url, {
-            method: 'GET',
-            credentials: 'include'
-        }).then(async function (response) {
-            return response.json();
-        }).then(async function (data) {
-            console.log(data);
-            let user = document.getElementById("user");
-            user.innerHTML = data.user;
-        })
-    }
-</script> -->
+
+<script> 
+        document.getElementById('addfriendload').addEventListener('click' , (e) =>{
+            $(document).ready(function() { $("#friend-list").load("/addfriend");})  
+        });
+        document.getElementById('friendlistload').addEventListener('click' , (e) =>{
+            $(document).ready(function() { $("#friend-list").load("/friendslist");})  
+        });
+</script>

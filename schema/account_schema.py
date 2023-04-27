@@ -6,7 +6,7 @@ class AccountSchema(BaseModel):
     email: EmailStr
     username: str
     password: str
-    avatar: Optional[str] = "https://res.cloudinary.com/dmtnecr2n/image/upload/UserAvatar/DiscordDefaultAvatar.jpg"
+    avatar: Optional[str] = "static/assets/DiscordDefaultAvatar.jpg"
 
 class UpdateAccountModel(BaseModel):
     email: Optional[EmailStr]

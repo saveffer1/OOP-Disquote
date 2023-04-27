@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
+    <title>Disquote Server Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-login.css') }}">
+    <!-- <link href="{{ url_for('static', path='/style/bootstrap.min.css') }}" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="{{ url_for('static', path='/style/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    <!-- <link href="{{ url_for('static', path='/style/font-awesome.css') }}" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{ url_for('static', path='/style/style-pydash.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/style/dashboard.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+</head>
+
+<body>
+    <!-- <div class="navbar navbar-fixed-top" >
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/">Disquote Server Dashboard</a>
+                <ul class="btn btn-mini">
+                </ul>
+                <div class="nav-collapse">
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            Disquote Server Dashboard
+        </a>
+    </nav>
+    <div class="subnavbar visible-desktop visible-tablet">
+        <div class="subnavbar-inner">
+            <div class="container">
+                <ul class="mainnav">
+                    <li><a href="#top"><i class="fa fa-bolt"></i><span>General</span> </a> </li>
+                    <li><a href="#refresh-ps"><i class="fa fa-list-alt"></i><span>Processes</span> </a> </li>
+                    <li><a href="/admin/login"><i class="fa fa-user"></i><span>Log out</span> </a> </li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+
+                <div class="row justify-content-md-center">
+
+                    <div class="span5">
+                        <div class="widget widget-table action-table">
+                            <div class="widget-header"> <i class="fa fa-dashboard"></i>
+                                <h3>General Info</h3><i class="fa fa-minus"></i>
+                                <div id="refresh-os">
+                                </div>
+                            </div>
+                            <!-- /widget-header -->
+                            <div class="widget-content">
+                                <br>
+                                <div style="text-align:center;">
+                                    <b>OS:</b> <span class="" id="get-osname"></span><br>
+                                    <b>Uptime:</b> <span class="" id="get-uptime"></span> Hours<br>
+                                    <b>Hostname:</b> <span class="" id="get-hostname"></span><br>
+                                    <b>CPU(s):</b> <span class="" id="get-cpucount"></span> x <span class=""
+                                        id="get-cputype"></span>
+                                    <br><br>
+                                </div>
+                            </div>
+                            <!-- /widget-content -->
+                        </div>
+                        <!-- /widget -->
+                    </div>
+
+                    <div class="span3">
+                        <div class="widget widget-table action-table">
+                            <div class="widget-header"> <i class="fa fa-check"></i>
+                                <h3>CPU Usage %</h3><i class="fa fa-minus"></i>
+                                <div id="refresh-cpu">
+                                </div>
+                            </div>
+                            <!-- /widget-header -->
+                            <div class="widget-content">
+                                <p></p>
+                                <canvas id="cpuuChart" width="270" height="180"></canvas>
+                                <div>
+                                    <span class="cpuf" id="cpuf"></span>
+                                    <span class="cpuu" id="cpuu"></span>
+                                </div>
+                            </div>
+                            <!-- /widget-content -->
+                        </div>
+                        <!-- /widget -->
+                    </div>
+
+                    <div class="span3">
+                        <div class="widget widget-nopad">
+                            <div class="widget-header"> <i class="fa fa-list-alt"></i>
+                                <h3>Memory Usage</h3><i class="fa fa-minus"></i>
+                                <div id="refresh-ram">
+                                </div>
+                            </div>
+                            <!-- /widget-header -->
+                            <div class="widget-content">
+                                <p></p>
+                                <canvas id="memoryChart" width="270" height="180"></canvas>
+                                <div>
+                                    <span class="memf" id="memf"></span>
+                                    <span class="memu" id="memu"></span>
+                                    <span class="memp" id="memp"></span>
+                                </div>
+                            </div>
+                            <!-- /widget-content -->
+
+                        </div>
+                    </div>
+
+                </div>
+
+                    <!-- <div class="span3">
+                        <div class="widget">
+                            <div class="widget-header"> <i class="fa fa-angle-up"></i>
+                                <h3>Disk Reads/Writes</h3><i class="fa fa-minus"></i>
+                                <div id="refresh-diskio">
+                                </div>
+                            </div>
+                            <div class="widget-content">
+                                <p></p>
+                                <canvas id="dskChart" width="270" height="200"></canvas>
+                                <div>
+                                    <span class="diskr" id="diskr"></span>
+                                    <span class="diskw" id="diskw"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <div class="row">
+                    <div class="span12">
+                        <div class="widget">
+                            <div class="widget-header"> <i class="fa fa-list-alt"></i>
+                                <h3> Processes </h3><i class="fa fa-minus"></i>
+                                <div id="refresh-ps">
+                                </div>
+                            </div>
+                            <!-- /widget-header -->
+                            <div class="widget-content">
+                                <table id="get_proc" class="table table-hover table-condensed table-bordered">
+                                    <!-- <thead>
+                                        <tr>
+                                            <th>PID</th>
+                                            <th>Name</th>
+                                            <th>CPU Percent</th>
+                                        </tr>
+                                    </thead> -->
+                                </table>
+                            </div>
+                            <!-- /widget-content -->
+                        </div>
+                        <!-- /widget -->
+                    </div>
+                    <!-- /span -->
+                </div>
+                <!-- /row -->
+
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /main-inner -->
+    </div>
+    <!-- /main -->
+
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="span6">&copy; 2023 by <a href="https://github.com/saveffer1/OOP-Disquote">OOP Disquote</a> </div>
+                    <!-- /span12 -->
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /footer-inner -->
+    </div>
+    <!-- /footer -->
+
+    <script src="/static/script/jquery.js"></script>
+    <script src="/static/script/bootstrap.js"></script>
+    <!-- <script src="/static/script/base.js"></script> -->
+    <!-- <script src="/static/script/Chart.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="/static/script/jquery.dataTables.min.js"></script> -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="/static/script/dashboard.js"></script>
+
+
+    <script type="text/javascript">
+        function updateCPUChart() {
+                $.getJSON('/admin/info/cpu', function (data) {
+                    var cpuf = parseInt(data.cpu.free);
+                    var cpuu = parseInt(data.cpu.used);
+
+                    cpuChart.data.datasets[0].data = [cpuf, cpuu];
+                    cpuChart.update();
+                });
+            }
+
+        var cpu_ctx = $("#cpuuChart").get(0).getContext("2d");
+            var cpuChart = new Chart(cpu_ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Free', 'Used'],
+                    datasets: [{
+                        label: 'CPU Usage %',
+                        data: [],
+                        backgroundColor: [
+                            'rgba(10, 209, 27)',
+                            'rgb(247, 70, 74)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+        function updateMEMChart() {
+                $.getJSON('/admin/info/ram', function (data) {
+                    var ram = parseInt(data.ram);
+
+                    memChart.data.datasets[0].data = [100 - ram, ram];
+                    memChart.update();
+                });
+            }
+
+        var mem_ctx = $("#memoryChart").get(0).getContext("2d");
+            var memChart = new Chart(mem_ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Free', 'Used'],
+                    datasets: [{
+                        label: 'RAM Usage %',
+                        data: [],
+                        backgroundColor: [
+                            'rgba(10, 209, 27)',
+                            'rgb(247, 70, 74)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        $(function () {
+            window.setInterval('info()', 5000);
+
+            window.setInterval(updateCPUChart, 5000);
+            window.setInterval(updateMEMChart, 5000);        });
+
+        $(function pageLoad() {
+            info();
+
+            updateCPUChart();
+            updateMEMChart();        });
+
+
+    </script>
+
+</body>
+
+</html>

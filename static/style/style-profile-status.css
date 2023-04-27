@@ -69,3 +69,111 @@
     cursor: pointer;
     marker: none;
 }
+
+
+.Profile-Direct {
+  width: 100px;
+  position: relative;
+  
+  marker: none;
+}
+
+.Profile-Direct img  {
+  border-radius:  50%;
+  -webkit-border-radius:  50%;
+  -moz-border-radius:  50%;
+  -ms-border-radius:  50%;
+  -o-border-radius:  50%;
+  
+  cursor: pointer;
+  left: 0;
+  width:60px;
+   height:60px;
+}
+ .offline-direct {
+  
+  background:rgba(128, 132,142, 1);
+}
+
+.Profile-Direct .round {
+  position: absolute;
+  bottom: 0 ;
+  right: 0;
+  margin-bottom: 12px;
+  margin-right: 20px;
+  width: 13px;
+  height: 13px;
+  align-items:start ;
+  border :5px solid rgba(47, 49,54, 1);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  marker: none;
+}
+
+
+.round-idle {
+  position: absolute;
+ 
+  display: none;
+  left: 0;
+  width: 19px;
+  height: 19px;
+  top: 0;
+  background:rgba(43, 45,49, 1);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  marker: none;
+}
+
+
+.Profile-Flist {
+  width: 100px;
+  position: relative;
+  
+  marker: none;
+
+}
+
+.Profile-Flist img  {
+  border-radius:  50%;
+  -webkit-border-radius:  50%;
+  -moz-border-radius:  50%;
+  -ms-border-radius:  50%;
+  -o-border-radius:  50%;
+  
+  cursor: pointer;
+  left: 0;
+  width:60px;
+  height:60px;
+}
+
+
+.Profile-Flist .round {
+  position: absolute;
+  bottom: 0 ;
+  right: 0;
+  margin-bottom: 20px;
+  margin-right: 24px;
+  width: 13px;
+  height: 13px;
+  align-items:start ;
+  border :5px solid rgba(47, 49,54, 1);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  marker: none;
+}

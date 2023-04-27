@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="{{ url_for('static', path='/style/style-profile-status.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='/style/style-mainfriend.css') }}">
+
 <div class="guildSettings">
     <div class="navguild">
         <div class="guild-opener">
@@ -12,7 +15,56 @@
     <div class="dm_text">
         <p>DIRECT MESSAGES</p>
         <button class="dm_button">+</button>
+
+
+    
     </div>
+    <div class="friendalldirect">
+        <button class="friend-direct">
+            
+
+        <div class="gridProfile">
+            <div class="Profile-Direct">
+                <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                <div class ="round online">
+                                    
+                    <div class="round-idle"></div>
+                
+            </div>
+                    
+            </div>
+
+                <div class="txtnamedirect">
+                    <label>NameFriend</label>
+                </div>
+           
+                
+        </button> 
+
+         <!-- user 2 -->
+         <button class="friend-direct">
+            
+
+        <div class="gridProfile">
+            <div class="Profile-Direct">
+                <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                <div class ="round offline-direct">
+                                    
+                    <div class="round-idle"></div>
+                
+            </div>
+                    
+            </div>
+
+                <div class="txtnamedirect">
+                    <label>NameFriend</label>
+                </div>
+           
+                
+        </button> 
+
+</div>
+    
 </div>
 
 

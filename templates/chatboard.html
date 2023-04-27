@@ -133,34 +133,8 @@
                     </path>
                 </svg>
             </div>
-            <hr class="server-divider" />
-            <div id="server">
-                <!-- ตัวอย่างในการลูปเท่านั้น ไม่ใช้งาน -->
-                <!-- <div class="server active">
-                    <p class="servericon">SN</p>
-                </div>
-                <div class="server active">
-                    <p class="servericon">S1</p>
-                </div>
-                <div class="server">
-                    <p class="servericon unread">S2</p>
-                </div>
-                <div class="server">
-                    <img class="servericon" src="https://cdn.discordapp.com/embed/avatars/0.png">
-                </div>
-                <div class="server">
-                    <img class="servericon unread" src="https://cdn.discordapp.com/embed/avatars/1.png">
-                </div>
-                <div class="server">
-                    <img class="servericon" src="https://cdn.discordapp.com/embed/avatars/2.png">
-                </div>
-                <div class="server">
-                    <img class="servericon" src="https://cdn.discordapp.com/embed/avatars/3.png">
-                </div>
-                <div class="server">
-                    <img class="servericon" src="https://cdn.discordapp.com/embed/avatars/4.png">
-                </div> -->
-                <!-- ตัวอย่างในการลูปเท่านั้น ไม่ใช้งาน -->
+            <hr class="server-divider " >
+            <div  id="server">
             </div>
             <div class="server invite" id="invite">
                 <p class="inviteButton">+</p>
@@ -213,6 +187,7 @@
         </div>
     </div>
     
+
     <!-- user-box section -->
     <script src="/static/script/user-box.js" defer></script>
     <script>
@@ -259,20 +234,18 @@
     </script>
 
     <script>
-
         async function get_server_list() {
-            return fetch(`/channels/getlist`, {
+            return fetch(`/channels/getlist`, { // ลองเข้า url นี้
                 method: 'GET',
                 credentials: 'include'
             })
                 .then((response) => response.json())
                 .then((responseJson) => { return responseJson });
         }
-
         async function loop_server() {
             // Get the server list data
             await get_server_list() // รอให้ get_server_list() ทำงานเสร็จก่อน
-                .then(async (data) => {
+                .then(async (data) => { //json ที่ได้จาก get_server_list() จะถูกส่งมาที่ data
                     console.log(data);
                     // ลบ server ทั้งหมดที่มีอยู่ในหน้าเว็บออกก่อน
                     let server = document.getElementById("server");
@@ -280,20 +253,27 @@
                         server.removeChild(server.firstChild);
                     }
                     // สร้าง server ใหม่ตามจำนวนที่ได้จาก get_server_list()
+                
                     for (let i = 0; i < data.length; i++) {
                         let server = document.getElementById("server");
                         let div = document.createElement("div");
                         div.classList.add("server");
                         div.id = data[i].id;
                         div.onclick = function () {
-                            window.location.href = `/channels/${data[i].id}`;
+                            // window.location = `/channels/${data[i].id}`;
+                            $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
+                            $(document).ready(function() { $("#chat-board").load("/container-server");})
+                            console.log(data[i].name)
+                            let nameofserver = document.getElementById("nameofserver");
+                            if (nameofserver) {
+                                nameofserver.innerHTML = data[i].name;
+                            }
                         }
                         div.onmouseover = function () {
                             //display server name in popup label on mouse over server
                             let servername = data[i].name;
                             div.title = servername;
                         };
-
                         div.addEventListener("mouseout", function () {
                             let popup = document.querySelector(".serverpopup");
                             if (popup) {
@@ -316,10 +296,11 @@
                             server.appendChild(div);
                         }
                     }
+                        
                 });
         }
-
         loop_server();
+
 
         var modal = document.getElementById("createserver");
         var btn = document.getElementById("invite");
@@ -336,6 +317,9 @@
                 modal.style.display = "none";
             }
         }
+
+
+
     </script>
 
     <script>
@@ -370,35 +354,11 @@
             window.location.href = "/account/logout";
         });
 
-        // -----------------------chang to dm container-----------------------------------
+        // -----------------------change to dm container-----------------------------------
         document.getElementById('dm').addEventListener('click' , (e) =>{
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
-            $(document).ready(function() { $("#chat-board").load("/container-dm");}) });
-        // -----------------------change to server container-----------------------------------
-        const serverDivs = document.getElementsByClassName("server");
-        for (let i = 0; i < serverDivs.length; i++) {
-        serverDivs[i].addEventListener('click', (e) => {
-            if (e.target.id) {
-                if (e.target.id == "invite") return;
-                let clickedItem = e.target.id;
-                console.log(clickedItem);
-                $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
-                $(document).ready(function() { $("#chat-board").load("/container-server");})
-            }});
-        }
-        // --------------------------------------------------------------------------
-
-        // ----------------------- create server <div> -----------------------------------
-            // function createDiv() {
-            //     var div = document.createElement("div");
-            //     // var newP = document.createElement("p");
-            //     div.innerHTML = "Se"
-            //     newP.id = "servericon"; 
-            //     document.body.appendChild(div); 
-            //     serverhub.appendChild(div); 
-            //     // เก็บข้อมูลใน Local Storage
-            //     localStorage.setItem("myDiv", div.innerHTML);
-            // }
+            $(document).ready(function() { $("#chat-board").load("/container-dm");})
+        });
             
             window.onload = function() {
                 // ดึงข้อมูลจาก Local Storage และสร้าง div ใหม่
@@ -412,14 +372,117 @@
                 serverhub.appendChild(div);
                 }
             }
+
     </script>
     {% if svdm %}
     <script>
         var link = document.getElementById('dm');
+        // var friends = document.getElementById('friendlistload');
         link.click();
+        // friends.click();
     </script>
     {% endif %}
 
+    <script>
+
+        //onoffBTN
+        // document.getElementById('nameofserver').innerHTML = "eiei"
+    
+        //DropDown Setting
+        const toggleBtn = document.querySelector('.navbar')
+        const toggleBtnIcon = document.querySelector('.toggle_btn i')
+        const dropDownMenu = document.querySelector('.dropdown_menu')
+    
+        toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+    
+        toggleBtnIcon.classList = isOpen
+        ? 'fa-solid fa-xmark'
+        : 'fa-solid fa-chevron-down'
+        }
+    
+    
+        const addBtnTxt = document.getElementById('add_btnTxt');
+        const closeBtnTxt = document.getElementById('btn_cancelTxt');
+    
+        const addBtnV = document.getElementById('add_btnV');
+        const closeBtnV = document.getElementById('btn_cancelV');
+        const popupTxt = document.getElementById('popupTxt');
+        const todoFormTxt = document.getElementById('todoFormTxt');
+        const todoInputTxt = document.getElementById('todoInputTxt');
+        const todoListTxt = document.getElementById('todoListTxt');
+    
+        const popupV = document.getElementById('popupV');
+        const todoFormV = document.getElementById('todoFormV');
+        const todoInputV = document.getElementById('todoInputV');
+        const todoListV = document.getElementById('todoListV');
+    
+        //onoff dropdown
+        addBtnTxt.addEventListener('click', () => {
+            popupTxt.style.display ='block';
+        });
+    
+        closeBtnTxt.addEventListener('click', () => {
+            popupTxt.style.display = 'none';
+            });
+        
+        addBtnV.addEventListener('click', () => {
+                popupV.style.display ='block';
+            });
+    
+        closeBtnV.addEventListener('click', () => {
+                popupV.style.display = 'none';
+                });
+    
+        todoFormTxt.addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        //Create  Channel Text //ต้องไว้นอก Div Channel
+        const todoText = todoInputTxt.value;
+        if (todoText) {
+            const todoItem = document.createElement('li');
+            const todoLink = document.createElement('a');
+            const todoIcon = document.createElement('i');
+            todoLink.href =todoText ;
+            todoLink.style.fontFamily = 'Mukta';
+            todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
+            todoIcon.classList.add('fa', 'fa-hashtag');
+            todoItem.appendChild(todoIcon);
+            todoItem.appendChild(todoLink);
+            todoListTxt.appendChild(todoItem);
+            todoInputTxt.value = '';
+            popupTxt.style.display = 'none';
+        }
+        });
+    
+        //Create  Channel Voice //ต้องไว้นอก Div Channel
+        todoFormV.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const todoText = todoInputV.value;
+             if (todoText) {
+                const todoItem = document.createElement('li');
+                const todoLink = document.createElement('a');
+                const todoIcon = document.createElement('i');
+                todoLink.href = todoText;
+                todoLink.style.fontFamily = 'Mukta';
+                todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
+                todoIcon.classList.add('fa', 'fa-volume-high');
+                todoItem.appendChild(todoIcon);
+                todoItem.appendChild(todoLink);
+                todoListV.appendChild(todoItem);
+                todoInputV.value = '';
+                popupV.style.display = 'none';
+            }
+            });
+        const SpeakButton = document.getElementById("speakerbtn");
+        const MicButton = document.getElementById("micbtn");
+            
+        SpeakButton.addEventListener('click',()=> {
+            SpeakButton.i.classList.remove('fa-solid fa-volume');
+            SpeakButton.i.classList.remove('fa-solid fa-volume-slash');
+        })
+    </script>
     
 </body>
 

@@ -38,7 +38,7 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
         token = jsonable_encoder(access_token)
 
         # resp = templates.TemplateResponse("chatboard.html", {"request": request, "login_message": "success"}, status_code=200)
-        resp = RedirectResponse(url='/admin/info')
+        resp = RedirectResponse(url='/admin/dashboard')
         resp.set_cookie(
             "admin_authen",
             value=f"{token}",
@@ -59,26 +59,27 @@ def logout(request: Request, response: Response):
     response.delete_cookie("admin_authen")
     return RedirectResponse(url='/admin/login')
 
+@router.get('/dashboard', status_code=200, tags=['admin'])
+@router.post('/dashboard', status_code=200, tags=['admin'])
+def show_dashboard(request: Request):
+    return templates.TemplateResponse("adm-dash.html", {"request": request})
 
 @router.get("/info", name="fastdash:get-your-system-info",)
 @router.post("/info", name="fastdash:get-your-system-info",)
-async def fastdash_info():
+async def dashboard_info():
     ipaddress = adm_dashboard.get_ipaddress()
     platform = adm_dashboard.get_platform()
     uptime = adm_dashboard.get_uptime()
     cpu = adm_dashboard.get_cpu_usage()
     cores = adm_dashboard.get_cpus()
     memory = adm_dashboard.get_mem()
-    disk = adm_dashboard.get_disk()
-    diskrw = adm_dashboard.get_disk_rw()
-    loadavg = adm_dashboard.get_load()
+    #disk = adm_dashboard.get_disk()
+    #diskrw = adm_dashboard.get_disk_rw()
+    #loadavg = adm_dashboard.get_load()
     # Get traffic
-    traffic = []
-    for interface, info in zip(ipaddress["interface"], ipaddress["itfip"]):
-        ip = info[1]
-        traffic = adm_dashboard.get_traffic(ip)
-    users = adm_dashboard.get_users()
-    netstat = adm_dashboard.get_netstat()
+    #traffic = adm_dashboard.get_traffic("127.0.0.1")
+    #users = adm_dashboard.get_users()
+    #netstat = adm_dashboard.get_netstat()
 
     return {
         "ipaddress": ipaddress,
@@ -86,11 +87,23 @@ async def fastdash_info():
         "uptime": uptime,
         "cpu": cpu,
         "cores": cores,
-        "memory": memory,
-        "disk": disk,
-        "diskrw": diskrw,
-        "loadavg": loadavg,
-        "traffic": traffic,
-        "users": users,
-        "netstat": netstat,
+        "memory": memory
+        #"disk": disk,
+        #"diskrw": diskrw,
+        #"loadavg": loadavg,
+        #"traffic": traffic,
+        #"users": users,
+        #"netstat": netstat,
     }
+
+
+@router.get("/info/cpu", name="fastdash:get-your-system-info",)
+async def cpu_info():
+    cpu = adm_dashboard.get_cpu_usage()
+    return {"cpu": cpu}
+
+@router.get("/info/ram", name="fastdash:get-your-system-info",)
+async def ram_info():
+    memory = adm_dashboard.get_mem()
+    ram = memory['percent']
+    return {"ram": ram}
