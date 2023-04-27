@@ -7,6 +7,8 @@ from schema import UserSchema, LoginSchema, UpdateUserModel
 from fastapi.templating import Jinja2Templates
 import base64
 import shutil
+import aiofiles
+import asyncio
 from .discord import discord_account, discord_server
 import configparser
 config = configparser.ConfigParser()
@@ -31,13 +33,15 @@ async def register(request: Request, email: EmailStr = Form(...), username: str 
                 else:
                     try:
                         file_name = image.filename
-                        file_location = f"static/resource/user_avatar/{discord_account.get_user_id(email)}_{file_name}"
-                        with open(file_location, "wb+") as file_object:
-                            file_object.write(image.file.read())
+                        contents = image.file.read()
+                        file_location = f"static/{discord_account.get_user_id(email)}_{file_name}"
+                        # async with aiofiles.open(f"static/{file_location}", "wb") as file_object:
+                        with open(file_location, "wb") as f:
+                            f.write(contents)
                     except Exception as e:
                         return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'file error', 'detail': f'{e}'}, status_code=500)
                     finally:
-                        discord_account.set_avatar(email, file_location)
+                        discord_account.set_avatar(email, f"static/{file_location}")
                         image.file.close()
             else:
                 return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'max size 8MB', 'detail': ''}, status_code=413)

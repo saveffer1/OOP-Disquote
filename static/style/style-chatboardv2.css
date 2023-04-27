@@ -49,17 +49,19 @@ body {
 
 
 .servers {
+  display: grid;
+  padding-left: 10px;
+  /* grid-template-rows: 1fr 2fr 1fr; */
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: row1-start;
   grid-row-end: 3;
   position: absolute;
-  width: 70px;
+  width: 60px;
   height: 100%;
   background-color: var(--dark-server-list);
   overflow-y: auto;
   scrollbar-width: 0px;
-  display: flex;
   align-items: center;
   flex-direction: column;
   user-select: none;
@@ -73,7 +75,7 @@ body {
 .homebutton {
   position: relative;
   background-color: var(--dark-bg);
-  color: #FFFFFF;
+  color: #ffffff;
   border-radius: 50%;
   text-align: center;
   height: 48px;
@@ -141,11 +143,12 @@ body {
 
 .server-divider {
   margin-top: 7px;
-  width: 50%;
+  width: 60%;
   background-color: var(--server-divider);
   height: 3px;
   border: none;
   border-radius: 15px;
+  margin-left: 5px;
 }
 
 .side-bar {
@@ -297,7 +300,7 @@ body {
   background-color: #ffffff;
   margin: 15% auto;
   padding: 20px;
-  width: 30%;
+  width: 40vh;
   text-align: center;
   border-radius: 7px;
   /* Could be more or less, depending on screen size */
@@ -390,6 +393,7 @@ body {
 
 .menu-dm-btn:active{
   background-color: rgb(49,51,56);
+  color: rgb(36,128,70);
 }
 
 .icon-menu-chat img {
@@ -453,6 +457,7 @@ body {
 
 
 .ch-name{
+  user-select: none;
   padding: 0 10px 0 10px; 
   font-weight: lighter;
   font-size: 20px;
@@ -576,6 +581,12 @@ body {
   
 }
 
+.text_ch_dropdown {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 .search-friend-btn img{
   padding-top: 1px;
   height: 20px;
@@ -641,8 +652,8 @@ body {
   
   
   .roomnameinput {
-   display:flex;
-   flex-wrap: wrap;
+    display:flex;
+    flex-wrap: wrap;
     
   }
   .roomnameinput h4 {
@@ -658,7 +669,7 @@ body {
     height: 30px;
     margin: 0px;
     box-sizing: border-box;
-     
+
   }
   
   .roomnameinput h4{
@@ -689,9 +700,98 @@ body {
     justify-content: center;
   }
   
+  .btncreate:hover {
+    background:  #4752c4ff;
+  }
   
   .forbtn {
     display: grid;
     grid-template-columns: 6fr 0.5fr;
     gap: 0rem;
   }
+
+  .ch_txt{
+  height: 30px;
+  width: 100%;
+  display: flex;
+  color: rgb(128,132,142);
+  font-size: 16px;
+  /* margin-top: 10px; */
+  align-items: center;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.sharp{
+  font-size: 20px;
+}
+
+.myfriends{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 10px;
+  box-shadow: rgb(0, 0, 0,0.1);
+}
+
+.myfriends p{
+  color: rgb(148,155,164);
+  width: 100%;
+  height: 25px;
+  padding: 10px;
+  margin-right: 20px;
+  user-select: none;
+}
+
+.myfriends :hover{
+  background-color: rgb(73, 76, 84);
+  border-radius: 5px;
+  color: rgb(243,255,255);
+}
+
+
+.dm_text{
+  display: flex;
+  /* width: 100px; */
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.dm_text :hover {
+  color: #ffffff;
+}
+
+
+.dm_button{
+  font-size: 20px;
+  color: #ffffff;
+  padding-right: 10px;
+  background-color:rgb(47,49,54) ;
+  cursor: pointer;
+}
+
+.dm_button :hover {
+  border-radius: 5px;
+  color: rgb(243,255,255);
+
+}
+
+.dm_text p{
+  margin-left: 4px;
+  color: rgb(148,155,164);
+  font-size: 16px;
+  padding-left: 10px;
+  user-select: none;
+}
+
+
+
+
+.modal-content p {
+  color: #000;
+  font-family: mukta, sans-serif;
+  margin-top : 0;
+  margin-bottom: 25px;
+}

@@ -67,11 +67,11 @@ class AccountSystem():
             return False
         elif schema.email in self.user_account:
             is_login_pass = self.check_password(
-                schema.password, self.user_account[schema.email].password
+                schema.password, self.get_user_account(schema.email).password
             )
             login_state = is_login_pass
             if is_login_pass:
-                self.user_account[schema.email].login()
+                self.get_user_account(schema.email).login()
             return login_state
         else:
             return False
@@ -82,7 +82,7 @@ class AccountSystem():
             return False
         elif schema.email in self.admin_account:
             is_login_pass = self.check_password(
-                schema.password, self.admin_account[schema.email].password
+                schema.password, self.get_user_account(schema.email).password
             )
             login_state = is_login_pass
             if is_login_pass:
@@ -127,7 +127,7 @@ class ServerSystem():
     servers: list = field(default_factory=list)
     server_id: int = 0
 
-    def add_server(self, name: str, owner: int, image: str):
+    def add_server(self, name: str, owner: int, image: str = None):
         """ add server to server_list """
         server = Server(self.server_id, name, owner, image)
         server.add_member(owner)
@@ -150,3 +150,6 @@ class ServerSystem():
             if server.id == server_id:
                 return server
         return None
+    
+    def get_server_id(self):
+        return self.server_id

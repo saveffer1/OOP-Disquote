@@ -1,0 +1,71 @@
+.Profile {
+    width: 100px;
+    position: relative;
+    margin: auto;
+    marker: none;
+  }
+  
+  .Profile img {
+    border-radius:  50%;
+    -webkit-border-radius:  50%;
+    -moz-border-radius:  50%;
+    -ms-border-radius:  50%;
+    -o-border-radius:  50%;
+    border: 6px solid rgba(43, 45,49, 1);
+    cursor: pointer;
+  
+  }
+
+  
+  .Profile .round {
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+    
+    border :9px solid rgba(43, 45,49, 1);
+    width: 25px;
+    height: 25px;
+   
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    marker: none;
+  }
+    .offline {
+        background:rgba(43, 45,49, 1);
+    }
+    .online {
+    background:rgba(35, 165,90, 1);
+  }
+  
+.idle {
+    position: absolute;
+   
+    background:rgba(240, 178,50, 1);
+    
+  
+}
+
+.round-idle {
+    position: absolute;
+   
+    display: none;
+    left: 0;
+    width: 19px;
+    height: 19px;
+    top: 0;
+    background:rgba(43, 45,49, 1);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    marker: none;
+}

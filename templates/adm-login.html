@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/adm-login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+</head>
+
+<body class="hidescroll">
+    <div class="login-dark">
+        <form method="post" action="/admin/login">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div>
+            <!-- <a href="#" class="forgot">Forgot your email or password?</a> -->
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+{% if login_message %}
+<script>
+    var message = "{{ login_message }}";
+    if (message == "Wrong email or password!") {
+        Swal.fire({
+            title: "Login Error",
+            text: "{{ login_message }}",
+            icon: "error",
+            button: "OK",
+        });
+    }
+</script>
+{% endif %}
+
+</html>

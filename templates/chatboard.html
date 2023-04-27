@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboardv2.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-setting.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-profile-status.css') }}">
     <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
     <script src="/static/script/jquery.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -134,7 +135,8 @@
             </div>
             <hr class="server-divider" />
             <div id="server">
-                <div class="server active">
+                <!-- ตัวอย่างในการลูปเท่านั้น ไม่ใช้งาน -->
+                <!-- <div class="server active">
                     <p class="servericon">SN</p>
                 </div>
                 <div class="server active">
@@ -157,7 +159,8 @@
                 </div>
                 <div class="server">
                     <img class="servericon" src="https://cdn.discordapp.com/embed/avatars/4.png">
-                </div>
+                </div> -->
+                <!-- ตัวอย่างในการลูปเท่านั้น ไม่ใช้งาน -->
             </div>
             <div class="server invite" id="invite">
                 <p class="inviteButton">+</p>
@@ -168,21 +171,35 @@
                 <div class="modal-content">
                     <span class="close" id="closeCreateServerPopup">&times;</span>
                     <h2>Customize your server</h2>
-                    <form onsubmit="return createtheserver()">
+                    <p>Give your new server a personality with a name and an icon. You can always change it later.</p>
+                    <form method="post" action="/channels/create_server" enctype="multipart/form-data">
                         <div class="uploadCreateRoom">
                             <img src="{{ url_for('static', path='assets/Upload.png') }}" width="80" height="80" alt="" >
                                 <div class ="round">
-                                    <input type ="file">
+                                    <input type ="file" name="image" id="fileupload">
                                     <i class="fa-solid fa-circle-plus" style="color : #fff;"></i>
                                 </div>
                         </div>
+                        
+                        <!-- ใช้สำหรับ Profile ส่วนสถานะเปลี่ยนที่ Class round  จะมี online offlie idle (สั่งเปลี่ยน class .round-idle ด้วย Display block)
+                        ใช้กับ css ไฟล์ profile-status 
+                        <div class="Profile">
+                            <img src="{{ url_for('static', path='assets/avatarprofile.png') }}" width="80" height="80" alt="" >
+                                <div class ="round idle">
+                                    
+                                        <div class="round-idle"></div>
+                                    
+                                </div>
+                        </div> -->
+
+
                         <div class="roomnameinput">
                             <h4>SERVER NAME</h4>
-                            <input type="text" id="serverName" name="serverName" class="inputnameserver">
+                            <input type="text" required="true" id="serverName" name="name" class="inputnameserver">
                             <br><br> <br> 
                             <div class="forbtn"> <div></div>
                                 <div>
-                                    <button type="submit" value="Create" class="btncreate" onclick="createDiv()"> Create </button>
+                                    <button type="submit" value="Create" class="btncreate"> Create </button>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +230,7 @@
                 let username = document.getElementById("username");
                 username.innerHTML = data.username;
                 let avatar = document.getElementById("avatar");
-                avatar.src = data.avatar;
+                avatar.src = `/${data.avatar}`;
                 let discriminator = document.getElementById("discriminator");
                 discriminator.innerHTML = "#" + data.tag;
             })
@@ -244,7 +261,7 @@
     <script>
 
         async function get_server_list() {
-            return fetch(`/server/get_list`, {
+            return fetch(`/channels/getlist`, {
                 method: 'GET',
                 credentials: 'include'
             })
@@ -252,27 +269,54 @@
                 .then((responseJson) => { return responseJson });
         }
 
-        function loop_server() {
+        async function loop_server() {
             // Get the server list data
-            get_server_list().then((data) => {
-                // Get the server container element
-                const serverContainer = $('#server');
+            await get_server_list() // รอให้ get_server_list() ทำงานเสร็จก่อน
+                .then(async (data) => {
+                    console.log(data);
+                    // ลบ server ทั้งหมดที่มีอยู่ในหน้าเว็บออกก่อน
+                    let server = document.getElementById("server");
+                    while (server.firstChild) {
+                        server.removeChild(server.firstChild);
+                    }
+                    // สร้าง server ใหม่ตามจำนวนที่ได้จาก get_server_list()
+                    for (let i = 0; i < data.length; i++) {
+                        let server = document.getElementById("server");
+                        let div = document.createElement("div");
+                        div.classList.add("server");
+                        div.id = data[i].id;
+                        div.onclick = function () {
+                            window.location.href = `/channels/${data[i].id}`;
+                        }
+                        div.onmouseover = function () {
+                            //display server name in popup label on mouse over server
+                            let servername = data[i].name;
+                            div.title = servername;
+                        };
 
-                // Loop through the server list data
-                $.each(data.servers, (i, server) => {
-                    // Create a new server element
-                    const serverElement = $('<div>').addClass('server');
-
-                    // Create a new server icon element
-                    const serverIconElement = $('<img>').addClass('servericon').attr('src', server.icon);
-
-                    // Add the server icon element to the server element
-                    serverElement.append(serverIconElement);
-
-                    // Add the server element to the server container
-                    serverContainer.append(serverElement);
+                        div.addEventListener("mouseout", function () {
+                            let popup = document.querySelector(".serverpopup");
+                            if (popup) {
+                                popup.remove();
+                            }
+                        });
+                        if (data[i].image){
+                            //สำหรับ server ที่มีรูป
+                            let img = document.createElement("img");
+                            img.classList.add("servericon");
+                            img.src = data[i].image;
+                            div.appendChild(img);
+                            server.appendChild(div);
+                        }else{
+                            //สำหรับ server ที่ไม่มีรูป
+                            let p = document.createElement("p");
+                            p.classList.add("servericon");
+                            p.innerHTML = data[i].name;
+                            div.appendChild(p);
+                            server.appendChild(div);
+                        }
+                    }
                 });
-            });
         }
 
         loop_server();
@@ -295,7 +339,7 @@
     </script>
 
     <script>
-         //script ของ setting  div
+        //script ของ setting  div
         const settingprogram = document.getElementById('settingsToggle');
         const divroot = document.getElementById('rootDiv');
         const divsetting = document.getElementById('settpage');
@@ -321,8 +365,6 @@
                 Popupout.style.display ='none';
             });
 
-        
-        
         const log_out_btn = document.getElementById('btn_out');
         log_out_btn.addEventListener('click', () => {
             window.location.href = "/account/logout";
@@ -336,21 +378,27 @@
         const serverDivs = document.getElementsByClassName("server");
         for (let i = 0; i < serverDivs.length; i++) {
         serverDivs[i].addEventListener('click', (e) => {
-            console.log("click");
-            $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
-            $(document).ready(function() { $("#chat-board").load("/container-server");}) }); }
+            if (e.target.id) {
+                if (e.target.id == "invite") return;
+                let clickedItem = e.target.id;
+                console.log(clickedItem);
+                $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
+                $(document).ready(function() { $("#chat-board").load("/container-server");})
+            }});
+        }
         // --------------------------------------------------------------------------
 
         // ----------------------- create server <div> -----------------------------------
-            function createDiv() {
-                var div = document.createElement("div");
-                // div.className = "server";
-                div.innerHTML = "kl";
-                document.body.appendChild(div); //ขอละ
-                serverhub.appendChild(div); //ได้ไหม กูกดล่ะ
-                // เก็บข้อมูลใน Local Storage
-                localStorage.setItem("myDiv", div.innerHTML);
-            }
+            // function createDiv() {
+            //     var div = document.createElement("div");
+            //     // var newP = document.createElement("p");
+            //     div.innerHTML = "Se"
+            //     newP.id = "servericon"; 
+            //     document.body.appendChild(div); 
+            //     serverhub.appendChild(div); 
+            //     // เก็บข้อมูลใน Local Storage
+            //     localStorage.setItem("myDiv", div.innerHTML);
+            // }
             
             window.onload = function() {
                 // ดึงข้อมูลจาก Local Storage และสร้าง div ใหม่
@@ -365,7 +413,12 @@
                 }
             }
     </script>
-
+    {% if svdm %}
+    <script>
+        var link = document.getElementById('dm');
+        link.click();
+    </script>
+    {% endif %}
 
     
 </body>

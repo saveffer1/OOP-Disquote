@@ -17,7 +17,7 @@
 <!-- this is login -->
     <div class="box_login">
         <div class="position">
-            <form method="get" action="/account/login" class="container_login" id="container_login" >
+            <form method="post" action="/account/login" class="container_login" id="container_login" >
                 <div class="centering-wrapper">
                     <div class="section1 text-center">
                         <div class="primary-header">Welcome back!</div>
@@ -61,11 +61,7 @@
                 </div>
             </form>
             <!--  this is register form ----- -->
-            <form 
-                method="post" action="/account/register" 
-                enctype="multipart/form-data" class="container_register" 
-                id="container_register" style="display:none" > 
-                
+            <form method="post" action="/account/register" enctype="multipart/form-data" class="container_register" id="container_register" style="display:none" >                
                 <div class="centering-wrapper">
                     <div class="section2 text-center">
                         <div class="primary-header">Create New User</div>
@@ -129,24 +125,37 @@
     </script>
     {% if reg_message %}
     <script>
+        function showLoginForm() {
+            history.pushState('', document.title, '/account/login');
+            document.getElementById('container_login').style.display = 'block';
+            document.getElementById('container_register').style.display = 'none';
+        }
+
+        function showRegisterForm() {
+            history.pushState('', 'register', '/account/register');
+            document.getElementById('container_login').style.display = 'none';
+            document.getElementById('container_register').style.display = 'block';
+        }
+
         var message = "{{ reg_message }}";
+        console.log(message)
         if (message == "success"){
             Swal.fire({
-                title: "Registration Success",
-                text: "{{ reg_message }}",
-                icon: "success",
-                button: "OK",
+                    title: "Registration Success",
+                    text: "{{ reg_message }}",
+                    icon: "success",
+                    button: "OK",
             });
+            showLoginForm();
         }
         else{
-            showRegisterForm().then( function() {
-                Swal.fire({
+            showRegisterForm()
+            Swal.fire({
                 title: "Registration Error",
                 text: "{{ reg_message }} {{ detail }}",
                 icon: "error",
                 button: "OK",
             })
-            });
         }
     </script>
     {% endif %}
@@ -167,7 +176,7 @@
 
     <script>
         history.replaceState("", document.title, window.location.pathname + window.location.search);
-
+        
         function showLoginForm() {
             history.pushState('', document.title, '/account/login');
             document.getElementById('container_login').style.display = 'block';
@@ -179,18 +188,15 @@
             document.getElementById('container_login').style.display = 'none';
             document.getElementById('container_register').style.display = 'block';
         }
-
+        
         if (window.location.pathname === '/account/register') {
             showRegisterForm();
         }
 
-
-        
-
     </script>
 
 
-    <script>
+    <!-- <script>
         $(function(){
         $("#nav-placeholder").load("../page/navbar.html", function () {
                 $("#dm.homebutton").on("click", function (e) {
@@ -212,7 +218,7 @@
                     
             });
         });
-    </script>
+    </script> -->
 
 </body>
 </html>

@@ -35,7 +35,7 @@
         <div class="status-row">
             <p1>online</p1>
         </div>
-        <div class="user-row">
+        <div class="user-row" id="user" >
             <p1>ling jeak jeak</p1>
         </div>
         <br>
@@ -43,7 +43,7 @@
         <div class="status-row">
             <p1>offline</p1>
         </div>
-        <div class="user-row">
+        <div class="user-row" >
             <p1>ling jeak jeak but offline</p1>
         </div>
         
@@ -57,3 +57,22 @@
     </div>
 </div>
 </div>
+
+
+<!-- 
+<script>
+    
+    async function getOnline(url) {
+        console.log(data);
+        let response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include'
+        }).then(async function (response) {
+            return response.json();
+        }).then(async function (data) {
+            console.log(data);
+            let user = document.getElementById("user");
+            user.innerHTML = data.user;
+        })
+    }
+</script> -->

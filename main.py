@@ -4,12 +4,12 @@ import glob
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response, UploadFile, File
 from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 import base64
 
-from router import router_document, router_account, router_server
+from router import router_document, router_account, router_admin, router_server
 
 ALLOWED_ORIGINS = ['http://localhost', '0.0.0.0']
 
@@ -85,6 +85,31 @@ def server(request: Request):
         resp = RedirectResponse(url='/account/login')
         return resp
 
+
+@app.get("/up")
+def main(request: Request):
+    return templates.TemplateResponse("upload.html", {"request": request})
+
+@app.post("/upload")
+def upload(request: Request, file: UploadFile = File(...)):
+    try:
+        contents = file.file.read()
+        with open("uploaded_" + file.filename, "wb") as f:
+            f.write(contents)
+    except Exception:
+        return {"message": "There was an error uploading the file"}
+    finally:
+        file.file.close()
+
+    base64_encoded_image = base64.b64encode(contents).decode("utf-8")
+
+    return templates.TemplateResponse("display.html", {"request": request,  "myImage": base64_encoded_image})
+
+@app.get("/image/{file_name}")
+async def get_image(file_name: str):
+    file_path = f"static/assets/{file_name}"
+    return FileResponse(file_path)
+
 # # test
 @app.get("/container-dm", response_class=HTMLResponse)
 def mainindex(request: Request):
@@ -116,6 +141,7 @@ def mainindex(request: Request):
 
 app.include_router(router_server, prefix='/channels')
 app.include_router(router_account, prefix='/account')
+app.include_router(router_admin, prefix='/admin')
 app.include_router(router_document, prefix='/admin')
 
 if __name__ == "__main__":
