@@ -1,3 +1,4 @@
+
 /* 
 
 .AddFriend {
@@ -141,7 +142,7 @@
 
   .grid_3 {
     display:grid;
-    grid-template-columns: 0.1fr 1.6fr 0.5fr;
+    grid-template-columns: 0.1fr 1.6fr 1fr;
     gap: 0;
   }
 
@@ -171,11 +172,22 @@
   .avatarname label {
     font-size :1rem
   }
-  .avatarbtn {
-    align-items: center ;
-  }
-  .avatarbtn i {
-    width: 30px;
-    height: 30px;
 
-  }
+
+.btnfriend {
+  display:grid;
+  grid-template-columns: 0.2fr 0.4fr;
+  gap: 10px;
+
+}
+
+.btnfriend .round {
+width: 50px;
+height: 50px;
+}
+
+
+
+.btnfriend .round:hover {
+  background: rgba(217, 219,222, 1);
+}

@@ -793,3 +793,8 @@ body {
   margin-bottom: 25px;
 }
 
+.avatarbtn .round {
+  width: 150px;
+  height: 150px;
+  color:red;
+}

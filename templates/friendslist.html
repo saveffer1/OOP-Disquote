@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ url_for('static', path='/style/style-mainfriend.css') }}">
+
 
 <div class="search-friends-box" id="search-box">
     <input class="input-friends-box" type="text" placeholder="Search">
@@ -37,11 +37,51 @@
                         </h2>
                        
                     </div>
-               
-            <div clas="avatarbtn"> 
+           
+            <div clas="btnfriend" style="  display:grid;
+            grid-template-columns: 0.2fr 0.2fr;
+            gap: 2px; justify-content: end; align-items: center; margin-bottom: 2px;">
             
                 
-                    <i class="fa-solid fa-message"  ></i>
+                
+                    <div class ="round" style="
+                    bottom: 0 ;
+                    background: #000000;
+                    margin-bottom: 20px;
+                    margin-right: 24px;
+                    width: 40px;
+                    height: 40px;
+                    align-items:start ;
+                    border-radius: 25px;
+                    background: rgba(30, 31,34, 1);">
+                       
+                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
+                        <img src="{{ url_for('static', path='assets/message.png') }}" width="20" height="20" alt="" style="margin-top: 11px;
+                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
+                    </div>
+                        
+                    <div class ="round" style="
+                    bottom: 0 ;
+                    background: #000000;
+                    margin-bottom: 20px;
+                    margin-right: 24px;
+                    width: 40px;
+                    height: 40px;
+                    align-items:start ;
+                    border-radius: 25px;
+                    background: rgba(30, 31,34, 1);">
+                       
+                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
+                        <img src="{{ url_for('static', path='assets/three-dots.png') }}" width="20" height="20" alt="" style="margin-top: 9px;
+                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
+                    </div>
+
+                
+                    
+                        
+                
+
+                   
                 
     
               
@@ -53,33 +93,7 @@
             <div class="line-4">
                 <hr>
             </div>
-            <button>
-                <div class="grid_3">
-                    <div class="Profile-Flist">
-                        <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
-                        <div class ="round online">
-                                            
-                            
-                        
-                    </div>
-                            
-                    </div>
-        
-                        <div class="avatarname">
-                            <h2>NameFriend
-                              <br>  <label>Online</label>
-                            </h2>
-                           
-                        </div>
-                   
-                <div clas="avatarbtn"> ggg </div>
-                </div>
-              
-                </button>
-                <div class="line-4">
-                    <hr>
-                </div>
-                
+          
 
         </div>
               
@@ -92,9 +106,86 @@
 
 
     <div class="konoffline">
-        <h2 style="font-family:Mukta">OOFLINE - X</h2>
+        <h2 style="font-family:Mukta">OFFLINE - X</h2>
     <div class="line-4">
         <hr>
+    </div>
+
+    <div class="forbtnfriend">
+        <button>
+        <div class="grid_3">
+            <div class="Profile-Flist">
+                <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                <div class ="round offline-direct">
+                                    
+                    
+                
+            </div>
+                    
+            </div>
+
+                <div class="avatarname">
+                    <h2>NameFriend
+                      <br>  <label>Online</label>
+                    </h2>
+                   
+                </div>
+       
+        <div clas="btnfriend" style="  display:grid;
+        grid-template-columns: 0.2fr 0.2fr;
+        gap: 2px; justify-content: end; align-items: center; margin-bottom: 2px;">
+        
+            
+            
+                <div class ="round" style="
+                bottom: 0 ;
+                background: #000000;
+                margin-bottom: 20px;
+                margin-right: 24px;
+                width: 40px;
+                height: 40px;
+                align-items:start ;
+                border-radius: 25px;
+                background: rgba(30, 31,34, 1);">
+                   
+                    <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
+                    <img src="{{ url_for('static', path='assets/message.png') }}" width="20" height="20" alt="" style="margin-top: 11px;
+                    filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
+                </div>
+                
+                
+                <div class ="round" style="
+                bottom: 0 ;
+                background: #000000;
+                margin-bottom: 20px;
+                margin-right: 24px;
+                width: 40px;
+                height: 40px;
+                align-items:start ;
+                border-radius: 25px;
+                background: rgba(30, 31,34, 1);">
+                   
+                    <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
+                    <img src="{{ url_for('static', path='assets/three-dots.png') }}" width="20" height="20" alt="" style="margin-top: 9px;
+                    filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
+                </div>
+
+              
+                
+                    
+            
+
+               
+            
+
+          
+        </div>
+        </div>
+       
+        </button>
+        <div class="line-4">
+            <hr>
+        </div>
     </div>
 
         
