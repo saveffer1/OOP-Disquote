@@ -21,43 +21,42 @@
 </head>
 
 <body>
-    <!-- <div class="navbar navbar-fixed-top" >
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="/">Disquote Server Dashboard</a>
-                <ul class="btn btn-mini">
-                </ul>
-                <div class="nav-collapse">
-                </div>
-            </div>
+    <div class="navbar navbar-dark bg-dark text-white">
+        <div>
+            <a class="navbar-brand" href="/">
+                <i class="fa-brands fa-discord"></i>
+                Disquote Server Dashboard
+            </a>
+            <!-- <br> -->
+            <a class="navbar-brand" href="#top">
+                <i class="fa fa-desktop"></i>
+                General
+            </a>
+            <a class="navbar-brand" href="#get_proc">
+                <i class="fa fa-list-alt"></i>
+                Running Process
+            </a>
         </div>
-    </div> -->
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            Disquote Server Dashboard
-        </a>
-    </nav>
-    <div class="subnavbar visible-desktop visible-tablet">
-        <div class="subnavbar-inner">
-            <div class="container">
-                <ul class="mainnav">
-                    <li><a href="#top"><i class="fa fa-bolt"></i><span>General</span> </a> </li>
-                    <li><a href="#refresh-ps"><i class="fa fa-list-alt"></i><span>Processes</span> </a> </li>
-                    <li><a href="/admin/login"><i class="fa fa-user"></i><span>Log out</span> </a> </li>
-                    <li></li>
-                </ul>
-            </div>
+        <div>
+            <a class="navbar-brand" id="annouce">
+                <i class="fa fa-bullhorn"></i>
+                Annouce
+            </a>
+            <a class="navbar-brand" href="/admin/login">
+                <i class="fa fa-user"></i>
+                Log out
+            </a>
         </div>
     </div>
-    <div class="main">
+
+    <div class="main bg-secondary text-white" style="margin-top: 48px;">
+        <br>
         <div class="main-inner">
             <div class="container">
-
                 <div class="row justify-content-md-center">
-
                     <div class="span5">
-                        <div class="widget widget-table action-table">
-                            <div class="widget-header"> <i class="fa fa-dashboard"></i>
+                        <div class="widget widget-table action-table text-dark">
+                            <div class="widget-header"> <i class="fa fa-desktop"></i>
                                 <h3>General Info</h3><i class="fa fa-minus"></i>
                                 <div id="refresh-os">
                                 </div>
@@ -65,12 +64,14 @@
                             <!-- /widget-header -->
                             <div class="widget-content">
                                 <br>
-                                <div style="text-align:center;">
+                                <div style="text-align:center; color: black;">
+                                    <b>Project:</b> <span class="" > Disquote </span><br>
                                     <b>OS:</b> <span class="" id="get-osname"></span><br>
                                     <b>Uptime:</b> <span class="" id="get-uptime"></span> Hours<br>
                                     <b>Hostname:</b> <span class="" id="get-hostname"></span><br>
-                                    <b>CPU(s):</b> <span class="" id="get-cpucount"></span> x <span class=""
-                                        id="get-cputype"></span>
+                                    <b>CPU:</b> <span class="" id="get-cputype"></span><br>
+                                    <b>CPU(s):</b> <span class="" id="get-cpucount"></span> Cores<br>
+                                    <img src="/static/assets/disquote.png" width="108" height="108"/><br>
                                     <br><br>
                                 </div>
                             </div>
@@ -80,8 +81,8 @@
                     </div>
 
                     <div class="span3">
-                        <div class="widget widget-table action-table">
-                            <div class="widget-header"> <i class="fa fa-check"></i>
+                        <div class="widget widget-table action-table text-dark">
+                            <div class="widget-header"> <i class="fa fa-bolt"></i>
                                 <h3>CPU Usage %</h3><i class="fa fa-minus"></i>
                                 <div id="refresh-cpu">
                                 </div>
@@ -90,7 +91,7 @@
                             <div class="widget-content">
                                 <p></p>
                                 <canvas id="cpuuChart" width="270" height="180"></canvas>
-                                <div>
+                                <div style="color: black;">
                                     <span class="cpuf" id="cpuf"></span>
                                     <span class="cpuu" id="cpuu"></span>
                                 </div>
@@ -101,9 +102,9 @@
                     </div>
 
                     <div class="span3">
-                        <div class="widget widget-nopad">
+                        <div class="widget widget-nopad text-dark">
                             <div class="widget-header"> <i class="fa fa-list-alt"></i>
-                                <h3>Memory Usage</h3><i class="fa fa-minus"></i>
+                                <h3>Memory Usage GB</h3><i class="fa fa-minus"></i>
                                 <div id="refresh-ram">
                                 </div>
                             </div>
@@ -111,10 +112,10 @@
                             <div class="widget-content">
                                 <p></p>
                                 <canvas id="memoryChart" width="270" height="180"></canvas>
-                                <div>
+                                <div style="color: black;">
                                     <span class="memf" id="memf"></span>
                                     <span class="memu" id="memu"></span>
-                                    <span class="memp" id="memp"></span>
+                                    <!-- <span class="memp" id="memp"></span> -->
                                 </div>
                             </div>
                             <!-- /widget-content -->
@@ -123,44 +124,18 @@
                     </div>
 
                 </div>
-
-                    <!-- <div class="span3">
-                        <div class="widget">
-                            <div class="widget-header"> <i class="fa fa-angle-up"></i>
-                                <h3>Disk Reads/Writes</h3><i class="fa fa-minus"></i>
-                                <div id="refresh-diskio">
-                                </div>
-                            </div>
-                            <div class="widget-content">
-                                <p></p>
-                                <canvas id="dskChart" width="270" height="200"></canvas>
-                                <div>
-                                    <span class="diskr" id="diskr"></span>
-                                    <span class="diskw" id="diskw"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 
                 <div class="row">
                     <div class="span12">
-                        <div class="widget">
+                        <div class="widget text-dark">
                             <div class="widget-header"> <i class="fa fa-list-alt"></i>
-                                <h3> Processes </h3><i class="fa fa-minus"></i>
+                                <h3> Running processes </h3><i class="fa fa-minus"></i>
                                 <div id="refresh-ps">
                                 </div>
                             </div>
                             <!-- /widget-header -->
                             <div class="widget-content">
                                 <table id="get_proc" class="table table-hover table-condensed table-bordered">
-                                    <!-- <thead>
-                                        <tr>
-                                            <th>PID</th>
-                                            <th>Name</th>
-                                            <th>CPU Percent</th>
-                                        </tr>
-                                    </thead> -->
                                 </table>
                             </div>
                             <!-- /widget-content -->
@@ -183,6 +158,10 @@
             <div class="container">
                 <div class="row">
                     <div class="span6">&copy; 2023 by <a href="https://github.com/saveffer1/OOP-Disquote">OOP Disquote</a> </div>
+                    <div class="span6">65015143 <a href="https://github.com/saveffer1">Wiraphat Prasomphong</a> </div>
+                    <div class="span6">65015077 <a href="https://github.com/API65015077">Thiraphat Suksamosorn</a> </div>
+                    <div class="span6">65015162 <a href="https://github.com/rankspitter">Atiyut Yampean</a> </div>
+                    <div class="span6">65015144 <a href="https://github.com/DreaMxickZ">Veerapod Chuchat</a> </div>
                     <!-- /span12 -->
                 </div>
                 <!-- /row -->
@@ -278,9 +257,9 @@
 
         $(function pageLoad() {
             info();
-
             updateCPUChart();
-            updateMEMChart();        });
+            updateMEMChart();        
+        });
 
 
     </script>

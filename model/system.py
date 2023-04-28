@@ -5,6 +5,7 @@ from . import UserStatus, EmailStr
 from . import User, Admin
 from schema import AdminSchema, UserSchema, LoginSchema
 from . import Server
+from . import Announcement, Message
 
 
 @dataclass
@@ -153,3 +154,26 @@ class ServerSystem():
     
     def get_server_id(self):
         return self.server_id
+
+@dataclass
+class AnnouceSystem():
+    annouce_id: int = 0
+    annouces: list = field(default_factory=list)
+    
+    def add_annoucement(self, title: str, content: str):
+        """ add annouce to annouce_list """
+        annouce = Announcement(self.annouce_id, title, content)
+        self.annouces.append(annouce)
+        self.annouce_id += 1
+
+    def del_annoucement(self, annouce_id: int):
+        """ delete annouce from annouce_list """
+        for annouce in self.annouces:
+            if annouce.id == annouce_id:
+                self.annouces.remove(annouce)
+                return True
+        return False
+    
+    def get_annouce(self):
+        return self.annouces
+    

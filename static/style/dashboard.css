@@ -345,7 +345,7 @@ h6.bigstats {
 }
 
 .main {
-   margin-top:130px;
+   margin-top:0px;
 }
 .dataTables_paginate{ width:100%; text-align:center; margin-top:10px; margin-left:-30px;}
 .dataTables_paginate a{ margin-left:8px;}

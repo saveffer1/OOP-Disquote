@@ -84,26 +84,9 @@ def server(request: Request):
         print("test")
         resp = RedirectResponse(url='/account/login')
         return resp
-
-
-@app.get("/up")
-def main(request: Request):
-    return templates.TemplateResponse("upload.html", {"request": request})
-
-@app.post("/upload")
-def upload(request: Request, file: UploadFile = File(...)):
-    try:
-        contents = file.file.read()
-        with open("uploaded_" + file.filename, "wb") as f:
-            f.write(contents)
-    except Exception:
-        return {"message": "There was an error uploading the file"}
-    finally:
-        file.file.close()
-
-    base64_encoded_image = base64.b64encode(contents).decode("utf-8")
-
-    return templates.TemplateResponse("display.html", {"request": request,  "myImage": base64_encoded_image})
+@app.get("/annoucement", response_class=HTMLResponse)
+def annoucement(request: Request):
+    return templates.TemplateResponse("annouce.html", {"request": request})
 
 @app.get("/image/{file_name}")
 async def get_image(file_name: str):

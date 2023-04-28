@@ -469,16 +469,16 @@ body {
   text-align: left;
   position: fixed;
   bottom: 15px;
-  width: 100%;
+  /* width: 100%; */
   padding-left: 10px;
 }
 
-
+/* ฝันดี เจี๊ยกๆ */
 
 .chat-input{
   background-color: rgb(96, 100, 104);
-  width: 50%;
-  height: 40px;
+  width: 45vw;
+  height: 30px;
   padding-left: 10px;
   padding-right: 10px;
   font-size: 18px;

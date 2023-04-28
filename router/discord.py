@@ -1,9 +1,10 @@
-from model import AccountSystem, ServerSystem
+from model import AccountSystem, ServerSystem, AnnouceSystem
 from schema import UserSchema
 import random
 
 discord_account = AccountSystem()
 discord_server = ServerSystem()
+system_annoucer = AnnouceSystem()
 
 ## this is a mockup section
 test_admin1 = UserSchema(email="admin@mail.com", username="admin", password="1234")
@@ -20,3 +21,5 @@ test_server2 = discord_server.add_server("test_server2", 1, "/static/assets/memb
 pic_choic = ["/static/assets/DiscordDefaultAvatar.jpg", "/static/assets/member.png", "/static/assets/disquote.png"]
 for i in range(15):
     discord_server.add_server(f"test_server{i}", 1, random.choice(pic_choic))
+
+system_annoucer.add_annoucement("test_server1", "test_annoucement1")

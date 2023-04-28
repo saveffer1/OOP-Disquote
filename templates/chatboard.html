@@ -259,16 +259,33 @@
                         let div = document.createElement("div");
                         div.classList.add("server");
                         div.id = data[i].id;
+                        // div.onclick = function () {
+                        //     // window.location = `/channels/${data[i].id}`;
+                        //     $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
+                        //     $(document).ready(function() { $("#chat-board").load("/container-server");})
+                        //     console.log(data[i].name)
+                        //     let nameofserver = document.getElementById("nameofserver");
+                        //     if (nameofserver) {
+                        //         nameofserver.innerHTML = data.name;
+                        //     }
+                        // }
                         div.onclick = function () {
-                            // window.location = `/channels/${data[i].id}`;
                             $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
                             $(document).ready(function() { $("#chat-board").load("/container-server");})
-                            console.log(data[i].name)
-                            let nameofserver = document.getElementById("nameofserver");
-                            if (nameofserver) {
-                                nameofserver.innerHTML = data[i].name;
-                            }
+                            const nameofserver = document.querySelector("#nameofserver"); 
+                            console.log(nameofserver) 
+                            nameofserver.innerHTML = data[i].name;    
                         }
+                        
+                        // div.addEventListener('click', () => {
+                        //     $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
+                        //     $(document).ready(function() { $("#chat-board").load("/container-server");})
+                        //     console.log(data[i].name)
+                        //     const nameofserver = document.querySelector("#nameofserver"); 
+                        //     console.log(nameofserver) 
+                        //     nameofserver.innerHTML = data[i].name;    
+                        // });  
+
                         div.onmouseover = function () {
                             //display server name in popup label on mouse over server
                             let servername = data[i].name;
@@ -296,11 +313,10 @@
                             server.appendChild(div);
                         }
                     }
-                        
                 });
         }
         loop_server();
-
+        
 
         var modal = document.getElementById("createserver");
         var btn = document.getElementById("invite");

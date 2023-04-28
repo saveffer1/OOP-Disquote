@@ -1,0 +1,72 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Announcement</title>
+    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+    <link rel="icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-annouce.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+</head>
+
+<body>
+    <div class="table-title">
+        <h3>Disquote Announcement</h3>
+    </div>
+    <table id="annouce_table">
+        <!-- <thead>
+            <tr>
+                <th class="text-left">Title</th>
+                <th class="text-left">Content</th>
+                <th class="text-left">Date</th>
+            </tr>
+        </thead>
+        <tbody class="table-hover" id="annouce_text">
+        </tbody> -->
+    </table>
+
+    <script src="/static/script/jquery.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+            async function get_annouce_list() {
+                    return fetch(`/admin/get_annouce`, {
+                        method: 'GET',
+                        credentials: 'include'
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => { return responseJson });
+                }
+            async function loop_annouce() {
+                    const data = await get_annouce_list();
+                    console.log(data);
+
+                    let table = $('#annouce_table').DataTable({
+                        data: data,
+                        columns: [
+                            { title: "Title", data: "title" },
+                            { title: "Content", data: "content" },
+                            { title: "Date", data: "date" }
+                        ],
+                        paging: true,
+                        pageLength: 10,
+                        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                        order: [[2, "desc"]],
+                        searching: true,
+                        info: true,
+                        rowCallback: function (row, data) {
+                            $(row).on('click', function () {
+                                console.log('Clicked row:', data);
+                                // TODO: something with the clicked row data, e.g. redirect to a detail page
+                            });
+                        }
+                    });
+
+                    // Add event listener for filter input
+                    // $('#annouce_table_filter input').on('keyup', function () {
+                    //     table.search(this.value).draw();
+                    // });
+                }
+
+            loop_annouce();
+    </script>   
+</body>

@@ -6,7 +6,7 @@ from jose import JWTError
 from model import TokenData, UserStatus, EmailStr
 from schema import UserSchema, LoginSchema, UpdateUserModel
 from fastapi.templating import Jinja2Templates
-from .discord import discord_account, discord_server
+from .discord import discord_account, discord_server, system_annoucer
 import configparser
 config = configparser.ConfigParser()
 config.read('./config.ini')
@@ -107,3 +107,8 @@ async def ram_info():
     memory = adm_dashboard.get_mem()
     ram = memory['percent']
     return {"ram": ram}
+
+@router.get("/get_annouce", status_code=200)
+async def get_annouce():
+    # print(system_annoucer.get_annouce())
+    return system_annoucer.get_annouce()

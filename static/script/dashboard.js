@@ -120,7 +120,7 @@ info = async function () {
         $("#cpuu").text(data.cpu.used);
         $("#memf").text(data.memory.free);
         $("#memu").text(data.memory.usage);
-        $("#memp").text(data.memory.percent);
+        // $("#memp").text(data.memory.percent);
         // create table with get_proc id with data.cpu.all
         var table = $("#get_proc");
         table.dataTable({
