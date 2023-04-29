@@ -331,10 +331,14 @@ h6.bigstats {
 }
 
 .navbar {
-   position:fixed;
-   top:0;
-   z-index:9999999;
-   width:100%;
+	position:fixed;
+    top:0;
+    z-index:9999999;
+    width:100%;
+}
+
+.navbar a {
+	font-size: 16px !important;;
 }
 
 .subnavbar {

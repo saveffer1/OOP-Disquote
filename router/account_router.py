@@ -9,6 +9,10 @@ import base64
 import shutil
 import aiofiles
 import asyncio
+import pathlib
+import imghdr
+import io
+import os
 from .discord import discord_account, discord_server
 import configparser
 config = configparser.ConfigParser()
@@ -22,31 +26,36 @@ router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 @router.post('/register', status_code=201, tags=['user'])
-async def register(request: Request, email: EmailStr = Form(...), username: str = Form(...), password: str = Form(...), image: UploadFile = File(None)):
+async def register(request: Request, email: EmailStr = Form(...), username: str = Form(...), password: str = Form(...), image: UploadFile = File(...)):
     guest = UserSchema(email=email, username=username, password=password)
     if discord_account.add_user(guest):
         if image and image.content_type != 'application/octet-stream':
-            if len(await image.read()) <= 8388608:
-                print("image uploaded", image.content_type)
+            content = await image.read()
+            if len(content) <= 8388608:
                 if image.content_type not in ['image/png', 'image/jpeg', 'image/gif']:
                     return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'Unsupported Media Type', 'detail': ''}, status_code=415)
                 else:
+                    file_name = ""
                     try:
                         file_name = image.filename
-                        contents = image.file.read()
-                        file_location = f"static/{discord_account.get_user_id(email)}_{file_name}"
-                        # async with aiofiles.open(f"static/{file_location}", "wb") as file_object:
+                        file_rename = f"{discord_account.get_user_id(email)}{pathlib.Path(file_name).suffix}"
+                        file_location = f"static/resource/user_avatar/{file_rename}"
+                        print("------------------")
+                        print("Uploaded: ", file_name)
+                        print("Read size: ", len(content), "bytes")
+                        print(f"File size: {image.file.tell()} bytes")
+                        print("------------------")
                         with open(file_location, "wb") as f:
-                            f.write(contents)
+                            f.write(content)
                     except Exception as e:
                         return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'file error', 'detail': f'{e}'}, status_code=500)
                     finally:
-                        discord_account.set_avatar(email, f"static/{file_location}")
-                        image.file.close()
+                        discord_account.set_avatar(email, f"{file_rename}")
+                        # image.file.close()
             else:
                 return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'max size 8MB', 'detail': ''}, status_code=413)
         else:
-            discord_account.set_avatar(email, 'static/assets/DiscordDefaultAvatar.jpg')
+            discord_account.set_avatar(email, 'default')
         return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'success', 'detail': ''}, status_code=201)
     else:
         user = discord_account.get_user_account(email)
@@ -84,7 +93,6 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
     else:
         return templates.TemplateResponse("registry.html", {"request": request, "login_message": "Wrong email or password!"}, status_code=401)
 
-
 @router.get('/logout', status_code=200, tags=['user'])
 async def logout(resp: Response, request: Request):
     #resp.delete_cookie(key="authen")
@@ -109,7 +117,6 @@ async def auth(request: Request):
     else:  # token not exist
         raise HTTPException(status_code=401, detail='Unauthorized 4')
 
-
 @router.get('/me', status_code=200, tags=['user'])
 async def info(request: Request):
     token = request.cookies.get("authen")
@@ -117,3 +124,60 @@ async def info(request: Request):
         email = token_manager.decode_access_token(token)
         user = discord_account.get_user_account(email)
         return user.get_info()
+
+# รายชื่อเพื่อนของเรา
+@router.get('/friends', status_code=200, tags=['user'])
+async def get_friends(request: Request):
+    token = request.cookies.get("authen")
+    if token:
+        email = token_manager.decode_access_token(token)
+        user = discord_account.get_user_account(email)
+        friends = []
+        for friend_id in user.get_friend_list():
+            friend = discord_account.get_user_account_by_id(friend_id)
+            friends.append(friend)
+        return friends
+    
+# รายชื่อคำขอเป็นเพื่อน
+@router.get('/friends_request', status_code=200, tags=['user'])
+async def get_friends_request(request: Request):
+    token = request.cookies.get("authen")
+    if token:
+        email = token_manager.decode_access_token(token)
+        user = discord_account.get_user_account(email)
+        friends = []
+        for friend_id in user.request_list():
+            friend = discord_account.get_user_name_by_id(friend_id)
+            friends.append(friend)
+        return friends
+            
+# ขอเป็นเพื่อน การใช้งาน /account/friends_request/{ไอดีของเพื่อนที่จะขอเป็นเพื่อน}
+@router.post('/friends_request/{friend_id}', status_code=200, tags=['user'])
+async def accept_friend_request(request: Request, friend_id: str):
+    token = request.cookies.get("authen")
+    if token:
+        email = token_manager.decode_access_token(token)
+        user = discord_account.get_user_account(email)
+        request_user = discord_account.get_user_account_by_id(friend_id)
+        request_user.add_request(user.get_info().get('id'))
+        return {"status_code": 200, "detail": "success"}
+    
+# รับเพื่อน การใช้งาน ให้ post id ของคนที่จะรับเป็นเพื่อน กับ boolean ว่าจะรับหรือไม่ true = รับ false = ปฏิเสธ
+@router.post('/friend_prompt', status_code=200, tags=['user'])
+async def friend_prompt(request: Request, friend_id: str, prompt: bool):
+    token = request.cookies.get("authen")
+    if token:
+        email = token_manager.decode_access_token(token)
+        user = discord_account.get_user_account(email)
+        user.request_list(int(friend_id), prompt)
+        return {"status_code": 200, "detail": "success"}
+
+# ลบเพื่อน การใช้งาน ให้ post id ของคนที่จะลบเป็นเพื่อน
+@router.post('/unfriend', status_code=200, tags=['user'])
+async def del_friend(request: Request, friend_id: str):
+    token = request.cookies.get("authen")
+    if token:
+        email = token_manager.decode_access_token(token)
+        user = discord_account.get_user_account(email)
+        user.unfriend(int(friend_id))
+        return {"status_code": 200, "detail": "success"}

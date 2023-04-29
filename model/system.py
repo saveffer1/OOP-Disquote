@@ -115,6 +115,13 @@ class AccountSystem():
                 return user.username
         return None
     
+    def get_user_account_by_id (self, user_id: int) -> User:
+        """ get user account by user id """
+        for user in self.user_account.values():
+            if user.id == user_id:
+                return user
+        return None
+    
     def get_friend_list(self, email: EmailStr) -> dict:
         """ get user friend list """
         friends = dict()
@@ -122,6 +129,8 @@ class AccountSystem():
             friend_name = self.get_username_by_id(friend_id)
             friends[friend_id] = friend_name
         return friends
+    
+    
 
 @dataclass
 class ServerSystem():

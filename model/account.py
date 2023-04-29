@@ -10,7 +10,7 @@ class Account(ABC):
     email: EmailStr
     username: str
     password: bytes
-    avatar: Optional[str] = "https://res.cloudinary.com/dmtnecr2n/image/upload/UserAvatar/DiscordDefaultAvatar.jpg"
+    avatar: Optional[str] = "default"
     tag: Optional[str] = "0000"
 
     @abstractmethod
@@ -38,7 +38,7 @@ class Admin(Account):
 class User(Account):
     status: Optional[UserStatus] = UserStatus.online
     friends: Optional[list] = field(default_factory=list)
-    notifications: Optional[list] = field(default_factory=list)
+    friends_request: Optional[list] = field(default_factory=list)
 
     def login(self):
         print("User login")
@@ -64,6 +64,22 @@ class User(Account):
 
     def get_friend_list(self):
         return self.friends
+
+    def unfriend(self, id: int):
+        self.friends.remove(id)
+    
+    @property
+    def request_list(self):
+        return self.friends_request
+
+    @request_list.setter
+    def request_list(self, id: int, accept: bool):
+        if accept:
+            self.friends.append(id)
+        self.friends_request.remove(id)
+    
+    def add_request(self, id: int):
+        self.friends_request.append(id)
     
     def get_info(self):
         if self.avatar:

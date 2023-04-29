@@ -82,3 +82,101 @@
     <li><a href="#" class="action_btn">Leave</a></li>
 </div>
 
+
+<script>
+        var nameserver=(localStorage.getItem("serverName"));
+        let name = document.getElementById("nameofserver");
+        name.innerHTML = nameserver;  
+</script>
+
+
+
+
+<script>
+    // const roomName = document.getElementById('roomName')
+
+    const toggleBtn = document.querySelector('.navbar')
+    const toggleBtnIcon = document.querySelector('.toggle_btn i')
+    const dropDownMenu = document.querySelector('.dropdown_menu')
+
+    toggleBtn.onclick = function () {
+    dropDownMenu.classList.toggle('open')
+    const isOpen = dropDownMenu.classList.contains('open')
+
+    toggleBtnIcon.classList = isOpen
+    ? 'fa-solid fa-xmark'
+    : 'fa-solid fa-chevron-down'
+    }
+
+
+    const addBtnTxt = document.getElementById('add_btnTxt');
+    const closeBtnTxt = document.getElementById('btn_cancelTxt');
+
+    const addBtnV = document.getElementById('add_btnV');
+    const closeBtnV = document.getElementById('btn_cancelV');
+    const popupTxt = document.getElementById('popupTxt');
+    const todoFormTxt = document.getElementById('todoFormTxt');
+    const todoInputTxt = document.getElementById('todoInputTxt');
+    const todoListTxt = document.getElementById('todoListTxt');
+
+    const popupV = document.getElementById('popupV');
+    const todoFormV = document.getElementById('todoFormV');
+    const todoInputV = document.getElementById('todoInputV');
+    const todoListV = document.getElementById('todoListV');
+
+
+    addBtnTxt.addEventListener('click', () => {
+        popupTxt.style.display ='block';
+    });
+
+    closeBtnTxt.addEventListener('click', () => {
+        popupTxt.style.display = 'none';
+        });
+    
+    addBtnV.addEventListener('click', () => {
+            popupV.style.display ='block';
+        });
+
+    closeBtnV.addEventListener('click', () => {
+            popupV.style.display = 'none';
+            });
+
+    todoFormTxt.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const todoText = todoInputTxt.value;
+     if (todoText) {
+        const todoItem = document.createElement('li');
+        const todoLink = document.createElement('a');
+        const todoIcon = document.createElement('i');
+        todoLink.href =todoText ;
+        todoLink.style.fontFamily = 'Mukta';
+        todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
+        todoIcon.classList.add('fa', 'fa-hashtag');
+        todoItem.appendChild(todoIcon);
+        todoItem.appendChild(todoLink);
+        todoListTxt.appendChild(todoItem);
+        todoInputTxt.value = '';
+        popupTxt.style.display = 'none';
+    }
+    });
+
+    todoFormV.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const todoText = todoInputV.value;
+        if (todoText) {
+            const todoItem = document.createElement('li');
+            const todoLink = document.createElement('a');
+            const todoIcon = document.createElement('i');
+            todoLink.href = todoText;
+            todoLink.style.fontFamily = 'Mukta';
+            todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
+            todoIcon.classList.add('fa', 'fa-volume-high');
+            todoItem.appendChild(todoIcon);
+            todoItem.appendChild(todoLink);
+            todoListV.appendChild(todoItem);
+            todoInputV.value = '';
+            popupV.style.display = 'none';
+        }
+        });
+    
+</script>

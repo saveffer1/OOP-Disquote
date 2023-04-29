@@ -66,9 +66,9 @@
 }
 
 @media screen and (min-width: 40em) {
-	.blog__title {
-		
-	}
+	// .blog__title {
+
+	// }
 	.text-editor {
 		margin-bottom: 5em;
 	}
@@ -89,3 +89,9 @@
 		display: none;
 	}
 }
+
+.scrollbar {
+	scrollbar-color: #888 #f1f1f1;
+	scrollbar-width: thin;
+}
+

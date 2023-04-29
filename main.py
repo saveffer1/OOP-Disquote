@@ -1,11 +1,14 @@
 import uvicorn
 import os
 import glob
+import pathlib
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request, Response, UploadFile, File
-from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse, FileResponse
+from fastapi.responses import (RedirectResponse, HTMLResponse, 
+                               JSONResponse, FileResponse,
+                               StreamingResponse)
 from fastapi.templating import Jinja2Templates
 import base64
 
@@ -88,48 +91,72 @@ def server(request: Request):
 def annoucement(request: Request):
     return templates.TemplateResponse("annouce.html", {"request": request})
 
-@app.get("/image/{file_name}")
-async def get_image(file_name: str):
-    file_path = f"static/assets/{file_name}"
-    return FileResponse(file_path)
+@app.get("/admin", response_class=HTMLResponse)
+def loginpageadm(request: Request):
+    return RedirectResponse(url='/admin/login')
 
-# # test
-@app.get("/container-dm", response_class=HTMLResponse)
-def mainindex(request: Request):
-    return templates.TemplateResponse("container-dm.html", {"request": request})
-# # test
+suffixes_to_media_types = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".gif": "image/gif",
+}
+
+@app.get("/image/user_avartar/{file_name}")
+async def get_image_user(request: Request, file_name: str):
+    file_path = f"static/assets/DiscordDefaultAvatar.jpg"
+    if file_name != 'default':
+        file_path = f"static/resource/user_avatar/{file_name}"
+    suffix = pathlib.Path(file_path).suffix
+    media_type = suffixes_to_media_types.get(suffix, "application/octet-stream")
+    return StreamingResponse(open(file_path, "rb"), media_type=media_type)
+
+@app.get("/image/server_avartar/{file_name}")
+async def get_image_server(request: Request, file_name: str):
+    file_path = f"static/assets/DiscordDefaultAvatar.jpg"
+    if file_name != 'default':
+        file_path = f"static/resource/server_avatar/{file_name}"
+    suffix = pathlib.Path(file_path).suffix
+    media_type = suffixes_to_media_types.get(suffix, "application/octet-stream")
+    return StreamingResponse(open(file_path, "rb"), media_type=media_type)
 
 
-# # test
-@app.get("/chat-dm", response_class=HTMLResponse)
-def mainindex(request: Request):
-    return templates.TemplateResponse("chat-dm.html", {"request": request})
-# # test
 
 
 
-# # test
 @app.get("/chat-guild", response_class=HTMLResponse)
-def mainindex(request: Request):
+def chat_guild(request: Request):
     return templates.TemplateResponse("chat-guild.html", {"request": request})
-# # test
 
-# # test
+
+
 @app.get("/container-server", response_class=HTMLResponse)
-def mainindex(request: Request):
+def container_server(request: Request):
     return templates.TemplateResponse("container-server.html", {"request": request})
-# # test
+
+
+@app.get("/container-dm", response_class=HTMLResponse)
+def container_dm(request: Request):
+    return templates.TemplateResponse("container-dm.html", {"request": request})
+
+
+@app.get("/chat-dm", response_class=HTMLResponse)
+def chat_dm(request: Request):
+    return templates.TemplateResponse("chat-dm.html", {"request": request})
+
+
+
 
 @app.get("/friendslist", response_class=HTMLResponse)
-def mainindex(request: Request):
+def friendslist(request: Request):
     return templates.TemplateResponse("friendslist.html", {"request": request})
-# # test
 
-# # test
+
+
 @app.get("/addfriend", response_class=HTMLResponse)
-def mainindex(request: Request):
+def addfriend(request: Request):
     return templates.TemplateResponse("addfriend.html", {"request": request})
-# # test
+
 
 
 app.include_router(router_server, prefix='/channels')

@@ -1,0 +1,198 @@
+.chat-send {
+    display: grid;
+    grid-template-rows: 1.8fr 0.2fr;
+}
+
+
+
+.chatslide {
+    
+    height: 100%;
+}
+
+
+/* .sendinput {
+    background-color:rgba(0, 0,0, 1);
+    height: 100%;
+}
+
+.sendinput input {
+    background-color:rgb(56,58,64);
+    width: 80%;
+    height: 40px;
+    margin: 15px 10px 10px 10px;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 23px;
+    color: #FFFFFF;
+}
+
+.sendinput button {
+    border-radius: 50px;
+    margin:0px 8px;
+    padding: 6px;
+    pointer-events: none;
+    border: none;
+
+    background-color: rgba(181, 186,193, 1);
+
+    
+    
+    
+    width:40px;
+    height: 40px;
+    pointer-events: none;
+    opacity: 0;
+    cursor: pointer;
+    border:none;
+    
+    color:rgba(143, 143,145, 1);
+    
+    color: #ffffff;
+} */
+
+
+.sendinput{
+    
+    background-color: #ffffff;
+    display:flex;
+    align-items: center;
+    
+    border-radius: 10px;
+    background:rgba(30, 31,34, 1);
+    border:1px solid #000000;
+    margin: 0px 9px 10px 9px;
+    gap:0px;
+    
+}
+
+.sendinput input {
+    
+    
+    
+    width: 100vh;
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    padding: 15px;
+    font-size:20px;
+    color: #ffffff;
+    background:rgba(30, 31,34, 1);
+
+}
+
+.sendinput button {
+    
+    background-color: rgba(30, 31,34, 1);
+
+    border-radius: 25px;
+    margin-right: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px; 
+   
+    width:40px;
+   
+    /* pointer-events: none;
+    opacity: 0; */
+    cursor: pointer;
+    border:none;
+    font-size: 1.1rem;
+    /* color:rgba(143, 143,145, 1); */
+    
+    color:rgba(181, 186,193, 1);
+}
+
+
+.sendinput button i:hover {
+    color: rgba(255, 255,255, 1);
+}
+
+
+/* .panelchat {
+    margin-right: 5px;
+    margin-top: 12px;
+    
+    margin-left: 5px;
+    border-radius: 5px;
+    
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+} */
+.panelchat {
+    margin-right: 5px;
+    margin-top: 12px;
+    margin-left: 5px;
+    border-radius: 5px;
+    height: 75vh;
+    padding: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-y: auto;
+
+}
+.chat-item-main{
+    text-align: center;
+    justify-content: center;
+}
+.chat-item-main h2 {
+    
+    font-size: 30px;
+    color: rgba(242, 243,245, 1);
+}
+
+
+.chat-item-main p {
+   
+    font-size: 12px;
+    
+    color: rgba(181, 186,193, 1);
+}
+
+
+.chat-to-send {
+    display:flex;
+    text-align: left;
+    justify-content: left;
+}
+    
+.content-chat {
+   
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 7px;
+}
+
+.namechat {
+    margin-top: -20px;
+}
+
+.namechat h6 {
+    font-size: 15px;
+}
+
+.namechat p {
+    color:rgba(148, 155,164, 1);
+}
+
+.namechat .name {
+    font-size: 16px;
+    color: rgba(220, 222,225, 1);
+}
+
+.namechat .date {
+    font-size: 12px;
+    color: rgba(148, 155,164, 1);
+}
+
+.conchat {
+    align-items: left;
+    margin-top: -25px;
+    color: #dcdee1;
+}
+
+
+.chat-to-send:hover {
+    background-color: rgba(46, 48,53, 1);
+    border-radius: 5px;
+}

@@ -6,7 +6,7 @@ class AccountSchema(BaseModel):
     email: EmailStr
     username: str
     password: str
-    avatar: Optional[str] = "static/assets/DiscordDefaultAvatar.jpg"
+    avatar: Optional[str] = "default"
 
 class UpdateAccountModel(BaseModel):
     email: Optional[EmailStr]

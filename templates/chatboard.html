@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-profile-status.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-mainfriend.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chat.css') }}">
     
     <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
     <script src="/static/script/jquery.js"></script>
@@ -115,6 +116,10 @@
             </div>
             <div id="user-box" class="userBox">
                 <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" id="avatar" class="userAvatar">
+                <div class="status" id="status">
+                    <div class="round online_status"></div>
+
+                </div>
                 <div class="Username" id="userinfo">
                     <h4 id="username" class="username">Username</h4>
                     <h6 id="discriminator" class="discriminator">#1234</h6>
@@ -185,8 +190,12 @@
 
         </div>
         <div id="chat-board" class="container">
-            <!-- load chat board here -->
+           
+<!-- load chat board here -->
+            
         </div>
+
+        
     </div>
     
 
@@ -203,11 +212,31 @@
             }).then(async function (response) {
                 return response.json();
             }).then(async function (data) {
-                console.log(data);
-                let username = document.getElementById("username");
+                console.log("info",data);
+                var username = document.getElementById("username");
                 username.innerHTML = data.username;
-                let avatar = document.getElementById("avatar");
-                avatar.src = `/${data.avatar}`;
+                localStorage.setItem("username", data.username);
+                //let avatar = document.getElementById("avatar");
+                //avatar.src = `/image/server_avartar/${data.avatar}`;
+                await fetch(`/image/user_avartar/${data.avatar}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                }).then(async function (response) { //TODO: bug not fixed
+                    if (response.ok) {
+                        return response.blob();
+                    } else {
+                        throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+                    }
+                }).then(async function (blob) {
+                    if (blob) {
+                        avatar.src = URL.createObjectURL(blob);
+                    } else {
+                        throw new Error("Failed to convert image to blob");
+                    }
+                }).catch(function (error) {
+                    console.error(error);
+                    // handle error by showing a message to the user or logging it to a server
+                });
                 let discriminator = document.getElementById("discriminator");
                 discriminator.innerHTML = "#" + data.tag;
             })
@@ -261,15 +290,10 @@
                         let div = document.createElement("div");
                         div.classList.add("server");
                         div.id = data[i].id;
-                           //TODO: bug not fixed
                         div.onclick = function () {
-                            // window.location = `/channels/${data[i].id}`;
-                            $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
-                            $(document).ready(function() { $("#chat-board").load("/container-server");})
-                            // // let nameofserver = document.getElementById("nameofserver");
-                            // // console.log(nameofserver);
-                            // // nameofserver.innerHTML= data[i].name;
-                            // $(document).ready(function() {$("#nameofserver").html(data[i].name);})
+                            window.location = `/channels/${data[i].id}`;
+                            var name = data[i].name;
+                            localStorage.setItem("serverName", name);
                         }; 
                         div.onmouseover = function () {
                             //display server name in popup label on mouse over server
@@ -286,7 +310,26 @@
                             //สำหรับ server ที่มีรูป
                             let img = document.createElement("img");
                             img.classList.add("servericon");
-                            img.src = data[i].image;
+                            //img.src = data[i].image;
+                            await fetch(`/image/server_avartar/${data[i].image}`, {
+                                method: 'GET',
+                                credentials: 'include'
+                            }).then(async function (response) { //TODO: bug not fixed
+                                if (response.ok) {
+                                    return response.blob();
+                                } else {
+                                    throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+                                }
+                            }).then(async function (blob) {
+                                if (blob) {
+                                    img.src = URL.createObjectURL(blob);
+                                } else {
+                                    throw new Error("Failed to convert image to blob");
+                                }
+                            }).catch(function (error) {
+                                console.error(error);
+                                // handle error by showing a message to the user or logging it to a server
+                            });
                             div.appendChild(img);
                             server.appendChild(div);
                         }else{
@@ -300,15 +343,11 @@
                     }
                 });
         }
+
         loop_server();
 
-        // TODO:สร้าง innerHTML
-        // var test = document.getElementsByTagName("testserver");
-        // console.log(test);
-        // var nameofserver = document.getElementById("nameofserver");
-        // console.log(nameofserver);
-        // nameofserver.innerHTML= "test";
-        
+
+
         var modal = document.getElementById("createserver");
         var btn = document.getElementById("invite");
         var span = document.getElementsByClassName("close")[0];
@@ -377,116 +416,24 @@
     </script>
     {% endif %}
 
+
+
+
+
     {% if ch %}
-    <!-- <script>
+    <script>
         var server_info = "{{ch}}";
-        // console.log(server_info)
+        console.log(server_info);
         $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
         $(document).ready(function() { $("#chat-board").load("/container-server");})
-    </script> -->
+
+    </script>
+    
     {% endif %}
 
-    <script>
 
 
-        //onoffBTN
-        // document.getElementById('nameofserver').innerHTML = "eiei"
     
-        //DropDown Setting
-        const toggleBtn = document.querySelector('.navbar')
-        const toggleBtnIcon = document.querySelector('.toggle_btn i')
-        const dropDownMenu = document.querySelector('.dropdown_menu')
-    
-        toggleBtn.onclick = function () {
-        dropDownMenu.classList.toggle('open')
-        const isOpen = dropDownMenu.classList.contains('open')
-    
-        toggleBtnIcon.classList = isOpen
-        ? 'fa-solid fa-xmark'
-        : 'fa-solid fa-chevron-down'
-        }
-    
-    
-        const addBtnTxt = document.getElementById('add_btnTxt');
-        const closeBtnTxt = document.getElementById('btn_cancelTxt');
-    
-        const addBtnV = document.getElementById('add_btnV');
-        const closeBtnV = document.getElementById('btn_cancelV');
-        const popupTxt = document.getElementById('popupTxt');
-        const todoFormTxt = document.getElementById('todoFormTxt');
-        const todoInputTxt = document.getElementById('todoInputTxt');
-        const todoListTxt = document.getElementById('todoListTxt');
-    
-        const popupV = document.getElementById('popupV');
-        const todoFormV = document.getElementById('todoFormV');
-        const todoInputV = document.getElementById('todoInputV');
-        const todoListV = document.getElementById('todoListV');
-    
-        //onoff dropdown
-        addBtnTxt.addEventListener('click', () => {
-            popupTxt.style.display ='block';
-        });
-    
-        closeBtnTxt.addEventListener('click', () => {
-            popupTxt.style.display = 'none';
-            });
-        
-        addBtnV.addEventListener('click', () => {
-                popupV.style.display ='block';
-            });
-    
-        closeBtnV.addEventListener('click', () => {
-                popupV.style.display = 'none';
-                });
-    
-        todoFormTxt.addEventListener('submit', (e) => {
-        e.preventDefault();
-    
-        //Create  Channel Text //ต้องไว้นอก Div Channel
-        const todoText = todoInputTxt.value;
-        if (todoText) {
-            const todoItem = document.createElement('li');
-            const todoLink = document.createElement('a');
-            const todoIcon = document.createElement('i');
-            todoLink.href =todoText ;
-            todoLink.style.fontFamily = 'Mukta';
-            todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
-            todoIcon.classList.add('fa', 'fa-hashtag');
-            todoItem.appendChild(todoIcon);
-            todoItem.appendChild(todoLink);
-            todoListTxt.appendChild(todoItem);
-            todoInputTxt.value = '';
-            popupTxt.style.display = 'none';
-        }
-        });
-    
-        //Create  Channel Voice //ต้องไว้นอก Div Channel
-        todoFormV.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const todoText = todoInputV.value;
-             if (todoText) {
-                const todoItem = document.createElement('li');
-                const todoLink = document.createElement('a');
-                const todoIcon = document.createElement('i');
-                todoLink.href = todoText;
-                todoLink.style.fontFamily = 'Mukta';
-                todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
-                todoIcon.classList.add('fa', 'fa-volume-high');
-                todoItem.appendChild(todoIcon);
-                todoItem.appendChild(todoLink);
-                todoListV.appendChild(todoItem);
-                todoInputV.value = '';
-                popupV.style.display = 'none';
-            }
-            });
-        const SpeakButton = document.getElementById("speakerbtn");
-        const MicButton = document.getElementById("micbtn");
-            
-        SpeakButton.addEventListener('click',()=> {
-            SpeakButton.i.classList.remove('fa-solid fa-volume');
-            SpeakButton.i.classList.remove('fa-solid fa-volume-slash');
-        })
-    </script>
     
 </body>
 

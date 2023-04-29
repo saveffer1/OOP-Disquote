@@ -32,8 +32,7 @@
                             <hr>
                         </div>
                         <div class="chat-item" id="todo-chat-send">
-                            <div class="chat-item-content">
-                            <!-- <div class="chat-to-send">
+                            <div class="chat-to-send">
                                 <div class="Profile-Direct" style="width: 60px;" >
                                     <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >    
                                 </div>
@@ -48,51 +47,48 @@
                                     </div>
                                     
                                 </div>
-                            </div> -->
-                        </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                  
+                <form id="sendMessage">
                     <div class="sendinput">
-                        <form id="sendMessage">  
                         <input type="text" placeholder="Enter a Username#0000"  id="sendtextchat"> 
-                    </form>
-                        <button  id='sticker' >
+                        <button    style="font-family:Mukta"    >
                                 <i class="fa-regular fa-face-smile fa-xl"> </i>
                         </button>
-                        <button      >
+                        <button    style="font-family:Mukta"  >
                             <i class="fa-solid fa-note-sticky fa-lg"></i>
                         </button>
                     </div>
-                
+                </form>
     </div>
 
+    <!-- TODO:สถานะของสมาชิกใน Room -->
     <div class="members">
         <div class="box-member">
             <div class="online-member-box">
                 <h4>ONLINE -- x </h4>
                 <div class="online-member">
-                    <button class="Member-room">
-                        <div class="gridProfile">
-                            <div class="Profile-Direct" style="width: 70px;">
-                                <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" > 
-                                <div class="round online" style="width: 10px;
-                                    height: 10px; margin-bottom: 10px;
-                                    margin-right: 10px;
-                                    border :5px solid rgba(43, 45,49, 1);">
-                                </div>
-                            </div>
-                            <div class="txtnamedirect">
-                                <label id="online_name">Member1</label>
-                            </div>
-                        </div> 
-                    </button>
-                    
                         <button class="Member-room">
                             <div class="gridProfile">
                                 <div class="Profile-Direct" style="width: 70px;">
-                                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" > 
+                                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                                    <div class="round online" style="width: 10px;
+                                        height: 10px; margin-bottom: 10px;
+                                        margin-right: 10px; 
+                                        border :5px solid rgba(43, 45,49, 1)">
+                                    </div>    
+                                </div>
+                                    <div class="txtnamedirect">
+                                        <label>Member1</label>
+                                    </div>
+                            </div> 
+                        </button>
+                        <button class="Member-room">
+                            <div class="gridProfile">
+                                <div class="Profile-Direct" style="width: 70px;">
+                                    <!-- <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" > -->
                                     <div class="round online" style="width: 10px;
                                         height: 10px; margin-bottom: 10px;
                                         margin-right: 10px;
@@ -158,16 +154,7 @@
 
 
 
-<script>
-    var targetDiv = document.querySelector('.chat-item-content');
-    targetDiv.scrollTop = targetDiv.scrollHeight;
 
-
-    const btnsticker = document.getElementById('sticker');
-    btnsticker.addEventListener('click', () =>  {
-      
-    })
-</script>
 <script>
 
         const todochatsend = document.getElementById('todo-chat-send');
@@ -180,13 +167,11 @@
             const sendtext = textsend.value;
             // console.log(sendtext);
             if (sendtext) {
-                const todochattosend = document.createElement('div');
-                const todoProfileDirect = document.createElement('div');
-                const todocontentchat = document.createElement('div');
+                const todoItem1 = document.createElement('div');
+                const todoItem2 = document.createElement('div');
+                const todoItem3 = document.createElement('div');
                 const todoimage = document.createElement('img');
-               
-                const todonamechat = document.createElement('div');
-                const todoconchat = document.createElement('div');
+
                 const todoitem31 =document.createElement('div');
                 
 
@@ -194,80 +179,73 @@
                 const todoSpan1 = document.createElement('span');
                 const todoSpan2 = document.createElement('span');
 
-                
-                
+                const todocontentchat =document.createElement('div');
 
-                const todate = new Date();
-                const tododateDate = new Date().toISOString().split('T')[0];
-                
-                
-                todate.getHours() + ":" + todate.getMinutes() 
-                
+                const tododate = new date("2022-03-25");
+                //span1 มีclass name
 
-
-
-                const nameMember = 'Name ';
-
-                todochattosend.classList.add('chat-to-send');
-
-                todoProfileDirect.classList.add('Profile-Direct');
-                todoProfileDirect.style.width='60px';
-
-
-                todoimage.src ="{{ url_for('static', path='/assets/disquote.png') }}";
-
-                todoProfileDirect.appendChild(todoimage);
-
-                //เสร็จของProfileDirect
-
-
-
-                //addclass contentchat
-                todocontentchat.classList.add('content-chat');
-
-                //addclass namechat
-                todonamechat.classList.add('namechat');
-                //addclass conchat
-                todoconchat.classList.add('conchat');
-                //เอาText เข้า         
-                todoconchat.innerHTML=sendtext;
-                //addclass span1
                 todoSpan1.classList.add('name');
-                //เอาtext เข้า
-                todoSpan1.innerHTML=nameMember;
-                //addclass span1
+                todoSpan1.innerHTML ='NameMember';
+
+                //span2 มีclass date
+
                 todoSpan2.classList.add('date');
-                //เอาtext เข้า
-                todoSpan2.innerHTML=tododateDate   + '  ' + todate.getHours() + ":" + todate.getMinutes() ;
+                todoSpan2.innerHTML(tododate);
+
                 todoHeadSix.appendChild(todoSpan1);
                 todoHeadSix.appendChild(todoSpan2);
-                //เอา h6 และ และ div  conchat
-                todonamechat.appendChild(todoHeadSix);
-                todonamechat.appendChild(todoconchat);
-                todocontentchat.appendChild(todonamechat);
-                todochattosend.appendChild(todoProfileDirect);
-                todochattosend.appendChild(todocontentchat);
-                todochatsend.appendChild(todochattosend);
-                textsend.value = '';
-                todochatsend.appendChild();                
+                //span1-2 อยู่ใน H6
                 
+
+                todocontentchat.classList.add('conchat');
+                todocontentchat.innerHTML =sendtext;
+                
+                todoitem31.appendChild(todoHeadSix);
+                todoitem31.appendChild(todocontentchat);
+                // todoItem3.innerHTML=sendtext;
+
+                
+                todoItem1.classList.add('chat-to-send');
+                todoItem2.classList.add('Profile-Direct');
+                todoItem3.classList.add('content-chat');
+
+                todoitem31.classList.add('namechat');
+
+
+                // todoItem2.style.width='60px';
+                todoItem2.style.width ='60px';
+                // todoimage.src ='{{ url_for('static', path='/assets/disquote.png') }}';
+                todoItem2.appendChild(todoimage);
+                todoItem1.appendChild(todoItem2);
+
+
+
+                // todoItem3.innerHTML=sendtext;
+                todoItem1.appendChild(todoItem3);
+
+                
+                // const todoLink = document.createElement('a');
+                // const todoIcon = document.createElement('i');
+                // todoLink.href =todoText ;
+                
+                // todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
+                // todoIcon.classList.add('fa', 'fa-hashtag');
+                // todoItem.appendChild(todoIcon);
+                // todoItem.appendChild(todoLink);
+                // todoListTxt.appendChild(todoItem);
+                // todoInputTxt.value = '';
+                // popupTxt.style.display = 'none';
+                
+                todochatsend.appendChild(todoItem1);                
+                textsend.value = '';
                 
             }
     });
         
 
-</script>
+</script> 
 
+<!-- <div class=""popupmember>
 
-
-
-
-<!-- //TODO: เหลือ loop check ว่ามีคนออนไลน์ไหม ถ้ามีก็ให้เปลี่ยนสี ถ้าไม่มีก็เปลี่ยนสี -->
-<script>
-    let user_online = (localStorage.getItem("username"));
-    let name_box = document.getElementById("online_name");
-    name_box.innerHTML = user_online;;  
-</script>
-
-
-
+</div> -->
+<!-- #d38827 -->

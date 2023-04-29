@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{{ url_for('static', path='/style/style-blog.scss') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/css/uikit.min.css" />
+    
 </head>
 
 <body class="bg-body">
@@ -33,15 +37,6 @@
     <br>
     <div class="container">
         <table class="table good" id="annouce_table" style="margin: auto;">
-            <!-- <thead>
-                <tr>
-                    <th class="text-left">Title</th>
-                    <th class="text-left">Content</th>
-                    <th class="text-left">Date</th>
-                </tr>
-            </thead>
-            <tbody class="table-hover" id="annouce_text">
-            </tbody> -->
         </table>
     </div>
 
@@ -59,9 +54,57 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
+                <div class="toolbar">
+                    <a data-command='justifyLeft' href="#" class="toolbar-btn">
+                        <i class=' fas fa-align-left'></i>
+                    </a>
+                    <a command='justifyCenter' href="#" class="toolbar-btn">
+                        <i class=' fas fa-align-center'></i>
+                    </a>
+                    <a command='indent' href="#" class="toolbar-btn">
+                        <i class=' fas fa-indent'></i>
+                    </a>
+                    <a data-command='bold' href="#" class="toolbar-btn">
+                        <i class=' fas fa-bold'></i>
+                    </a>
+                    <a data-command='italic' href="#" class="toolbar-btn">
+                        <i class=' fas fa-italic'></i>
+                    </a>
+                    <a data-command='underline' href="#" class="toolbar-btn">
+                        <i class=' fas fa-underline'></i>
+                    </a>
+                    <a href="#" class="toolbar-btn" id="toggle-more">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
+                    <a data-command='insertOrderedList' href="#" class="toolbar-btn mobile-closed">
+                        <i class="fas fa-list-ol"></i>
+                    </a>
+                    <a data-command='insertUnorderedList' href="#" class="toolbar-btn mobile-closed">
+                        <i class="fas fa-list-ul"></i>
+                    </a>
+                    <a data-command='createlink' href="#" class="toolbar-btn mobile-closed">
+                        <i class="fas fa-link"></i>
+                    </a>
+                    <a data-command='unlink' href="#" class="toolbar-btn mobile-closed">
+                        <i class="fas fa-unlink"></i>
+                    </a>
+                    <a data-command='h2' href="#" class="toolbar-btn mobile-closed">
+                        H2
+                    </a>
+                    <!-- <a data-command='h3' href="#" class="toolbar-btn mobile-closed">
+                        H3
+                    </a> -->
+                    <a data-command='p' href="#" class="toolbar-btn mobile-closed">
+                        P
+                    </a>
+                    <a id="emoji-btn" data-command='insertEmoji' href="#" class="emote toolbar-btn mobile-closed">
+                        <i class="fas fa-face-smile"></i>
+                    </a>
+                    <img src="{{ url_for('static', path='/assets/discord-logo.png') }}" alt="" id="image" style="display: none;">
+                </div>
               <form class="document" action="">
                   <input name="title" id="title" type="text" class="blog__title" placeholder="Title...">
-                  <div name="content" id="title" class="text-editor" id="editor" contenteditable></div>
+                  <div name="content" id="content" class="text-editor" contenteditable></div>
               </form>
             </div>
             <!-- Modal footer -->
@@ -73,6 +116,21 @@
         </div>
       </div>
 
+    <div class="uk-container uk-container-small uk-section">
+    
+        <div class="uk-margin-large">
+            <textarea name=""
+                class="one uk-textarea uk-margin uk-height-medium">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>
+            <button class="first-btn uk-button uk-button-primary">Start picker</button>
+        </div>
+    
+        <div>
+            <textarea name="" class="two uk-textarea uk-margin"></textarea>
+            <button class="second-btn uk-button uk-button-primary">Start picker</button>
+        </div>
+    
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/static/script/jquery.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -82,6 +140,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/js/uikit-icons.min.js"></script>
+    <script src="/static/script/vanillaEmojiPicker.js"></script>
+    <script>
+        new EmojiPicker({
+                trigger: [
+                    {
+                        selector: '#emoji-btn',
+                        insertInto: '#title'
+                    }
+                ],
+                closeButton: true,
+                //specialButtons: green
+            });
+    </script>
     <script>
         const postbtn = document.getElementById('post');
         postbtn.addEventListener('click', function () {
@@ -89,7 +163,7 @@
             const postbtn = document.getElementById('createpost');
             postbtn.addEventListener('click', function () {
                 let title = document.getElementsByClassName('blog__title')[0].value;
-                let content = document.getElementById('editor').innerHTML;
+                let content = document.getElementById('content').innerHTML;
                 $.ajax({
                     type: 'POST',
                     url: '/admin/create_annouce',
@@ -105,7 +179,7 @@
                                 text: 'Announcement has been created successfully!'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    location.reload();
+                                    window.location.reload();
                                 }
                             });
                         } else {
@@ -122,7 +196,7 @@
 
         const toggle = document.getElementById('toggle-more');
         const btns = document.getElementsByClassName('toolbar-btn');
-        const editor = document.getElementById('editor');
+        const coneditor = document.getElementById('content');
 
         for (let btn of btns) {
             btn.addEventListener('click', (e)=> {
@@ -138,6 +212,9 @@
                 } else {
                     document.execCommand(btn.attributes[0].value, false, null);
                 }
+                // if (cmd == 'insertEmoji') {
+                    
+                // }
             });
         }
 
@@ -148,20 +225,8 @@
                 }
             }
         });
-
-        editor.addEventListener('keydown', (e) => {
-            
-            console.log(e.key);
-            if(e.key === 'Tab') {
-                // e.preventDefault();
-                document.execCommand('indent', false, null);
-            }
-        });
     </script>
     <script>
-            // $(function () {
-            //     $('table.good').attr('width', 500);
-            // });
             async function get_annouce_list() {
                     return fetch(`/admin/get_annouce`, {
                         method: 'GET',
@@ -252,7 +317,7 @@
                                                     icon: "success",
                                                     button: "OK",
                                                 }).then((result) => {
-                                                    location.reload();
+                                                    window.location.reload();
                                                 });
                                             }else {
                                                 Swal.fire({
@@ -273,7 +338,8 @@
                                 modal.modal('toggle');
                                 modal.find('.modal-title').text('Edit Annoucement');
                                 modal.find('#title').val(sel_title);
-                                modal.find('#content').val("ghdjkfsgjkdsfugkh");
+                                // modal.find('#content').val(sel_content);
+                                $('#content').val(sel_content);
 
                                 $('#createpost').on('click', function () {
                                     let title = $('#title').val();
@@ -300,7 +366,7 @@
                                                     icon: "success",
                                                     button: "OK",
                                                 }).then((result) => {
-                                                    location.reload();
+                                                    window.location.reload();
                                                 });
                                             }else {
                                                 Swal.fire({
@@ -317,7 +383,6 @@
                         }
                     });
                     }
-                    
             loop_annouce();
     </script>   
 </body>
