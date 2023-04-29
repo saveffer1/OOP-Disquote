@@ -166,6 +166,15 @@ class AnnouceSystem():
         self.annouces.append(annouce)
         self.annouce_id += 1
 
+    def edit_annoucement(self, annouce_id: int, title: str, content: str):
+        """ edit annouce from annouce_list """
+        for annouce in self.annouces:
+            if annouce.id == annouce_id:
+                annouce.title = title
+                annouce.content = content
+                return True
+        return False
+
     def del_annoucement(self, annouce_id: int):
         """ delete annouce from annouce_list """
         for annouce in self.annouces:

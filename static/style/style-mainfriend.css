@@ -60,13 +60,12 @@
     background-color:rgba(64, 66,73, 0.5);
 }
 
-.gridProfile {
+          .gridProfile {
     display: grid;
     grid-template-columns: 0.2fr 1.4fr;
     gap: 0rem;
     align-items: center;
-   
-}
+} 
 
 .txtnamedirect{
     text-align: left;
@@ -190,4 +189,61 @@ height: 50px;
 
 .btnfriend .round:hover {
   background: rgba(217, 219,222, 1);
+}
+
+
+.box-member {
+  display: block;
+  margin-left: 1px;
+
+} 
+
+
+.box-member h4 {
+  color: rgba(181, 186,193, 1);
+  font-size: 13px;
+}
+
+
+.gridMemberR {
+  display: grid;
+  grid-template-columns: 0.1fr 1.9fr;
+  gap: 0;
+}
+
+.online-member ul {
+  margin: 0;
+}
+
+
+.txtnamemember p {
+  font-size: 17px;
+  
+}
+
+
+
+.Member-room {
+  width: 100%;
+  border-radius: 10px;
+  background-color:rgba(43, 45,49, 1);
+  
+}
+
+
+.Member-room:hover {
+  background-color:rgba(53, 55,60, 1);
+}
+
+
+.popupmember {
+  display: block;
+  background-color: #ffffff;
+  margin: 15% auto;
+  padding: 20px;
+  width: 40vh;
+  text-align: center;
+  border-radius: 7px;
+
+
 }

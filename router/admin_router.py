@@ -112,3 +112,24 @@ async def ram_info():
 async def get_annouce():
     # print(system_annoucer.get_annouce())
     return system_annoucer.get_annouce()
+
+@router.get("/annouce", status_code=200, tags=['admin'])
+async def annouce_page(request: Request):
+    return templates.TemplateResponse("adm-annouce.html", {"request": request})
+
+@router.post("/create_annouce", status_code=200, tags=['admin'])
+async def create_annouce(request: Request, title: str = Form(...), content: str = Form(...)):
+    system_annoucer.add_annoucement(title, content)
+    return "success"
+
+@router.put("/update_annouce/{id}", status_code=200, tags=['admin'])
+async def update_annouce(request: Request, id: str, title: str = Form(...), content: str = Form(...)):
+    #TODO: update annouce
+    #system_annoucer.edit_annoucement(id, title, content)
+    print(id, title, content)
+    return {"status": "success"}
+
+@router.delete("/delete_annouce/{id}", status_code=200, tags=['admin'])
+async def delete_annouce(request: Request, id: int):
+    system_annoucer.del_annoucement(id)
+    return {"status": "success"}

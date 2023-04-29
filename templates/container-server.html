@@ -1,5 +1,6 @@
-<div class="in-container">
 
+<div class="in-container">
+    
     <div class="nav-chat">
         <div class="ch-name">
             <h5># ch_ name</h5>
@@ -23,6 +24,7 @@
         
     </div>
     </div>
+   
     <div class="input-message">
             <input class="chat-input" type="text" placeholder="text" >
             <button class="chat-emoji">emoji</button>
@@ -33,24 +35,106 @@
         
         
     </div>
+  
+    <!-- TODO:สถานะของสมาชิกใน Room -->
     <div class="members">
         <div class="box-member">
             <div class="online-member-box">
-                <h4>online -- </h4>
+                <h4>ONLINE -- x </h4>
                 <div class="online-member">
+                    
+                        
 
+
+                      
+
+                        <button class="Member-room">
+                            <div class="gridProfile">
+                                <div class="Profile-Direct" style="width: 70px;">
+                                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                                    <div class="round online" style="width: 10px;
+                                        height: 10px; margin-bottom: 10px;
+                                        margin-right: 10px; 
+                                        border :5px solid rgba(43, 45,49, 1)"></div>
+                                        
+                                </div>
+                                    <div class="txtnamedirect">
+                                        <label>Member1</label>
+                                    </div>
+                            </div> 
+                        </button>
+
+
+                        <button class="Member-room">
+                            <div class="gridProfile">
+                                <div class="Profile-Direct" style="width: 70px;">
+                                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                                    <div class="round online" style="width: 10px;
+                                        height: 10px; margin-bottom: 10px;
+                                        margin-right: 10px;
+                                        border :5px solid rgba(43, 45,49, 1);"></div>
+                                        
+                                </div>
+                                    <div class="txtnamedirect">
+                                        <label>Member2</label>
+                                    </div>
+                            </div> 
+                        </button>
+                        
+                        
+                        
+                    
                 </div>
                 
             </div>
             
             <div class="offline-member-box">
-                <h4>offline -- </h4>
+                <h4>OFFLINE -- x </h4>
                 <div class="offline-member">
 
+                    <button class="Member-room">
+                        <div class="gridProfile">
+                            <div class="Profile-Direct" style="width: 70px;">
+                                <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                                <div class="round offline-direct" style="width: 10px;
+                                    height: 10px; margin-bottom: 10px;
+                                    margin-right: 10px; 
+                                    border :5px solid rgba(43, 45,49, 1)"></div>
+                                    
+                            </div>
+                                <div class="txtnamedirect">
+                                    <label>Member3</label>
+                                </div>
+                        </div> 
+                    </button>
+
+
+                    <button class="Member-room">
+                        <div class="gridProfile">
+                            <div class="Profile-Direct" style="width: 70px;">
+                                <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                                <div class="round offline-direct" style="width: 10px;
+                                    height: 10px; margin-bottom: 10px;
+                                    margin-right: 10px;
+                                    border :5px solid rgba(43, 45,49, 1);"></div>
+                            </div>
+                                <div class="txtnamedirect">
+                                    <label>Member4</label>
+                                </div>
+                        </div> 
+                    </button>
                 </div>  
             </div>
         </div>
+        
     </div>
+    
 </div>
+
+
+
+</div>
+<div class=""popupmember>
+
 </div>
 <!-- #d38827 -->

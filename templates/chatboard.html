@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-profile-status.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-mainfriend.css') }}">
+    
     <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
     <script src="/static/script/jquery.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -265,7 +266,11 @@
                             // window.location = `/channels/${data[i].id}`;
                             $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
                             $(document).ready(function() { $("#chat-board").load("/container-server");})
-                            }; 
+                            // // let nameofserver = document.getElementById("nameofserver");
+                            // // console.log(nameofserver);
+                            // // nameofserver.innerHTML= data[i].name;
+                            // $(document).ready(function() {$("#nameofserver").html(data[i].name);})
+                        }; 
                         div.onmouseover = function () {
                             //display server name in popup label on mouse over server
                             let servername = data[i].name;
@@ -361,19 +366,6 @@
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
             $(document).ready(function() { $("#chat-board").load("/container-dm");})
         });
-            
-            window.onload = function() {
-                // ดึงข้อมูลจาก Local Storage และสร้าง div ใหม่
-                var serverhub = document.getElementById('server');
-                var myDiv = localStorage.getItem("myDiv");
-                if (myDiv !== null) {
-                var div = document.createElement("div");
-                div.className = "server";
-                div.innerHTML = myDiv;
-                // document.body.appendChild(div);
-                serverhub.appendChild(div);
-                }
-            }
 
     </script>
     {% if svdm %}
@@ -385,7 +377,17 @@
     </script>
     {% endif %}
 
+    {% if ch %}
+    <!-- <script>
+        var server_info = "{{ch}}";
+        // console.log(server_info)
+        $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
+        $(document).ready(function() { $("#chat-board").load("/container-server");})
+    </script> -->
+    {% endif %}
+
     <script>
+
 
         //onoffBTN
         // document.getElementById('nameofserver').innerHTML = "eiei"

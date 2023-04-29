@@ -61,6 +61,7 @@ async def get_server(request: Request, server_id: int):
     server = discord_server.get_server_by_id(server_id)
     channels = server.get_channel_list()
     return {"ch": channels}
+    # return templates.TemplateResponse("chatboard.html", {"request": request, "ch": channels})
 
 @router.post("/create_server", status_code=200, tags=['server'])
 async def create_server(request: Request, image: UploadFile = File(...), name: str = Form(...)):

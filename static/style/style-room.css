@@ -1,0 +1,20 @@
+.round-Memberroom {
+    position: absolute;
+    bottom: 0 ;
+    right: 0;
+    margin-bottom: 20px;
+    margin-right: 24px;
+    width: 13px;
+    height: 13px;
+    align-items:start ;
+    border :5px solid rgba(47, 49,54, 1);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    marker: none;
+  }
+  
