@@ -9,6 +9,7 @@
             <div class="menuDM">
                 <button class="menuDM-btn" id="addfriendload">   <h5>Add Friends</h5>    </button>
             </div>
+            <div class="menuDM">   <h5 id="pendingload" >Pending</h5>   </div>   
         </div>
     </div>
 
@@ -32,5 +33,7 @@
             $(document).ready(function() { $("#friend-list").load("/friendslist");})  
         });
 
-        
+        document.getElementById('pendingload').addEventListener('click' , (e) =>{
+            $(document).ready(function() { $("#friend-list").load("/pending");})  
+        });
 </script>

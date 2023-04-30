@@ -4,8 +4,8 @@
     <p style="font-family:Mukta" >You can add a friend with their Discord Tag.it's cAsE sEnSitlvE!</p>
     <form id="formSendfriend">
     <div class="sendbox">
-    <input type="text" placeholder="Enter a Username#0000"  id="btnSendFriend"> 
-    <button   type="submit" style="font-family:Mukta" id="inputFriendID"  disabled >Send Friend Request</button>
+    <input type="text" placeholder="Enter a Username#0000"  id="inputFriendID"> 
+    <button   style="font-family:Mukta" id="btnSendFriend">Send Friend Request</button>
     </div>
     </form>
 </div>
@@ -14,9 +14,9 @@
 
 
 <script>
-   // const buttonSendFriend = document.getElementById('btnSendFriend');
-   // const inputFriendID = document.getElementById('inputFriendID');
-    
-   
-    
+    //TODO:ต้องแก้ในส่วนของ DM ต้องให้มันเปลี่ยนไป@me และต้องอยู่หน้า dm  ง่วงละฝันดี
+    document.getElementById('btnSendFriend').addEventListener('click', function (e) {
+        console.log("หี")
+    });
+
 </script>

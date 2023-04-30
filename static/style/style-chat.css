@@ -196,3 +196,20 @@
     background-color: rgba(46, 48,53, 1);
     border-radius: 5px;
 }
+
+
+
+.panelchat::-webkit-scrollbar {
+    width: 7px;
+}
+
+.panelchat::-webkit-scrollbar-thumb {
+  background: rgba(26, 27,30, 1);
+  border-radius: 10px;
+}
+
+.panelchat::-webkit-scrollbar-track {
+    background: rgba(43, 45,49, 1);
+  border-radius: 10px;
+}
+

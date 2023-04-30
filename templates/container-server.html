@@ -25,7 +25,7 @@
                     <div class="panelchat">
                         <div class="chat-item-main">
                             
-                            <h2> Welcome to <br>  Server </h2>
+                            <h2> Welcome to <br>   <label id="sever_name"></label> Server  </h2>
                             <p>This is the beginning of this server.</p>
                         </div>
                         <div class="line-4">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <div class="txtnamedirect">
-                                <label id="online_name">Member1</label>
+                                <label id="online_name"></label>
                             </div>
                         </div> 
                     </button>
@@ -167,6 +167,9 @@
     btnsticker.addEventListener('click', () =>  {
       
     })
+
+    
+                
 </script>
 <script>
 
@@ -200,6 +203,7 @@
                 const todate = new Date();
                 const tododateDate = new Date().toISOString().split('T')[0];
                 
+                let namemeM = (localStorage.getItem("username"));
                 
                 todate.getHours() + ":" + todate.getMinutes() 
                 
@@ -234,7 +238,9 @@
                 //addclass span1
                 todoSpan1.classList.add('name');
                 //เอาtext เข้า
-                todoSpan1.innerHTML=nameMember;
+                todoSpan1.innerHTML=namemeM+'  ';
+                
+                //todoSpan1.innerHTML=nameMember;
                 //addclass span1
                 todoSpan2.classList.add('date');
                 //เอาtext เข้า
@@ -249,7 +255,7 @@
                 todochattosend.appendChild(todocontentchat);
                 todochatsend.appendChild(todochattosend);
                 textsend.value = '';
-                todochatsend.appendChild();                
+                //todochatsend.appendChild();                
                 
                 
             }
@@ -267,6 +273,12 @@
     let user_online = (localStorage.getItem("username"));
     let name_box = document.getElementById("online_name");
     name_box.innerHTML = user_online;;  
+
+
+    let ServerN = (localStorage.getItem("serverName"));
+    
+    let servername = document.getElementById("sever_name");
+    servername.innerHTML = ServerN ;;  
 </script>
 
 
