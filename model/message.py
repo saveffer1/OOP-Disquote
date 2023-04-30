@@ -9,6 +9,11 @@ class Announcement:
     content: str
     date: datetime = field(default_factory=datetime.now)
 
+#-------------------------------- class -----------------------------------------------------------
 @dataclass 
 class Message:
-    pass
+    sender_id: int
+    content: str
+    date: datetime = field(default_factory=datetime.now)
+    
+# class DM

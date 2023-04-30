@@ -221,7 +221,7 @@
                 await fetch(`/image/user_avartar/${data.avatar}`, {
                     method: 'GET',
                     credentials: 'include'
-                }).then(async function (response) { //TODO: bug not fixed
+                }).then(async function (response) {
                     if (response.ok) {
                         return response.blob();
                     } else {
@@ -402,6 +402,7 @@
 
         // -----------------------change to dm container-----------------------------------
         document.getElementById('dm').addEventListener('click' , (e) =>{
+            console.log("dm");
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
             $(document).ready(function() { $("#chat-board").load("/container-dm");})
         });
@@ -409,14 +410,16 @@
     </script>
 
     
-    {% if svdm %}
+    <!-- {% if svdm %}
     <script>
         var link = document.getElementById('dm');
-        // var friends = document.getElementById('friendlistload');
-        link.click();
+        // // var friends = document.getElementById('friendlistload');
+        // link.click();
+        // $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
+        // $(document).ready(function() { $("#chat-board").load("/container-dm");})
         // friends.click();
     </script>
-    {% endif %}
+    {% endif %} -->
 
 
 

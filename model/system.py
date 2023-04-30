@@ -129,7 +129,8 @@ class AccountSystem():
             friend_name = self.get_username_by_id(friend_id)
             friends[friend_id] = friend_name
         return friends
-    
+
+#-------------------------------- class -----------------------------------------------------------
     
 
 @dataclass
@@ -163,6 +164,8 @@ class ServerSystem():
     
     def get_server_id(self):
         return self.server_id
+
+#-------------------------------- class -----------------------------------------------------------
 
 @dataclass
 class AnnouceSystem():

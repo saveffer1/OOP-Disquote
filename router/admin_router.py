@@ -122,12 +122,11 @@ async def create_annouce(request: Request, title: str = Form(...), content: str 
     system_annoucer.add_annoucement(title, content)
     return "success"
 
-@router.put("/update_annouce/{id}", status_code=200, tags=['admin'])
-async def update_annouce(request: Request, id: str, title: str = Form(...), content: str = Form(...)):
-    #TODO: update annouce
-    #system_annoucer.edit_annoucement(id, title, content)
-    print(id, title, content)
+@router.put("/update_annouce", status_code=200, tags=['admin'])
+async def update_annouce(request: Request, id: int = Form(...), title: str = Form(...), content: str = Form(...) ):
+    system_annoucer.edit_annoucement(id, title, content)
     return {"status": "success"}
+
 
 @router.delete("/delete_annouce/{id}", status_code=200, tags=['admin'])
 async def delete_annouce(request: Request, id: int):

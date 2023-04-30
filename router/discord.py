@@ -196,3 +196,5 @@ system_annoucer.add_annoucement("test annoucement 2", """Lorem ipsum dolor sit a
                                 class for the thead element of the DataTable. The "bottom"ip option specifies the
                                 positioning of the table information and pagination control elements at the bottom of"""
                                 )
+
+#system_annoucer.edit_annoucement(1, "test annoucement 2", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.")

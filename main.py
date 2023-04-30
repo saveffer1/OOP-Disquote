@@ -158,7 +158,7 @@ def addfriend(request: Request):
     return templates.TemplateResponse("addfriend.html", {"request": request})
 
 @app.get("/pending", response_class=HTMLResponse)
-def addfriend(request: Request):
+def pending(request: Request):
     return templates.TemplateResponse("pending.html", {"request": request})
 
 app.include_router(router_server, prefix='/channels')

@@ -116,21 +116,6 @@
         </div>
       </div>
 
-    <div class="uk-container uk-container-small uk-section">
-    
-        <div class="uk-margin-large">
-            <textarea name=""
-                class="one uk-textarea uk-margin uk-height-medium">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>
-            <button class="first-btn uk-button uk-button-primary">Start picker</button>
-        </div>
-    
-        <div>
-            <textarea name="" class="two uk-textarea uk-margin"></textarea>
-            <button class="second-btn uk-button uk-button-primary">Start picker</button>
-        </div>
-    
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/static/script/jquery.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -160,6 +145,11 @@
         const postbtn = document.getElementById('post');
         postbtn.addEventListener('click', function () {
             // document.getElementById('announcement-section').style.display = 'block';
+            let modal = $('#blogModal');
+            modal.modal('toggle');
+            modal.find('.modal-title').text('Disquote Announcement');
+            modal.find('#title').val('');
+            modal.find('#content').html('');
             const postbtn = document.getElementById('createpost');
             postbtn.addEventListener('click', function () {
                 let title = document.getElementsByClassName('blog__title')[0].value;
@@ -212,9 +202,6 @@
                 } else {
                     document.execCommand(btn.attributes[0].value, false, null);
                 }
-                // if (cmd == 'insertEmoji') {
-                    
-                // }
             });
         }
 
@@ -338,27 +325,28 @@
                                 modal.modal('toggle');
                                 modal.find('.modal-title').text('Edit Annoucement');
                                 modal.find('#title').val(sel_title);
-                                // modal.find('#content').val(sel_content);
-                                $('#content').val(sel_content);
+                                $('#content').html(sel_content);
 
                                 $('#createpost').on('click', function () {
                                     let title = $('#title').val();
-                                    let content = $('#content').val();
+                                    let content = $('#content').html();
 
-                                    fetch(`/admin/update_annouce/${sel_id}`, {
+                                    const params = new URLSearchParams();
+                                    params.append('id', sel_id);
+                                    params.append('title', title);
+                                    params.append('content', content);
+
+                                    fetch(`/admin/update_annouce`, {
                                         method: 'PUT',
                                         credentials: 'include',
                                         headers: {
-                                            'Content-Type': 'application/json'
+                                            'Content-Type': 'application/x-www-form-urlencoded'
                                         },
-                                        body: JSON.stringify({
-                                            id: sel_id,
-                                            title: title,
-                                            content: content
-                                        })
+                                        body: params
                                     })
                                         .then((response) => response.json())
                                         .then((responseJson) => {
+                                            console.log(responseJson);
                                             if(responseJson.status == 'success') {
                                                 Swal.fire({
                                                     title: "Success!",
