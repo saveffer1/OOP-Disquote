@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Response, Request, Form
-from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse, FileResponse
+from fastapi.responses import (HTMLResponse, JSONResponse, FileResponse, StreamingResponse)
+from starlette.responses import RedirectResponse
 from fastapi.encoders import jsonable_encoder
 from model import Report
 from jose import JWTError
 from model import TokenData, UserStatus, EmailStr
-from schema import UserSchema, LoginSchema, UpdateUserModel
 from fastapi.templating import Jinja2Templates
 from .discord import discord_account, discord_server, system_annoucer
 import configparser
@@ -24,40 +24,41 @@ def login(request: Request):
     return templates.TemplateResponse("adm-login.html", {"request": request, "login_message": ""}, status_code=200)
 
 @router.post('/login', status_code=200, tags=['admin'])
-async def login(request: Request, email: EmailStr = Form(...), password: str = Form(...)):
-    admin = LoginSchema(email=email, password=password)
-    print("admin login", admin.email, admin.password)
-    if discord_account.admin_login(admin):
-        # if user.email in system.logged_in_users:
-        #     system.logged_in_users.remove(user.email)
-        #     raise HTTPException(status_code=409, detail='Already logged in on another device or closed the browser without logging out')
+async def login(request: Request, email: EmailStr = Form(None), password: str = Form(None)):
+    if email and password:
+        print("admin login", email, password)
+        if discord_account.admin_login(email, password):
+            # if user.email in system.logged_in_users:
+            #     system.logged_in_users.remove(user.email)
+            #     raise HTTPException(status_code=409, detail='Already logged in on another device or closed the browser without logging out')
 
-        access_token = token_manager.create_access_token(
-            data={"sub": admin.email})
+            access_token = token_manager.create_access_token(
+                data={"sub": email})
 
-        token = jsonable_encoder(access_token)
+            token = jsonable_encoder(access_token)
 
-        # resp = templates.TemplateResponse("chatboard.html", {"request": request, "login_message": "success"}, status_code=200)
-        resp = RedirectResponse(url='/admin/dashboard')
-        resp.set_cookie(
-            "admin_authen",
-            value=f"{token}",
-            samesite="lax",
-            secure=False,
-            httponly=True,
-            max_age=43200,
-        )
+            # resp = templates.TemplateResponse("chatboard.html", {"request": request, "login_message": "success"}, status_code=200)
+            resp = RedirectResponse(url='/admin/dashboard', status_code=308)
+            resp.set_cookie(
+                "admin_authen",
+                value=f"{token}",
+                samesite="lax",
+                secure=False,
+                httponly=True,
+                max_age=43200,
+            )
 
-        # resp = RedirectResponse(url='/server', )
-        # system.logged_in_users.add(user.email)
-        return resp
-    else:
-        return templates.TemplateResponse("adm-login.html", {"request": request, "login_message": "Wrong email or password!"}, status_code=401)
+            # resp = RedirectResponse(url='/server', )
+            # system.logged_in_users.add(user.email)
+            return resp
 
+    return templates.TemplateResponse("adm-login.html", {"request": request, "login_message": "Wrong email or password!"}, status_code=401)
+
+        
 @router.get('/logout', status_code=200, tags=['admin'])
 def logout(request: Request, response: Response):
     response.delete_cookie("admin_authen")
-    return RedirectResponse(url='/admin/login')
+    return RedirectResponse(url='/admin/login', status_code=308)
 
 @router.get('/dashboard', status_code=200, tags=['admin'])
 @router.post('/dashboard', status_code=200, tags=['admin'])

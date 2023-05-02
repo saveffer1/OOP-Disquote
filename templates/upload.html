@@ -1,4 +1,4 @@
-<script type="text/javascript">
+s<script type="text/javascript">
     function previewFile() {
         const preview = document.querySelector('img');
         var file = document.getElementById('fileInput').files[0];
@@ -37,7 +37,24 @@
         var w = window.open("");
         w.document.write(image.outerHTML);
     }
+
+    async function register(){
+        var email = "good@mail.com"
+        var username = "good"
+        var password = "good"
+        var formData = new FormData();
+        formData.append('email', email);
+        formData.append('username', username);
+        formData.append('password', password);
+        fetch('/account/register', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+    }
+    register()
 </script>
+
 <!--<input type="file" id="fileInput" onchange="previewFile()"><br>-->
 <input type="file" id="fileInput"><br>
 <input type="button" value="Upload Image" onclick="uploadFile()">

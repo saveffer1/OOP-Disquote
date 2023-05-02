@@ -4,16 +4,50 @@ from datetime import datetime
 
 @dataclass
 class Announcement:
-    id: int
-    title: str
-    content: str
-    date: datetime = field(default_factory=datetime.now)
+    _id: int
+    _title: str
+    _content: str
+    _date: datetime = field(default_factory=datetime.now)
+    
+    def info(self) -> dict:
+        return {"id": self._id, "title": self._title, "content": self._content, "date": self._date}
+    
+    def id(self) -> int:
+        return self._id
+    
+    @property
+    def title(self) -> str:
+        return self._title
+    
+    @title.setter
+    def title(self, new_title: str) -> None:
+        self._title = new_title
+    
+    @property
+    def content(self) -> str:
+        return self._content
 
-#-------------------------------- class -----------------------------------------------------------
+    @content.setter
+    def content(self, new_content: str) -> None:
+        self._content = new_content
+    
+    def date(self) -> datetime:
+        return self._date
+
+#-------------------------------------------------------------------------------------------
 @dataclass 
 class Message:
-    sender_id: int
-    content: str
-    date: datetime = field(default_factory=datetime.now)
+    _id: int
+    _sender_id: int
+    _content: str
+    _date: datetime = field(default_factory=datetime.now)
     
-# class DM
+    def info(self) -> dict:
+        return {
+            "sender": self._sender_id,
+            "content": self._content,
+            "date": self._date
+        }
+    
+    
+# class D

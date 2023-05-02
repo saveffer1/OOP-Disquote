@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Invitation </title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/assets/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-login.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+
+<body>
+    <div class="box_login">
+        <div class="position">
+            <form class="container_login" id="container_invite">
+                <div class="centering-wrapper">
+                    <div class="section1 text-center">
+                        <div class="primary-header">Your welcome</div>
+                        <div class="secondary-header">We're so excited to see you again!</div>
+                        <div class="input-position"></div>
+
+                            <div class="btn-position">
+                                <button href="#" class="btn" id="accept" style="background-color: rgb(9, 190, 9);">Accept</button>
+                            </div>
+
+                            <div class="btn-position">
+                                <button href="#" class="btn" id="cancel" style="background-color: rgb(227, 18, 18);">Cancel</button>
+                            </div>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<!-- TODO invitation confirmation -->
+{% if invite_code %}
+    <script>
+        const cururl = "{{ invite_code }}";
+        const btnAccept = document.getElementById('accept');
+        const btnCancel = document.getElementById('cancel');
+        btnAccept.addEventListener('click', () => {
+            fetch("/channels/join_server", {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    invite_code: cururl,
+                    confirm: true
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // handle success response
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // handle error
+                });
+        });
+
+        btnCancel.addEventListener('click', () => {
+            fetch("/channels/join_server", {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    invite_code: cururl,
+                    confirm: false
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // handle success response
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // handle error
+                });
+        });
+    </script>
+{% endif %}

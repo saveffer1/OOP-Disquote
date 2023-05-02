@@ -1,0 +1,54 @@
+.container {
+
+}
+
+
+.profile-credit {
+    
+    display: flex;
+    
+    justify-content: center;
+}
+
+.profile {
+    margin-right: 25px;
+    align-items: center;
+}
+
+.line-4 hr {
+    height: 3px;
+    width: 100px;
+    border: 0;
+    background: rgba(53, 55, 60);
+  }
+
+.profile-credit .profile img {
+    width: 180px;
+    height: 180px;
+    border:  4px solid #000000;
+    border-radius: 50%;
+    
+}
+
+
+.name-credit  h2{
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Prompt', sans-serif;
+
+}
+.name-credit  h3{
+    margin-top: 10px;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'Prompt', sans-serif;  
+
+}
+
+.name-credit p {
+    margin-top: 10px;
+    font-size: 10px;
+    text-align: center;
+    font-family: 'Prompt', sans-serif;  
+}

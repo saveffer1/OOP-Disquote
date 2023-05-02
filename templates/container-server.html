@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="chat-send">
+    <div class="chat-send" id='chat-send'>
                 <div class="chatslide">
                     <div class="panelchat">
                         <div class="chat-item-main">
@@ -33,6 +33,7 @@
                         </div>
                         <div class="chat-item" id="todo-chat-send">
                             <div class="chat-item-content">
+
                             <!-- <div class="chat-to-send">
                                 <div class="Profile-Direct" style="width: 60px;" >
                                     <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >    
@@ -49,12 +50,13 @@
                                     
                                 </div>
                             </div> -->
+
                         </div>
                         </div>
                     </div>
                 </div>
                   
-                    <div class="sendinput">
+                    <div class="sendinput" style="height: 60px;;">
                         <form id="sendMessage">  
                         <input type="text" placeholder="Enter a Username#0000"  id="sendtextchat"> 
                     </form>
@@ -155,9 +157,6 @@
     
 </div>
 
-
-
-
 <script>
     var targetDiv = document.querySelector('.chat-item-content');
     targetDiv.scrollTop = targetDiv.scrollHeight;
@@ -257,7 +256,29 @@
                 textsend.value = '';
                 //todochatsend.appendChild();                
                 
-                
+                //#TODO mockup send chat 
+                // var serverid = $(svid)
+                // var sender_id = $(ower_id)
+                // var channel_id = $(ch[j].id)
+                // async function sendChat() {
+                //     const response = await fetch('/msg{channel_id}/sendmsg', {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: JSON.stringify({
+                //             'msg': InputSendMessage,
+                //             'server_id': serverid,
+                //             'sender_id': sender_id,
+                //             'channel_id': 1
+                //         })
+                //     });
+                //     const content = await response.json();
+                //     console.log(content);
+                // }
+
+
+
             }
     });
         

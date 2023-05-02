@@ -251,7 +251,15 @@ margin-bottom: 10px;
 
 .iconx {
     font-size: 2.5rem;
-
-   
-
 }
+
+.linedown {
+  display: flex;
+  width: 100px;
+  height: 10px;
+  color: red;
+  /* border: none; */
+}
+
+
+

@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
-<body ng-controller="testCtrl">
+<ng-controller="testCtrl">
     <noscript>Please enable JavaScript to access this website.</noscript>
     
     <!-- Setting -->
@@ -36,18 +36,17 @@
                 <a style="font-family:Mukta"><b>USER SETTING</b></a>
                     <div class="btn_a">
                         <li><button class="btn_s active"><a href="#">My Account</a></button></li>
-                        <li><button class="btn_s"><a href="#">Profiles</a></button></li>
-                        
+                        <!-- <li><button class="btn_s"><a href="#">Profiles</a></button></li> -->
                     </div>
-                    <div class="line-4">
+                    <!-- <div class="line-4">
                         <hr>
-                    </div>
-                <a style="font-family:Mukta"><b>APP SETTING</b></a>
+                    </div> -->
+                <!-- <a style="font-family:Mukta"><b>APP SETTING</b></a>
                     <div class="btn_a">
                         <li><button class="btn_s "><a href="#">Vocie & Video</a></button></li>
                         
                         
-                    </div>
+                    </div> -->
                 
         
                     <div class="line-4">
@@ -70,12 +69,42 @@
                 <div class="section_content">
                     <div class="MyAccount">
                         <a style="font-family:Mukta" class="content_head"><b>My Account</b></a>
+                        <br>
+                        <br>
+                        <div class ="card-account" style=" width: 100%; height: 350px; border-radius: 10px; ">
+                                <div class="todd" style="background-color: aliceblue; height: 50px;  border-radius: 10px 10px 0px 0px;"></div>
+                                <div class="detail" style="background-color: rgba(30, 31,34, 1); height: 250px;  border-radius: 0px 0px 10px 10px; ">
+                                    <div class="Profile-Flist" style="margin-left:10px; display: flex;">
+                                        <!-- <img src=""  alt="" id="AvatarAccoutDisplay" > -->
+                                        
+                                            <h2 style="text-align: center; justify-content: center; font-size: 20px;" id="NameAccoutDisplay">Named</h2>
+                                    </div>
+                                   
+                                    <div class="in-detail" style="background-color: rgba(43, 45,49, 1); height: 150px;margin-left: 20px; margin-right: 20px;   border-radius: 10px 10px 10px 10px; " >
+                                    
+                                        <li style="margin-left: 10px; " >
+                                            <p style="font-family: Mukta; font-size: 14px; color:rgba(181, 186,193, 1)">USERNAME <br>
+                                            <a style="font-size: 20px; "id="NameAccoutDisplayDetail"></a></p>
+                                        </li>
+                                        <!-- <li style="margin-left: 10px">
+                                            <p style="font-family: Mukta; font-size: 14px; color:rgba(181, 186,193, 1)">EMAIL <br>
+                                                <a style="font-size: 20px; "id="EmailAccoutDisplayDetail"></a></p>
+                                        </li> -->
+                                    </div>
+                                </div>
+
+                        </div>
                     </div>
                     <div class="escbtn">
 
                         <button type="texr" style="font-family:mukta" class="btn_out_esc" id="btn_out_esc" ><a class="iconx" ><i class="fa-solid fa-xmark"></i></a>
                             <br>
-                            ESC</button>
+                            ESC
+                        </button>
+                    </div>
+                    <div class="this_is_myaccount">
+                        <!-- <a class="linedown">--------------</a> -->
+                        
                     </div>
                 </div>
             
@@ -112,7 +141,80 @@
         
         <div class="side-bar">
             <div id="chat-menu" class="nav">
-            <!-- load chat from server or dm -->
+                <!-- guild -->
+                <div id="guild">
+                    <div class="guildSettings">
+                    
+                    </div>
+                    
+                    <div class="guildSettings">
+                        <div class="navguild">
+                            <div class="guild-opener">
+                                <div class="navGuildItems">
+                                    <!-- <h4 class="guildSelectorName">Server Name</h4> -->
+                                    <div class="navbar">
+                                        <div class="logo"> <a id="nameofserver"></a></div>
+                    
+                                        <div class="toggle_btn"> <i class="fa-solid fa-chevron-down"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel">
+                            <div class="textch">
+                                <a>Text Channel</a>
+                                <a href="#" class="add_btn" id="add_btnTxt"><i class="fa-solid fa-plus"></i></a>
+                                <div class="ch_room">
+                                    <ul id="todoListTxt">
+                                        <!-- <li><i class="fa fa-hashtag"></i><a href="#" style="font-family: Mukta;">General</a></li></ul> -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="voicech">
+                                <a>Voice Channel</a>
+                                <a href="#" class="add_btn" id="add_btnV"><i class="fa-solid fa-plus"></i></a>
+                                <div class="voice_room">
+                                    <ul id="todoListVoc">
+                                        <!-- <li><i class="fa fa-hashtag"></i><a href="#" style="font-family: Mukta;">General</a></li></ul> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="popupTxt">
+                            <form id="todoFormTxt">
+                                <div class="popup_add_content" style="width: 360px; height: 320px; padding-left: 20px; padding-top: 10px;">
+                                    <h3 style="font-family:mukta; margin-left: 20x;">Create Channel</h3>
+                                    <h6 style="font-family:mukta; margin-left: 20x;">Text Channel</h6>
+                    
+                                    <h4 style="font-family:mukta">Channel Name</h4><br>
+                                    <input type="text" placeholder="Name Channel" style="font-family:mukta; width: 300px; "id="todoInputTxt">
+                                    <button type="submit" style="font-family:mukta" class="btn_add">Create Channel</button>
+                                    <a href="#" class="btn_cancel" id="btn_cancelTxt" style="font-family:mukta">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="popupV">
+                            <form id="todoFormV">
+                                <div class="popup_add_content" style="width: 360px; height: 320px; padding-left: 20px; padding-top: 10px;">
+                                    <h3 style="font-family:mukta">Create Channel</h3>
+                                    <h6 style="font-family:mukta">Voice Channel</h6>
+                    
+                                    <h4 style="font-family:mukta">Channel Name</h4><br>
+                                    <input type="text" placeholder="Name Channel" style="font-family:mukta" id="todoInputV">
+                                    <button type="submit" style="font-family:mukta" class="btn_add">Create Channel</button>
+                                    <a href="#" class="btn_cancel" id="btn_cancelV" style="font-family:mukta">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="dropdown_menu">
+                        <li><a href="#">Server Setting</a></li>
+                        <li><a href="#" id="copy-invite">invite Link</a></li>
+                        <li><a href="#">Leave Server</a></li>
+                        <li><a href="#" class="action_btn">Leave</a></li>
+                    </div>
+                </div>
+                <!-- guild -->
             </div>
             <div id="user-box" class="userBox">
                 <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" id="avatar" class="userAvatar">
@@ -150,7 +252,7 @@
             <div id="createserver" class="servermodal">
                 <!-- Modal content -->
                 <div class="modal-content">
-                    <span class="close" id="closeCreateServerPopup">&times;</span>
+                    <span class="close" id="closeCreateServer">&times;</span>
                     <h2>Customize your server</h2>
                     <p>Give your new server a personality with a name and an icon. You can always change it later.</p>
                     <form method="post" action="/channels/create_server" enctype="multipart/form-data">
@@ -190,15 +292,177 @@
 
         </div>
         <div id="chat-board" class="container">
-           
-<!-- load chat board here -->
+           <div id="guild-board" >
+                <div class="in-container" style="height: 100%;">
+                
+                    <div class="nav-chat">
+                
+                        <div class="nav-menu">
+                            <div class="icon-menu-chat">
+                                <img src="{{ url_for('static', path='/assets/pin.ico') }}" alt="pin">
+                            </div>
+                            <div class="icon-menu-chat">
+                                <img src="{{ url_for('static', path='/assets/member.png') }}" alt="member">
+                            </div>
+                            <div class="icon-menu-chat">
+                                <h5>member?</h5>
+                            </div>
+                            <div class="search-menu-chat">
+                                <input class="search-chat" type="text" placeholder="Search">
+                                <button class="search-btn"> <img src="{{ url_for('static', path='/assets/search-icon.png') }}"
+                                        alt=""></button>
+                
+                            </div>
+                
+                
+                        </div>
+                    </div>
+                
+                    <div class="chat-send" id='chat-send'>
+                        <div class="chatslide" id="loadfetchsend">
+                            <div class="panelchat">
+                                <div class="chat-item-main">
+                
+                                    <h2> Welcome to <br> <label id="sever_name_show"></label> Server </h2>
+                                    <p>This is the beginning of this server.</p>
+                                </div>
+                                <div class="line-4">
+                                    <hr>
+                                </div>
+                                <div class="chat-item" id="todo-chat-send">
+                                    <div class="chat-item-content">
+                
+                                        <!-- <div class="chat-to-send">
+                                                <div class="Profile-Direct" style="width: 60px;" >
+                                                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >    
+                                                </div>
+                                                <div class="content-chat">
+                                                    <div class="namechat">
+                                                        <h6><span class="name">Name</span>
+                                                            <span class ="date">09/76/333 17:09 PM</span>
+                                                        </h6>
+                                                        <div class="conchat">
+                                                            dfghjkl
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div> -->
+                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div id="text-send" class="sendinput" style="height: 60px;;">
+                            <form id="sendMessage" style="
+                            width: 100%;">
+                                <input type="text" placeholder="Enter a Username#0000" id="sendtextchat">
+                            </form>
+                            <button id='sticker'>
+                                <i class="fa-regular fa-face-smile fa-xl"> </i>
+                            </button>
+                            <button>
+                                <i class="fa-solid fa-note-sticky fa-lg"></i>
+                            </button>
+                        </div>
+                
+                    </div>
+                
+                    <div class="members">
+                        <div class="box-member">
+                            <div class="online-member-box">
+                                <h4>ONLINE -- x </h4>
+                                <div class="online-member">
+                                    <button class="Member-room">
+                                        <div class="gridProfile">
+                                            <div class="Profile-Direct" style="width: 70px;">
+                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
+                                                <div class="round online" style="width: 10px;
+                                                    height: 10px; margin-bottom: 10px;
+                                                    margin-right: 10px;
+                                                    border :5px solid rgba(43, 45,49, 1);">
+                                                </div>
+                                            </div>
+                                            <div class="txtnamedirect">
+                                                <label id="online_name"></label>
+                                            </div>
+                                        </div>
+                                    </button>
+                
+                                    <button class="Member-room">
+                                        <div class="gridProfile">
+                                            <div class="Profile-Direct" style="width: 70px;">
+                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
+                                                <div class="round online" style="width: 10px;
+                                                        height: 10px; margin-bottom: 10px;
+                                                        margin-right: 10px;
+                                                        border :5px solid rgba(43, 45,49, 1);">
+                                                </div>
+                                            </div>
+                                            <div class="txtnamedirect">
+                                                <label>Member2</label>
+                                            </div>
+                                        </div>
+                                    </button>
+                
+                
+                
+                
+                                </div>
+                
+                            </div>
+                
+                            <div class="offline-member-box">
+                                <h4>OFFLINE -- x </h4>
+                                <div class="offline-member">
+                
+                                    <button class="Member-room">
+                                        <div class="gridProfile">
+                                            <div class="Profile-Direct" style="width: 70px;">
+                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
+                                                <div class="round offline-direct" style="width: 10px;
+                                                    height: 10px; margin-bottom: 10px;
+                                                    margin-right: 10px; 
+                                                    border :5px solid rgba(43, 45,49, 1)"></div>
+                
+                                            </div>
+                                            <div class="txtnamedirect">
+                                                <label>Member3</label>
+                                            </div>
+                                        </div>
+                                    </button>
+                
+                
+                                    <button class="Member-room">
+                                        <div class="gridProfile">
+                                            <div class="Profile-Direct" style="width: 70px;">
+                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
+                                                <div class="round offline-direct" style="width: 10px;
+                                                    height: 10px; margin-bottom: 10px;
+                                                    margin-right: 10px;
+                                                    border :5px solid rgba(43, 45,49, 1);"></div>
+                                            </div>
+                                            <div class="txtnamedirect">
+                                                <label>Member4</label>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                
+                </div>
+            </div>
             
         </div>
 
         
     </div>
     
-
+    <!-- get user info -->
     <!-- user-box section -->
     <script src="/static/script/user-box.js" defer></script>
     <script>
@@ -216,6 +480,9 @@
                 var username = document.getElementById("username");
                 username.innerHTML = data.username;
                 localStorage.setItem("username", data.username);
+                localStorage.setItem("id-user", data.tag);
+                // localStorage.setItem("AvatarU" ,data.avatar);
+                
                 //let avatar = document.getElementById("avatar");
                 //avatar.src = `/image/server_avartar/${data.avatar}`;
                 await fetch(`/image/user_avartar/${data.avatar}`, {
@@ -264,14 +531,17 @@
 
     </script>
 
-    <script>
+
+    <!-- TODO: get server list && create server -->
+        <script>
         async function get_server_list() {
             return fetch(`/channels/getlist`, { // ลองเข้า url นี้
                 method: 'GET',
                 credentials: 'include'
             })
                 .then((response) => response.json())
-                .then((responseJson) => { return responseJson });
+                .then((responseJson) => { return responseJson })
+                // .then((response) => {console.log(response)});
         }
         async function loop_server() {
             // Get the server list data
@@ -280,6 +550,7 @@
                     console.log(data);
                     // ลบ server ทั้งหมดที่มีอยู่ในหน้าเว็บออกก่อน
                     let server = document.getElementById("server");
+                    server.style.display = 'none';
                     while (server.firstChild) {
                         server.removeChild(server.firstChild);
                     }
@@ -287,20 +558,24 @@
                 
                     for (let i = 0; i < data.length; i++) {
                         let server = document.getElementById("server");
-                        let div = document.createElement("div");
-                        div.classList.add("server");
-                        div.id = data[i].id;
-                        div.onclick = function () {
+                        let ddiv = document.createElement("div");
+                        ddiv.classList.add("server");
+                        ddiv.id = data[i].id;
+                        // const ch = data[i];
+                        // console.log(ch);
+                        ddiv.onclick = function () {
                             window.location = `/channels/${data[i].id}`;
-                            var name = data[i].name;
-                            localStorage.setItem("serverName", name);
+                            localStorage.setItem("serverID", data[i].id);
+                            localStorage.setItem("serverName", data[i].name);
+                            localStorage.setItem("invitation", data[i].invite_code);
+                            var $sid = data[i].owner;
                         }; 
-                        div.onmouseover = function () {
+                        ddiv.onmouseover = function () {
                             //display server name in popup label on mouse over server
                             let servername = data[i].name;
-                            div.title = servername;
+                            ddiv.title = servername;
                         };
-                        div.addEventListener("mouseout", function () {
+                        ddiv.addEventListener("mouseout", function () {
                             let popup = document.querySelector(".serverpopup");
                             if (popup) {
                                 popup.remove();
@@ -314,7 +589,7 @@
                             await fetch(`/image/server_avartar/${data[i].image}`, {
                                 method: 'GET',
                                 credentials: 'include'
-                            }).then(async function (response) { //TODO: bug not fixed
+                            }).then(async function (response) {
                                 if (response.ok) {
                                     return response.blob();
                                 } else {
@@ -330,17 +605,20 @@
                                 console.error(error);
                                 // handle error by showing a message to the user or logging it to a server
                             });
-                            div.appendChild(img);
-                            server.appendChild(div);
+                            ddiv.appendChild(img);
+                            server.appendChild(ddiv);
                         }else{
                             //สำหรับ server ที่ไม่มีรูป
-                            let p = document.createElement("p");
-                            p.classList.add("servericon");
-                            p.innerHTML = data[i].name;
-                            div.appendChild(p);
-                            server.appendChild(div);
+                            let pp = document.createElement("p");
+                            pp.classList.add("servericon");
+                            let words = data[i].name.split(' ');
+                            let name = words[0].slice(0, 2).toUpperCase();
+                            pp.innerHTML = name;
+                            ddiv.appendChild(pp);
+                            server.appendChild(ddiv);
                         }
                     }
+                    server.style.display = 'block';
                 });
         }
 
@@ -368,6 +646,7 @@
 
     </script>
 
+    <!-- TODO: button setting -->
     <script>
         //script ของ setting  div
         const settingprogram = document.getElementById('settingsToggle');
@@ -400,46 +679,579 @@
             window.location.href = "/account/logout";
         });
 
-        // -----------------------change to dm container-----------------------------------
+         // -----------------------change to dm container-----------------------------------
         document.getElementById('dm').addEventListener('click' , (e) =>{
-            console.log("dm");
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
             $(document).ready(function() { $("#chat-board").load("/container-dm");})
         });
 
     </script>
 
-    
-    <!-- {% if svdm %}
+    {% if svdm %}
     <script>
         var link = document.getElementById('dm');
-        // // var friends = document.getElementById('friendlistload');
-        // link.click();
-        // $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
-        // $(document).ready(function() { $("#chat-board").load("/container-dm");})
+         // var friends = document.getElementById('friendlistload');
+        link.click();
         // friends.click();
     </script>
-    {% endif %} -->
+    {% endif %} 
 
-
-
-
-
+    <!-- TODO: getchannel && create channel -->
     {% if ch %}
     <script>
-        var server_info = "{{ch}}";
-        console.log(server_info);
-        $(document).ready(function() { $("#chat-menu").load("/chat-guild");})  
-        $(document).ready(function() { $("#chat-board").load("/container-server");})
+        // $(document).ready(function () { $("#chat-menu").load("/chat-guild"); })
+        // $(document).ready(function () { $("#chat-board").load("/container-server"); })
+
+        // $(document).ready(function () {
+                 // $("#chat-menu").load("/chat-guild");
+        //         $("#chat-board").load("/container-server");
+        // })
+
+        const currentUrl = window.location.href;
+        const svid = currentUrl.split("/").pop(); 
+        async function get_ch_list() { 
+                return fetch(`/channels/${svid}/get_ch_list`, { // ลองเข้า url นี้
+                    method: 'GET',
+                    credentials: 'include'
+                })
+                    .then((response) => response.json())
+                    .then((responseJson) => { return responseJson });
+            }
+
+            async function loop_channels() {
+                await get_ch_list().then(async (ch) => {
+                    console.log("chanel",ch);/////ch data
+
+                    let guildTch = document.getElementById('todoListTxt');
+                    let guildVch = document.getElementById('todoListVoc');
+                    let displaychat = document.getElementById('chat-send');
+
+                    for (j = 0; j < ch.length; j++) {
+
+                        let guildli = document.createElement('li');
+                        let guilda = document.createElement('a');
+                        let guildi = document.createElement('i');
+
+                        guilda.id = ch[j].id;
+                        guilda.innerHTML = ch[j].name;
+                        
+                        guildli.appendChild(guildi);
+                        guildli.appendChild(guilda);
+
+                        if (ch[j].type == 'text') {
+                            guildi.classList.add('fa', 'fa-hashtag');
+                            guilda.classList.add('textchat');
+                            guildTch.append(guildli);
+                        } else if (ch[j].type == 'voice') {
+                            guildi.classList.add('fa', 'fa-volume-up');
+                            guilda.classList.add('voicechat');
+                            guildVch.append(guildli);
+                        }
+                        // console.log("ch: ", ch[j].messages[0]);
+
+                        let chat = document.getElementById(`${ch[j].id}`);
+                        chat.onclick = function () {
+                            console.log("ch: ", this.id, "type:", this.classList[0]);
+                            if (this.classList[0] == 'textchat') {
+                                localStorage.setItem("channel_id", this.id);
+                                //$(document).ready(function() { $("#chat-board").load(`/container-server`);})
+                                // console.log(ch[chat].messages.content)
+                                displaychat.style.display = 'grid';
+                            } else if (this.classList[0] == 'voicechat') {
+                                // $(document).ready(function() { $("#chat-board").load(`/container-server`);})
+                                displaychat.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }
+            
+
+            loop_channels();
+            
+        // const roomName = document.getElementById('roomName')
 
     </script>
-    
     {% endif %}
 
+    <!-- TODO: setting btn -->
+    <script>
+        var id_user = (localStorage.getItem("id-user"));
+            var email_detail = (localStorage.getItem("email"));
+            var Avatar_detail = (localStorage.getItem("AvatarU"));
+
+            var nameserver = (localStorage.getItem("serverName"));
+            var usernameD = (localStorage.getItem("username"));
+            let name_server = document.getElementById("nameofserver");
+            let SettingAccout = document.getElementById("NameAccoutDisplay");
+
+            let SettingAccoutDetail = document.getElementById("NameAccoutDisplayDetail");
+            let SettingAccoutDetailEmail = document.getElementById("EmailAccoutDisplayDetail");
 
 
+            name_server.innerHTML = nameserver;
+            SettingAccout.innerHTML = usernameD + '#' + id_user;
+            SettingAccoutDetail.innerHTML = usernameD + '#' + id_user;
+            // AvatarAccout.src=Avatar_detail;
+
+
+            const clickA = document.getElementById('NameAccoutDisplay');
+            clickA.addEventListener('click', () => {
+                navigator.clipboard.writeText(usernameD + '#' + id_user);
+                console.log('copied');
+                alert('Username Copied');
+            })
+    </script>
+
+    <!-- TODO:  dropdown sidebar menu-->
+    <script>
+    
+        // const roomName = document.getElementById('roomName')
+    
+        const toggleBtn = document.querySelector('.navbar')
+        const toggleBtnIcon = document.querySelector('.toggle_btn i')
+        const dropDownMenu = document.querySelector('.dropdown_menu')
+    
+        toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+    
+        toggleBtnIcon.classList = isOpen
+        ? 'fa-solid fa-xmark'
+        : 'fa-solid fa-chevron-down'
+        }
     
     
+        const addBtnTxt = document.getElementById('add_btnTxt');
+        const closeBtnTxt = document.getElementById('btn_cancelTxt');
+    
+        const addBtnV = document.getElementById('add_btnV');
+        const closeBtnV = document.getElementById('btn_cancelV');
+        const popupTxt = document.getElementById('popupTxt');
+        const todoFormTxt = document.getElementById('todoFormTxt');
+        const todoInputTxt = document.getElementById('todoInputTxt');
+        const todoListTxt = document.getElementById('todoListTxt');
+    
+        const popupV = document.getElementById('popupV');
+        const todoFormV = document.getElementById('todoFormV');
+        const todoInputV = document.getElementById('todoInputV');
+        const todoListV = document.getElementById('todoListV');
+    
+    
+        
+    
+        addBtnTxt.addEventListener('click', () => {
+            popupTxt.style.display ='block';
+        });
+    
+        closeBtnTxt.addEventListener('click', () => {
+            popupTxt.style.display = 'none';
+            });
+        
+        addBtnV.addEventListener('click', () => {
+                popupV.style.display ='block';
+            });
+    
+        closeBtnV.addEventListener('click', () => {
+                popupV.style.display = 'none';
+                });
+                //Send Msg
+
+        todoFormTxt.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const todoText = todoInputTxt.value;
+
+               
+                    if (!todoText) {
+                        addBtnTxt.disabled=true;
+                        alert("ค่าว่าง"); 
+                }
+                // const todoItem = document.createElement('li');
+                // const todoLink = document.createElement('a');
+                // const todoIcon = document.createElement('i');
+                // todoLink.href = todoText;
+                // todoLink.style.fontFamily = 'Mukta';
+                // todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
+                // todoIcon.classList.add('fa', 'fa-volume-high');
+                // todoItem.appendChild(todoIcon);
+                // todoItem.appendChild(todoLink);
+                // todoListV.appendChild(todoItem);
+                // todoInputV.value = '';
+
+                // let Servid = parseInt(svid);
+                else  {
+                    const regex = /^[a-zA-Z0-9\s]+$/;
+                    if (!regex.test(todoText)) {
+                        event.target.value = todoText.slice(0, -1);
+                        alert("ห้ามใช้อักษระพิเศษ"); 
+                        
+                    }
+                else {
+                let type1 ='text'
+                
+                let Servid = parseInt(svid);
+                async function CreateCh(url = `/channels/${Servid}/create_channel`, data = {
+                    ch_name: todoText,
+                    ch_type: type1,
+                    ch_category: 'Cat'
+                    }) {
+                    try {
+                        const response = await fetch(url, {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        redirect: 'follow',
+                        referrerPolicy: 'no-referrer',
+                        body: JSON.stringify(data)
+                        }).then(response => response.json())
+                        .then(data => {
+                            if (data.detail == 'success') {
+                                window.location.href = `/channels/${Servid}`;
+                            } else {
+                                console.log('Channel not created');
+                            }
+                        })
+                    } catch (error) {
+                        console.error(error);
+                    }
+                    }
+
+                    CreateCh();
+                    
+                    
+
+                console.log(todoText);
+                todoInputV.value = '';
+                popupTxt.style.display = 'none';
+                
+                
+        }}});
+    
+        todoFormV.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const todoText = todoInputV.value;
+            if (todoText) {
+                let type2 ='voice'
+                let Servid = parseInt(svid);
+                async function CreateCh(url = `/channels/${Servid}/create_channel`, data = {
+                    ch_name: todoText,
+                    ch_type: type2,
+                    ch_category: 'Cat'
+                    }) {
+                    try {
+                        const response = await fetch(url, {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        redirect: 'follow',
+                        referrerPolicy: 'no-referrer',
+                        body: JSON.stringify(data)
+                        }).then(response => response.json())
+                            .then(data => {
+                                if (data.detail == 'success') {
+                                    window.location.href = `/channels/${Servid}`;
+                                } else {
+                                    console.log('Channel not created');
+                                }
+                            })
+                    } catch (error) {
+                        console.error(error);
+                    }
+                    }
+
+                    CreateCh();
+                    
+                console.log(todoText);
+                
+                todoInputV.value = '';
+                popupTxt.style.display = 'none';
+                todoInputV.value = '';
+                popupV.style.display = 'none';
+                
+            }
+            
+            });
+            
+    
+    
+    </script>
+
+    
+    <!-- TODO:สร้างการส่งข้อความ -->
+    <script>
+
+        const todochatsend = document.getElementById('todo-chat-send');
+        const InputSendMessage = document.getElementById('sendMessage');
+
+        const textsend = document.getElementById('sendtextchat');
+
+        InputSendMessage.addEventListener('submit', (e) => {
+            e.preventDefault();
+            var sendtext = textsend.value;
+            if (sendtext) {
+                // const todochattosend = document.createElement('div');
+                // const todoProfileDirect = document.createElement('div');
+                // const todocontentchat = document.createElement('div');
+                // const todoimage = document.createElement('img');
+               
+                // const todonamechat = document.createElement('div');
+                // const todoconchat = document.createElement('div');
+                // const todoitem31 =document.createElement('div');
+                
+
+                // const todoHeadSix = document.createElement('h6');
+                // const todoSpan1 = document.createElement('span');
+                // const todoSpan2 = document.createElement('span');
+
+
+                // const todate = new Date();
+                // const tododateDate = new Date().toISOString().split('T')[0];
+                
+                // let namemeM = (localStorage.getItem("username"));
+                
+                // todate.getHours() + ":" + todate.getMinutes() 
+                
+
+                // const nameMember = 'Name ';
+
+                // todochattosend.classList.add('chat-to-send');
+
+                // todoProfileDirect.classList.add('Profile-Direct');
+                // todoProfileDirect.style.width='60px';
+
+
+                // todoimage.src ="{{ url_for('static', path='/assets/disquote.png') }}";
+
+                // todoProfileDirect.appendChild(todoimage);
+
+                // //เสร็จของProfileDirect
+
+
+
+                // //addclass contentchat
+                // todocontentchat.classList.add('content-chat');
+
+                // //addclass namechat
+                // todonamechat.classList.add('namechat');
+                // //addclass conchat
+                // todoconchat.classList.add('conchat');
+                // //เอาText เข้า         
+                // todoconchat.innerHTML=sendtext;
+                // //addclass span1
+                // todoSpan1.classList.add('name');
+                // //เอาtext เข้า
+                // todoSpan1.innerHTML=namemeM+'  ';
+                
+                // //todoSpan1.innerHTML=nameMember;
+                // //addclass span1
+                // todoSpan2.classList.add('date');
+                // //เอาtext เข้า
+                // todoSpan2.innerHTML=tododateDate   + '  ' + todate.getHours() + ":" + todate.getMinutes() ;
+                // todoHeadSix.appendChild(todoSpan1);
+                // todoHeadSix.appendChild(todoSpan2);
+                // //เอา h6 และ และ div  conchat
+                // todonamechat.appendChild(todoHeadSix);
+                // todonamechat.appendChild(todoconchat);
+                // todocontentchat.appendChild(todonamechat);
+                // todochattosend.appendChild(todoProfileDirect);
+                // todochattosend.appendChild(todocontentchat);
+                // todochatsend.appendChild(todochattosend);
+                // textsend.value = '';
+
+                //SendMsg
+                let chanel_id = localStorage.getItem("channel_id");
+                let j = parseInt(chanel_id);
+                let k = parseInt(svid);
+
+                async function postData(url = `/msg/${j}/sendmsg`, data = { 
+                    chanel_id: j ,
+                    server_id: k,
+                    msg: sendtext
+                }) {
+                        const response = await fetch(url, {
+                            method: "POST", 
+                            cache: "no-cache",
+                            credentials: "include", 
+                            headers: {
+                            "Content-Type": "application/json",
+                            },
+                            redirect: "follow", 
+                            body: JSON.stringify(data),
+                        });
+                        return response.json(); 
+                        console.log('Success');
+                        } 
+                postData();
+                $('#loadfetchsend').load;
+               
+
+            }
+    });
+        
+
+</script>
+
+<!-- Fetch Message -->
+
+<script>
+    
+    async function fetchsend() {
+    // const channel_id = localStorage.getItem("channel_id");
+    // const server_id = localStorage.getItem("serverID");
+    let sRid = svid;
+    let cRid =  localStorage.getItem("channel_id");
+
+    const url = `/msg/${sRid}/${cRid}/getlist`;
+
+    const response = await fetch(url, {
+        method: "GET", 
+        cache: "no-cache",
+        credentials: "include", 
+        headers: {
+        "Content-Type": "application/json",
+        },
+        redirect: "follow"
+    });
+    const data = await response.json();
+    for (j = 0; j < data.length; j++) {
+        // guilda.id = ch[j].id;
+       let senderby = data[j].sender;
+       let contentby = data[j].content;
+       let dateby = data[j].date;
+        
+
+        const todochattosend = document.createElement('div');
+                const todoProfileDirect = document.createElement('div');
+                const todocontentchat = document.createElement('div');
+                const todoimage = document.createElement('img');
+               
+                const todonamechat = document.createElement('div');
+                const todoconchat = document.createElement('div');
+                const todoitem31 =document.createElement('div');
+                
+
+                const todoHeadSix = document.createElement('h6');
+                const todoSpan1 = document.createElement('span');
+                const todoSpan2 = document.createElement('span');
+
+
+                const todate = new Date();
+                const tododateDate = new Date().toISOString().split('T')[0];
+                
+                let namemeM = (localStorage.getItem("username"));
+                
+                todate.getHours() + ":" + todate.getMinutes() 
+                
+
+                const nameMember = 'Name ';
+
+                todochattosend.classList.add('chat-to-send');
+
+                todoProfileDirect.classList.add('Profile-Direct');
+                todoProfileDirect.style.width='60px';
+
+
+                todoimage.src ="{{ url_for('static', path='/assets/disquote.png') }}";
+
+                todoProfileDirect.appendChild(todoimage);
+
+                //เสร็จของProfileDirect
+
+
+
+                //addclass contentchat
+                todocontentchat.classList.add('content-chat');
+
+                //addclass namechat
+                todonamechat.classList.add('namechat');
+                //addclass conchat
+                todoconchat.classList.add('conchat');
+                //เอาText เข้า         
+                todoconchat.innerHTML=contentby;
+                //addclass span1
+                todoSpan1.classList.add('name');
+                //เอาtext เข้า
+                todoSpan1.innerHTML=senderby;
+                
+                //todoSpan1.innerHTML=nameMember;
+                //addclass span1
+                todoSpan2.classList.add('date');
+                //เอาtext เข้า
+                // todoSpan2.innerHTML=tododateDate   + '  ' + todate.getHours() + ":" + todate.getMinutes() ;
+                 todoSpan2.innerHTML=dateby
+                todoHeadSix.appendChild(todoSpan1);
+                todoHeadSix.appendChild(todoSpan2);
+                //เอา h6 และ และ div  conchat
+                todonamechat.appendChild(todoHeadSix);
+                todonamechat.appendChild(todoconchat);
+                todocontentchat.appendChild(todonamechat);
+                todochattosend.appendChild(todoProfileDirect);
+                todochattosend.appendChild(todocontentchat);
+                todochatsend.appendChild(todochattosend);
+                textsend.value = '';
+                
+    }
+    
+    // console.log(data); // log the response to the console
+    // const senderby = data('sender');
+    // console.log(senderby);
+    }fetchsend();
+
+
+</script>
+
+<script>
+    const code_invite = (localStorage.getItem("invitation"));
+    let invitelink_btn = document.getElementById('copy-invite');
+    invitelink_btn.addEventListener('click', () => {
+        curr = window.location.href;
+        const url = new URL(curr);
+        const newurl = url.origin + url.pathname;
+        navigator.clipboard.writeText(newurl + "/" + code_invite)
+            .then(() => {
+                alert('Text copied to clipboard');
+            })
+            .catch((err) => {
+                alert('Failed to copy text: ', err);
+            });
+    });
+</script>
+    
+
+    <!-- TODO:get  ข้อความทั้งหมด -->
+    <!-- <script>
+    //     async function getmessage() {
+    //         let response = await fetch(`/msg${svid}/${channel_id}/getlist`, {
+    //             method: 'POST',
+    //             credentials: 'include'
+    //         }).then(async function (data) {
+
+    //         }
+    //         )};
+    // </script> -->
+
+<script>
+    
+    let user_online = (localStorage.getItem("username"));
+    let name_box = document.getElementById("online_name");
+    name_box.innerHTML = user_online;;  
+
+
+    let ServerN = (localStorage.getItem("serverName"));
+    
+    let servername = document.getElementById("sever_name_show");
+    servername.innerHTML = ServerN ;;  
+</script>
+
+
 </body>
 
 </html>

@@ -168,15 +168,16 @@ header:hover , header:active{
 
 }
 
-.ch_room ul , .voice_room ul {
+/* .ch_room ul , .voice_room ul {
     padding-left: 10px;
-}
+} */
 
 .popup_add_content{
-    height: 270px;
-    width: 500px;
+    margin-left: 10px;
+    height: 300px;
+    width: 700px;
     background:#303338;
-    padding: 20px;
+    
     border-radius: 5px;
     position: relative  ;
 
@@ -229,11 +230,15 @@ header:hover , header:active{
 }
 
 input {
-    
     display: flex;
-    width: 50%;
+    width: 300px;
     padding: 6px;
     border: 1px solid gray;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 
@@ -245,6 +250,7 @@ input {
     padding: 20px;
     display: none;
     z-index: 9999;
+    margin-left: 20px;
 }
 #popupTxt h2 {
     margin-top: 0;
@@ -256,7 +262,7 @@ input {
 }
 
 #popupTxt input[type="text"] {
-    width: 100%;
+    
     padding: 5px;
     margin-bottom: 10px;
 }
@@ -288,7 +294,7 @@ input {
 }
 
 #popupV input[type="text"] {
-    width: 100%;
+    
     padding: 5px;
     margin-bottom: 10px;
 }

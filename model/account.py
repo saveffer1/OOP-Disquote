@@ -6,12 +6,12 @@ from . import EmailStr, UserStatus
 
 @dataclass
 class Account(ABC):
-    id: int
-    email: EmailStr
-    username: str
-    password: bytes
-    avatar: Optional[str] = "default"
-    tag: Optional[str] = "0000"
+    _id: int
+    _email: EmailStr
+    _username: str
+    _password: bytes
+    _avatar: Optional[str] = "default"
+    _tag: Optional[str] = "0000"
 
     @abstractmethod
     def login(self):
@@ -36,51 +36,62 @@ class Admin(Account):
 
 @dataclass
 class User(Account):
-    status: Optional[UserStatus] = UserStatus.online
-    friends: Optional[list] = field(default_factory=list)
-    friends_request: Optional[list] = field(default_factory=list)
+    _status: Optional[UserStatus] = UserStatus.online
+    _friends: Optional[list] = field(default_factory=list)
+    _friends_request: Optional[list] = field(default_factory=list)
 
     def login(self):
         print("User login")
 
     def logout(self):
         print("User logout")
+    
+    def id(self) -> int:
+        return self._id
+    
+    def username(self) -> str:
+        return self._username
+    
+    def tag(self) -> str:
+        return self._tag
+    
+    def get_hashed_password(self) -> str:
+        return self._password
 
     @property
     def state(self):
-        return self.status
+        return self._status
 
     @state.setter
     def state(self, input: int):
-        self.status = UserStatus(input)
+        self._status = UserStatus(input)
 
     @property
     def profile_image(self):
-        return self.avatar
+        return self._avatar
 
     @profile_image.setter
     def profile_image(self, input: str):
-        self.avatar = input
+        self._avatar = input
 
     def get_friend_list(self):
-        return self.friends
+        return self._friends
 
     def unfriend(self, id: int):
-        self.friends.remove(id)
+        self._friends.remove(id)
     
     @property
     def request_list(self):
-        return self.friends_request
+        return self._friends_request
 
     @request_list.setter
     def request_list(self, id: int, accept: bool):
         if accept:
-            self.friends.append(id)
-        self.friends_request.remove(id)
+            self._friends.append(id)
+        self._friends_request.remove(id)
     
     def add_request(self, id: int):
-        self.friends_request.append(id)
+        self._friends_request.append(id)
     
-    def get_info(self):
-        if self.avatar:
-            return {'id': self.id, 'email': self.email, 'username': self.username, 'tag': self.tag, 'avatar': self.avatar, 'status': self.status}
+    def info(self):
+        return {"id": self._id, "username": self._username, "tag": self._tag, "avatar": self._avatar, "status": self._status.value} 

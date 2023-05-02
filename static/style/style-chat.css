@@ -1,24 +1,26 @@
 .chat-send {
+    
     display: grid;
-    grid-template-rows: 1.8fr 0.2fr;
+    grid-template-rows: auto;
+    
 }
-
 
 
 .chatslide {
     
-    height: 100%;
-}
+    height: 80vh;
+} 
 
-
-/* .sendinput {
+/* sendinput ไม่น่ารัก */
+.sendinput {
     background-color:rgba(0, 0,0, 1);
-    height: 100%;
+    height: 60px;
+    bottom: 0;
 }
 
 .sendinput input {
     background-color:rgb(56,58,64);
-    width: 80%;
+    
     height: 40px;
     margin: 15px 10px 10px 10px;
     align-items: center;
@@ -49,7 +51,7 @@
     color:rgba(143, 143,145, 1);
     
     color: #ffffff;
-} */
+}
 
 
 .sendinput{
@@ -70,11 +72,11 @@
     
     
     
-    width: 100vh;
+    width: 100%;
     border: 0;
     outline: 0;
     border-radius: 10px;
-    padding: 15px;
+    /* padding: 15px; */
     font-size:20px;
     color: #ffffff;
     background:rgba(30, 31,34, 1);
@@ -92,12 +94,12 @@
    
     width:40px;
    
-    /* pointer-events: none;
-    opacity: 0; */
+    pointer-events: none;
+    opacity: 0;
     cursor: pointer;
     border:none;
     font-size: 1.1rem;
-    /* color:rgba(143, 143,145, 1); */
+    
     
     color:rgba(181, 186,193, 1);
 }
@@ -108,23 +110,13 @@
 }
 
 
-/* .panelchat {
-    margin-right: 5px;
-    margin-top: 12px;
-    
-    margin-left: 5px;
-    border-radius: 5px;
-    
-    height: 100%;
-    overflow: hidden;
-    overflow-y: scroll;
-} */
+
 .panelchat {
     margin-right: 5px;
     margin-top: 12px;
     margin-left: 5px;
     border-radius: 5px;
-    height: 75vh;
+    height: 94%;
     padding: 10px;
     overflow: hidden;
     overflow-y: scroll;

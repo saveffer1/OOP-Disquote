@@ -2,17 +2,21 @@ import uvicorn
 import os
 import glob
 import pathlib
+import shutil
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request, Response, UploadFile, File
-from fastapi.responses import (RedirectResponse, HTMLResponse, 
-                               JSONResponse, FileResponse,
-                               StreamingResponse)
+from fastapi.responses import (HTMLResponse, JSONResponse, FileResponse,StreamingResponse)
+from starlette.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 import base64
 
-from router import router_document, router_account, router_admin, router_server
+from router import (
+    router_document, router_account, 
+    router_admin, router_server,
+    router_message
+    )
 
 ALLOWED_ORIGINS = ['http://localhost', '0.0.0.0']
 
@@ -28,6 +32,7 @@ def create_app():
     )
 
     return fast_app
+
 
 app = create_app()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -51,6 +56,8 @@ def initial_startup():
         os.mkdir(resource)
         for folder in path:
             os.mkdir(resource + '/' + folder)
+    shutil.copy("static/assets/member.png", 'static/resource/server_avatar/1.png')
+    shutil.copy("static/assets/disquote.png", 'static/resource/server_avatar/2.png')
     
     
 @app.exception_handler(404)
@@ -85,8 +92,9 @@ def server(request: Request):
         return templates.TemplateResponse("chatboard.html", {"request": request})
     else:
         print("test")
-        resp = RedirectResponse(url='/account/login')
+        resp = RedirectResponse(url='/account/login', scheme="http")
         return resp
+    
 @app.get("/annoucement", response_class=HTMLResponse)
 def annoucement(request: Request):
     return templates.TemplateResponse("annouce.html", {"request": request})
@@ -94,6 +102,10 @@ def annoucement(request: Request):
 @app.get("/admin", response_class=HTMLResponse)
 def loginpageadm(request: Request):
     return RedirectResponse(url='/admin/login')
+
+@app.get("/aboutus", response_class=HTMLResponse)
+def aboutus(request: Request):
+    return templates.TemplateResponse("aboutus.html", {"request": request})
 
 suffixes_to_media_types = {
     ".jpg": "image/jpeg",
@@ -165,7 +177,5 @@ app.include_router(router_server, prefix='/channels')
 app.include_router(router_account, prefix='/account')
 app.include_router(router_admin, prefix='/admin')
 app.include_router(router_document, prefix='/admin')
+app.include_router(router_message, prefix='/msg')
 
-if __name__ == "__main__":
-    #uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True, ssl_keyfile=None, ssl_certfile=None)
-    uvicorn.run("main:app", host="localhost", port=8080,reload=True, ssl_keyfile=None, ssl_certfile=None)

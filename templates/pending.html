@@ -5,6 +5,84 @@
             <hr>
         </div>  
 
+        <div class="forbtnfriend">
+            <button>
+            <div class="grid_3">
+                <div class="Profile-Flist">
+                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
+                    <div class ="round online">
+                                        
+                        
+                    
+                </div>
+                        
+                </div>
+    
+                    <div class="avatarname">
+                        <h2 style="color: rgba(148, 155,164, 1);">NameFriend
+                          <br>  <label style="color: rgba(161, 165,172, 1); font-size:12px ">Incoming Friend Request</label>
+                        </h2>
+                       
+                    </div>
+           
+            <div clas="btnfriend" style="  display:grid;
+            grid-template-columns: 0.2fr 0.2fr;
+            gap: 2px; justify-content: end; align-items: center; margin-bottom: 2px;">
+            
+                
+                
+                    <div class ="round"  id="pend1" style=" 
+                    bottom: 0 ;
+                    background: #000000;
+                    margin-bottom: 20px;
+                    margin-right: 24px;
+                    width: 40px;
+                    height: 40px;
+                    align-items:start ;
+                    border-radius: 25px;
+                    background: rgba(30, 31,34, 1);">
+                       
+                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
+                        <img src="{{ url_for('static', path='assets/check.png') }}" width="20" height="20" alt="" style="margin-top: 11px;
+                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
+                    </div>
+                        
+                    <div class ="round" id="pend2" style="
+                    bottom: 0 ;
+                    background: #000000;
+                    margin-bottom: 20px;
+                    margin-right: 24px;
+                    width: 40px;
+                    height: 40px;
+                    align-items:start ;
+                    border-radius: 25px;
+                    background: rgba(30, 31,34, 1);">
+                       
+                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
+                        <img src="{{ url_for('static', path='assets/close.png') }}" width="17" height="17" alt="" style="margin-top: 12px;
+                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
+                    </div>
+
+                
+                    
+                        
+                
+
+                   
+                
+    
+              
+            </div>
+            </div>
+           
+            </button>
+            <!-- คน 2 -->
+            <div class="line-4">
+                <hr>
+            </div>
+          
+
+        </div>
 
         <div class="">
             
@@ -25,5 +103,13 @@
 
 
 <script>        
+    const btnaccept = document.getElementById('pend1');
+    btnaccept.addEventListener('click', () =>  {
+        console.log("Accept")
+    })
 
+    const btnignore = document.getElementById('pend2');
+    btnignore.addEventListener('click', () =>  {
+        console.log("Ignore")
+    })
 </script>
