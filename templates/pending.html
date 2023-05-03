@@ -95,7 +95,15 @@
 
 
 
-
+<script>
+    
+        async function getFriend() {
+            const response = await fetch('/account/request_list');
+            const data = await response.json();
+            console.log("หัี",data);
+            return data;
+        }getFriend();
+</script>
 
 
 
@@ -112,4 +120,5 @@
     btnignore.addEventListener('click', () =>  {
         console.log("Ignore")
     })
-</script>
+
+</script>  

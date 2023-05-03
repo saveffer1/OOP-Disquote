@@ -192,3 +192,24 @@
 
 
 </div>
+
+
+
+
+
+
+<script>
+
+        async function getFriendlidt(){
+            const response = await fetch('/account/friends');
+            const data = await response.json();
+            console.log(data);
+            return data;
+        }
+
+        getFriendlidt();
+
+
+
+
+</script>

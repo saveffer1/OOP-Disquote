@@ -48,7 +48,7 @@
   } */
 
 
-.friend-direct {
+/* .friend-direct {
     width: 100%;
     border-radius: 10px;
     background-color:rgba(47, 49,54, 1);
@@ -104,9 +104,9 @@
     color: #ffffff;
     background:rgba(30, 31,34, 1);
 
-}
+} */
 
-.sendbox button {
+/* .sendbox button {
     background:  rgba(88, 101, 242, 1);
     
 
@@ -116,18 +116,18 @@
     margin-bottom: 12px; 
     padding: 6px;
     width:220px;
-    height: 50px;
+    height: 50px; */
     /* pointer-events: none;
     opacity: 0; */
-    cursor: pointer;
+    /* cursor: pointer;
     border:none;
-    font-size: 1.1rem;
+    font-size: 1.1rem; */
     /* color:rgba(143, 143,145, 1); */
-    background:  #4752c4ff;
+    /* background:  #4752c4ff;
     color: #ffffff;
-}
+} */
 
-.line-4 hr {
+/* .line-4 hr {
     margin-top: 0;
     height: 2px;
     border: 0;
@@ -246,4 +246,4 @@ height: 50px;
   border-radius: 7px;
 
 
-}
+} */

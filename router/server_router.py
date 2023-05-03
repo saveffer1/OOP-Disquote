@@ -71,6 +71,7 @@ async def get_server(request: Request, server_id: int):
     if server:
         channels = server.get_channel_list()
         return templates.TemplateResponse("chatboard.html", {"request": request, "ch": "yes"})
+        # return {"request": request, "ch": "yes"}
     return templates.TemplateResponse("chatboard.html", {"request": request})
     #return {"ch": channels}
     

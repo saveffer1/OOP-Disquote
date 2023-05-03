@@ -2,17 +2,43 @@
 <div class="AddFriend">
     <h2 style="font-family:Mukta">ADD FRIEND</h2>
     <p style="font-family:Mukta" >You can add a friend with their Discord Tag.it's cAsE sEnSitlvE!</p>
-    <form id="formSendfriend">
+    <div id="formSendfriend">
     <div class="sendbox">
-    <input type="text" placeholder="Enter a Username#0000"  id="inputFriendID"> 
-    <button   style="font-family:Mukta" id="btnSendFriend">Send Friend Request</button>
+        <input type="text" placeholder="Enter a Username#0000"  id="inputFriendID"> 
+        <button   style="font-family:Mukta" id="SendFriend">Send Friend Request</button>
     </div>
-    </form>
+    </div>
 </div>
 
 
 
 
 <script>
-        console.log('test');
+         document.getElementById('SendFriend').addEventListener('click' , (e) =>{
+            let friend_id = document.getElementById('inputFriendID').value
+            const chars = friend_id.slice(0, friend_id.lastIndexOf("#"));
+            var numbs = friend_id.slice(friend_id.lastIndexOf("#"));
+            const tag = encodeURIComponent(numbs);
+            async function addfriend(){
+               await fetch(`/account/friends_request/${chars}/${tag}`, {
+                            method: "POST",
+                            body: JSON.stringify({
+                                friend_name: chars,
+                                friend_tag: tag
+                            }),
+                            headers: {
+                                "Content-type": "application/json; charset=UTF-8"
+                            }
+                            })
+                    .then((response) => response.json())
+                    .then((json) => console.log(json));
+                        }addfriend();
+                    }                  
+                        
+        )
+
+                                    
+
+
+
 </script>

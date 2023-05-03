@@ -59,7 +59,7 @@ class User(Account):
         return self._password
 
     @property
-    def state(self):
+    def state(self) -> int:
         return self._status
 
     @state.setter
@@ -67,31 +67,33 @@ class User(Account):
         self._status = UserStatus(input)
 
     @property
-    def profile_image(self):
+    def profile_image(self) -> str:
         return self._avatar
 
     @profile_image.setter
     def profile_image(self, input: str):
         self._avatar = input
 
-    def get_friend_list(self):
+    def get_friend_list(self) -> list:
         return self._friends
 
     def unfriend(self, id: int):
         self._friends.remove(id)
     
     @property
-    def request_list(self):
+    def request_list(self) -> list:
         return self._friends_request
+
 
     @request_list.setter
     def request_list(self, id: int, accept: bool):
         if accept:
             self._friends.append(id)
         self._friends_request.remove(id)
+
     
     def add_request(self, id: int):
         self._friends_request.append(id)
     
-    def info(self):
+    def info(self) -> dict:
         return {"id": self._id, "username": self._username, "tag": self._tag, "avatar": self._avatar, "status": self._status.value} 

@@ -319,7 +319,7 @@
                     </div>
                 
                     <div class="chat-send" id='chat-send'>
-                        <div class="chatslide" id="loadfetchsend">
+                        <div class="chatslide" id="chatslide" >
                             <div class="panelchat">
                                 <div class="chat-item-main">
                 
@@ -569,6 +569,8 @@
                             localStorage.setItem("serverName", data[i].name);
                             localStorage.setItem("invitation", data[i].invite_code);
                             var $sid = data[i].owner;
+                            
+                            
                         }; 
                         ddiv.onmouseover = function () {
                             //display server name in popup label on mouse over server
@@ -687,26 +689,18 @@
 
     </script>
 
-    {% if svdm %}
+    <!-- {% if svdm %}
     <script>
         var link = document.getElementById('dm');
          // var friends = document.getElementById('friendlistload');
         link.click();
         // friends.click();
     </script>
-    {% endif %} 
+    {% endif %}  -->
 
     <!-- TODO: getchannel && create channel -->
     {% if ch %}
     <script>
-        // $(document).ready(function () { $("#chat-menu").load("/chat-guild"); })
-        // $(document).ready(function () { $("#chat-board").load("/container-server"); })
-
-        // $(document).ready(function () {
-                 // $("#chat-menu").load("/chat-guild");
-        //         $("#chat-board").load("/container-server");
-        // })
-
         const currentUrl = window.location.href;
         const svid = currentUrl.split("/").pop(); 
         async function get_ch_list() { 
@@ -985,7 +979,8 @@
     </script>
 
     
-    <!-- TODO:สร้างการส่งข้อความ -->
+    <!-- TODO: ส่งได้ล่ะหน้าหนังเจี๊ยก ทำ scollbar เลื่อนตามข้อความด้วย -->
+
     <script>
 
         const todochatsend = document.getElementById('todo-chat-send');
@@ -997,76 +992,6 @@
             e.preventDefault();
             var sendtext = textsend.value;
             if (sendtext) {
-                // const todochattosend = document.createElement('div');
-                // const todoProfileDirect = document.createElement('div');
-                // const todocontentchat = document.createElement('div');
-                // const todoimage = document.createElement('img');
-               
-                // const todonamechat = document.createElement('div');
-                // const todoconchat = document.createElement('div');
-                // const todoitem31 =document.createElement('div');
-                
-
-                // const todoHeadSix = document.createElement('h6');
-                // const todoSpan1 = document.createElement('span');
-                // const todoSpan2 = document.createElement('span');
-
-
-                // const todate = new Date();
-                // const tododateDate = new Date().toISOString().split('T')[0];
-                
-                // let namemeM = (localStorage.getItem("username"));
-                
-                // todate.getHours() + ":" + todate.getMinutes() 
-                
-
-                // const nameMember = 'Name ';
-
-                // todochattosend.classList.add('chat-to-send');
-
-                // todoProfileDirect.classList.add('Profile-Direct');
-                // todoProfileDirect.style.width='60px';
-
-
-                // todoimage.src ="{{ url_for('static', path='/assets/disquote.png') }}";
-
-                // todoProfileDirect.appendChild(todoimage);
-
-                // //เสร็จของProfileDirect
-
-
-
-                // //addclass contentchat
-                // todocontentchat.classList.add('content-chat');
-
-                // //addclass namechat
-                // todonamechat.classList.add('namechat');
-                // //addclass conchat
-                // todoconchat.classList.add('conchat');
-                // //เอาText เข้า         
-                // todoconchat.innerHTML=sendtext;
-                // //addclass span1
-                // todoSpan1.classList.add('name');
-                // //เอาtext เข้า
-                // todoSpan1.innerHTML=namemeM+'  ';
-                
-                // //todoSpan1.innerHTML=nameMember;
-                // //addclass span1
-                // todoSpan2.classList.add('date');
-                // //เอาtext เข้า
-                // todoSpan2.innerHTML=tododateDate   + '  ' + todate.getHours() + ":" + todate.getMinutes() ;
-                // todoHeadSix.appendChild(todoSpan1);
-                // todoHeadSix.appendChild(todoSpan2);
-                // //เอา h6 และ และ div  conchat
-                // todonamechat.appendChild(todoHeadSix);
-                // todonamechat.appendChild(todoconchat);
-                // todocontentchat.appendChild(todonamechat);
-                // todochattosend.appendChild(todoProfileDirect);
-                // todochattosend.appendChild(todocontentchat);
-                // todochatsend.appendChild(todochattosend);
-                // textsend.value = '';
-
-                //SendMsg
                 let chanel_id = localStorage.getItem("channel_id");
                 let j = parseInt(chanel_id);
                 let k = parseInt(svid);
@@ -1076,7 +1001,7 @@
                     server_id: k,
                     msg: sendtext
                 }) {
-                        const response = await fetch(url, {
+                        const response =  await fetch(url, {
                             method: "POST", 
                             cache: "no-cache",
                             credentials: "include", 
@@ -1086,16 +1011,128 @@
                             redirect: "follow", 
                             body: JSON.stringify(data),
                         });
-                        return response.json(); 
-                        console.log('Success');
-                        } 
-                postData();
-                $('#loadfetchsend').load;
-               
+// -----------------------------   ส่วนที่แสดงการส่งข้อความบน chatboard  ------------------------------------------------------------
+                        const data11 = await response.json();
+                        if (data11.message == 'success') {
+                            textsend.value = '';
 
-            }
-    });
-        
+                            const response1 = await fetch(`/msg/${k}/${j}/getlist`, {
+                                method: "GET", 
+                                cache: "no-cache",
+                                credentials: "include", 
+                                headers: {
+                                "Content-Type": "application/json",
+                                },
+                                redirect: "follow"
+                            });   const data1 = await response1.json();
+    
+    {
+        // guilda.id = ch[j].id;
+        // console.log("data1 len", data1.length);
+        // console.log("data1", data1);
+                    let senderby = data1[data1.length-1].sender;
+                    let contentby = data1[data1.length-1].content;
+                    let dateby = data1[data1.length-1].date;
+
+
+                        const url2 = `/account/get_name/${senderby}`;
+
+                        const response2 = await fetch(url2, {
+                        method: "GET", 
+                        cache: "no-cache",
+                        credentials: "include", 
+                        headers: {
+                        "Content-Type": "application/json",
+                        },
+                        redirect: "follow"
+                        });
+                    const data2 = await response2.json();
+                    // console.log("data2", data2);
+                        let    namesen=data2;
+                        const todochattosend = document.createElement('div');
+                        const todoProfileDirect = document.createElement('div');
+                        const todocontentchat = document.createElement('div');
+                const todoimage = document.createElement('img');
+                const todonamechat = document.createElement('div');
+                const todoconchat = document.createElement('div');
+                const todoitem31 =document.createElement('div');
+                
+
+                const todoHeadSix = document.createElement('h6');
+                const todoSpan1 = document.createElement('span');
+                const todoSpan2 = document.createElement('span');
+
+
+                const todate = new Date();
+                const tododateDate = new Date().toISOString().split('T')[0];
+                
+                let namemeM = (localStorage.getItem("username"));
+                
+                todate.getHours() + ":" + todate.getMinutes() 
+                
+
+                const nameMember = 'Name ';
+
+                todochattosend.classList.add('chat-to-send');
+
+                todoProfileDirect.classList.add('Profile-Direct');
+                todoProfileDirect.style.width='60px';
+
+
+                todoimage.src ="{{ url_for('static', path='/assets/disquote.png') }}";
+
+                todoProfileDirect.appendChild(todoimage);
+
+                //เสร็จของProfileDirect
+
+
+
+                //addclass contentchat
+                todocontentchat.classList.add('content-chat');
+
+                //addclass namechat
+                todonamechat.classList.add('namechat');
+                //addclass conchat
+                todoconchat.classList.add('conchat');
+                //เอาText เข้า         
+                todoconchat.innerHTML=contentby;
+                //addclass span1
+                todoSpan1.classList.add('name');
+                //เอาtext เข้า
+                todoSpan1.innerHTML=namesen+' ';
+                
+                //todoSpan1.innerHTML=nameMember;
+                //addclass span1
+                todoSpan2.classList.add('date');
+                //เอาtext เข้า
+                // todoSpan2.innerHTML=tododateDate   + '  ' + todate.getHours() + ":" + todate.getMinutes() ;
+                todoSpan2.innerHTML=dateby
+                todoHeadSix.appendChild(todoSpan1);
+                todoHeadSix.appendChild(todoSpan2);
+                //เอา h6 และ และ div  conchat
+                todonamechat.appendChild(todoHeadSix);
+                todonamechat.appendChild(todoconchat);
+                todocontentchat.appendChild(todonamechat);
+                todochattosend.appendChild(todoProfileDirect);
+                todochattosend.appendChild(todocontentchat);
+                todochatsend.appendChild(todochattosend);
+                todochattosend.scrollIntoView(); // ไปตำแหน่งล่าสุดของข้อความ
+                textsend.value = '';
+                
+    }
+                        }
+                    }
+                    
+                postData();
+            }});
+
+            // function updatemessage() {
+            //     var innerDiv = document.querySelector("#chat-send");
+            //     innerDiv.innerHTML = "New content";
+            // }
+
+
+            
 
 </script>
 
@@ -1109,9 +1146,10 @@
     let sRid = svid;
     let cRid =  localStorage.getItem("channel_id");
 
-    const url = `/msg/${sRid}/${cRid}/getlist`;
+    const url1 = `/msg/${sRid}/${cRid}/getlist`;
+   
 
-    const response = await fetch(url, {
+    const response1 = await fetch(url1, {
         method: "GET", 
         cache: "no-cache",
         credentials: "include", 
@@ -1120,14 +1158,29 @@
         },
         redirect: "follow"
     });
-    const data = await response.json();
-    for (j = 0; j < data.length; j++) {
+    const data1 = await response1.json();
+    
+    for (j = 0; j < data1.length; j++) {
         // guilda.id = ch[j].id;
-       let senderby = data[j].sender;
-       let contentby = data[j].content;
-       let dateby = data[j].date;
-        
+       let senderby = data1[j].sender;
+       let contentby = data1[j].content;
+       let dateby = data1[j].date;
 
+
+        const url2 = `/account/get_name/${senderby}`;
+
+        const response2 = await fetch(url2, {
+        method: "GET", 
+        cache: "no-cache",
+        credentials: "include", 
+        headers: {
+        "Content-Type": "application/json",
+        },
+        redirect: "follow"
+    });
+    const data2 = await response2.json();
+    // console.log(data2);
+        let    namesen=data2;
         const todochattosend = document.createElement('div');
                 const todoProfileDirect = document.createElement('div');
                 const todocontentchat = document.createElement('div');
@@ -1179,7 +1232,7 @@
                 //addclass span1
                 todoSpan1.classList.add('name');
                 //เอาtext เข้า
-                todoSpan1.innerHTML=senderby;
+                todoSpan1.innerHTML=namesen+' ';
                 
                 //todoSpan1.innerHTML=nameMember;
                 //addclass span1
@@ -1196,6 +1249,7 @@
                 todochattosend.appendChild(todoProfileDirect);
                 todochattosend.appendChild(todocontentchat);
                 todochatsend.appendChild(todochattosend);
+                todochattosend.scrollIntoView(); // ไปตำแหน่งล่าสุดของข้อความ
                 textsend.value = '';
                 
     }
@@ -1203,7 +1257,8 @@
     // console.log(data); // log the response to the console
     // const senderby = data('sender');
     // console.log(senderby);
-    }fetchsend();
+    }
+    fetchsend();
 
 
 </script>

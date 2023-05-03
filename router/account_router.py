@@ -143,7 +143,7 @@ async def get_friends_request(request: Request):
         email = token_manager.decode_access_token(token)
         user = discord_account.get_user_account(email)
         friends = []
-        for friend_id in user.request_list():
+        for friend_id in user.request_list:
             friend = discord_account.get_user_name_by_id(friend_id)
             friends.append(friend)
         return friends
@@ -181,3 +181,11 @@ async def del_friend(request: Request, friend_id: int):
         user = discord_account.get_user_account(email)
         user.unfriend(int(friend_id))
         return {"status_code": 200, "del_f": "success"}
+
+@router.get('/get_name/{user_id}', status_code=200, tags=['user'])
+async def get_name(request: Request, user_id: int):
+    user = discord_account.get_user_account_by_id(user_id)
+    if user:
+        return user.username()
+    else:
+        return {"status_code": 400, "get_name_f": "fail user not found"}
