@@ -41,7 +41,7 @@ templates = Jinja2Templates(directory="templates")
 @app.on_event("startup")
 def initial_startup():
     resource = 'static/resource'
-    path = ['server', 'user_avatar', 'server_avatar']
+    path = ['user_avatar', 'server_avatar']
     if os.path.exists(resource):
         """ del all resource before start server"""
         for folder in path:
