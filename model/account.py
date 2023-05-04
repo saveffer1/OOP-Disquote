@@ -21,17 +21,13 @@ class Account(ABC):
     def logout(self):
         pass
 
-    # def change_avatar(self, avatar: Image):
-    #     self.avatar = avatar.upload_image()
-
-
 @dataclass
 class Admin(Account):
     def login(self):
-        print("Admin login")
+        print("Admin login: ", self._email)
 
     def logout(self):
-        print("Admin logout")
+        print("Admin logout: ", self._email)
 
     def id(self) -> int:
         return self._id
@@ -50,10 +46,10 @@ class User(Account):
     _friends_request: Optional[list] = field(default_factory=list)
 
     def login(self):
-        print("User login")
+        print("User login: ", self._email)
 
     def logout(self):
-        print("User logout")
+        print("User logout: ", self._email)
     
     def id(self) -> int:
         return self._id

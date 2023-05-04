@@ -16,13 +16,6 @@ class Invite():
         return self._code
     
 @dataclass
-class Role():
-    id: int
-    name: str
-    color: str
-    permissions: list
-    
-@dataclass
 class Server:
     _id: int
     _name: str
@@ -31,9 +24,7 @@ class Server:
     _members: list[int] = field(default_factory=list)
     _channels: list[TextChannel, VoiceChannel] = field(default_factory=list)
     _invite_code: str = None
-    # _roles: list[Role] = field(default_factory=list)
     _channel_id: int = 0
-    # _role_id: int = 1
     
     def info(self) -> dict:
         return {"id": self._id, 
@@ -67,7 +58,6 @@ class Server:
     def add_member(self, member_id: int) -> None:
         if member_id not in self._members:
             self._members.append(member_id)
-            # print(self._members)
         else:
             print("not add to server")
 
@@ -101,12 +91,3 @@ class Server:
             if channel.id() == channel_id:
                 return channel
         return None
-    
-    # def add_role(self, role: Role):
-    #     self._roles.append(role)
-    #     self._role_id += 1
-
-    # def remove_role(self, role_id: int):
-    #     for role in self._roles:
-    #         if role.id == role_id:
-    #             self._roles.remove(role)

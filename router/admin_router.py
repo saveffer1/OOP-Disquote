@@ -26,11 +26,8 @@ def login(request: Request):
 @router.post('/login', status_code=200, tags=['admin'])
 async def login(request: Request, email: EmailStr = Form(None), password: str = Form(None)):
     if email and password:
-        print("admin login", email, password)
+        print("Admin login: ", email)
         if discord_account.admin_login(email, password):
-            # if user.email in system.logged_in_users:
-            #     system.logged_in_users.remove(user.email)
-            #     raise HTTPException(status_code=409, detail='Already logged in on another device or closed the browser without logging out')
 
             access_token = token_manager.create_access_token(
                 data={"sub": email})
@@ -48,9 +45,6 @@ async def login(request: Request, email: EmailStr = Form(None), password: str = 
                 httponly=True,
                 max_age=43200,
             )
-
-            # resp = RedirectResponse(url='/server', )
-            # system.logged_in_users.add(user.email)
             return resp
 
     return templates.TemplateResponse("adm-login.html", {"request": request, "login_message": "Wrong email or password!"}, status_code=401)
@@ -58,6 +52,9 @@ async def login(request: Request, email: EmailStr = Form(None), password: str = 
         
 @router.get('/logout', status_code=200, tags=['admin'])
 def logout(request: Request, response: Response):
+    token = request.cookies.get("admin_authen")
+    email = token_manager.decode_access_token(token)
+    print("Admin logout: ", email)
     response.delete_cookie("admin_authen")
     return RedirectResponse(url='/admin/login', status_code=status.HTTP_303_SEE_OTHER)
 
@@ -75,13 +72,6 @@ async def dashboard_info():
     cpu = adm_dashboard.get_cpu_usage()
     cores = adm_dashboard.get_cpus()
     memory = adm_dashboard.get_mem()
-    #disk = adm_dashboard.get_disk()
-    #diskrw = adm_dashboard.get_disk_rw()
-    #loadavg = adm_dashboard.get_load()
-    # Get traffic
-    #traffic = adm_dashboard.get_traffic("127.0.0.1")
-    #users = adm_dashboard.get_users()
-    #netstat = adm_dashboard.get_netstat()
 
     return {
         "ipaddress": ipaddress,
@@ -90,12 +80,6 @@ async def dashboard_info():
         "cpu": cpu,
         "cores": cores,
         "memory": memory
-        #"disk": disk,
-        #"diskrw": diskrw,
-        #"loadavg": loadavg,
-        #"traffic": traffic,
-        #"users": users,
-        #"netstat": netstat,
     }
 
 

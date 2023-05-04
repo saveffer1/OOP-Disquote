@@ -146,7 +146,6 @@ class AccountSystem():
         return account.get_friend_list()
 
 #-------------------------------------------------------------------------------------------
-    
 
 @dataclass
 class ServerSystem():
@@ -173,15 +172,12 @@ class ServerSystem():
             if server.id() == server_id:
                 return server
         return None
-        # return self._servers
-
     
     def get_member_server_list(self, server_id: int) -> list:
         """ get member in server """
         server = self.get_server_by_id(server_id)
         if server:
-            return server.get_member_list()
-            
+            return server.get_member_list()           
         
     def member_in_server(self, server_id: int, member_id: int) -> bool:
         """ check member in server """
@@ -226,7 +222,6 @@ class ServerSystem():
             server.add_member(user_id)
             print("added")
             print(server.get_member_list())
-            # print(Server.info())
             return True
         else:
             print("not added")

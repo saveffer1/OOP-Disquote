@@ -14,13 +14,13 @@
 
 
 <script>
-         document.getElementById('SendFriend').addEventListener('click' , (e) =>{
+        document.getElementById('SendFriend').addEventListener('click' , (e) =>{
             let friend_id = document.getElementById('inputFriendID').value
             const chars = friend_id.slice(0, friend_id.lastIndexOf("#"));
             var numbs = friend_id.slice(friend_id.lastIndexOf("#"));
             const tag = encodeURIComponent(numbs);
             async function addfriend(){
-               await fetch(`/account/friends_request/${chars}/${tag}`, {
+            await fetch(`/account/friends_request/${chars}/${tag}`, {
                             method: "POST",
                             body: JSON.stringify({
                                 friend_name: chars,
@@ -34,19 +34,13 @@
                     .then((json) => {
                         console.log(json)
                         if(json.req_f=="success"){
-                               alert("Sent Friend Request  successfully")
+                            alert("Sent Friend Request  successfully")
                         }else  {
                             alert("Failed to send friend request please check the username and tag!!!!")
                         }
                     })
                         }addfriend();
-                    }                  
-                        
+                    }                       
         )
-
-                                    
-
-
-
 </script>
 

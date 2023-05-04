@@ -34,7 +34,6 @@
 
 <script>
     async function createFriendElement(id, name, status, avatar) {
-            console.log("createFriendElement", name, status);
 
             const divForFriend = $("#forbtnfriend");
 
@@ -55,23 +54,18 @@
                     }
                 }).then(async function (blob) {
                     if (blob) {
-                        // img.src = URL.createObjectURL(blob);
                         $("<img>", { src: URL.createObjectURL(blob), alt: "" }).appendTo(profileDiv);
                     } else {
                         throw new Error("Failed to convert image to blob");
                     }
                 }).catch(function (error) {
                     console.error(error);
-                    // handle error by showing a message to the user or logging it to a server
             });
-           
             $("<div>", { class: `round ${status}` }).appendTo(profileDiv);
 
             const avatarDiv = $("<div>", { class: "avatarname" }).appendTo(friendDiv);
             
             const h2 = $("<h2>", { text: name }).appendTo(avatarDiv);
-           
-            // $("<label>", { text: `${status}` }).appendTo(h2);
 
             const btnDiv = $("<div>", { class: "btnfriend" }).appendTo(friendDiv);
             $("<div>", { class: "round" }).append($("<img>", { src: "{{ url_for('static', path='assets/message.png') }}", class: "fimg", width: 20, height: 20 })).appendTo(btnDiv);
@@ -96,7 +90,6 @@
                     headers: {'Content-Type': 'application/json',},
                 });
                 const data = await get_info.json();
-                console.log(data);
                 for (friend of data) {
                     const friend_id = friend.id;
                     const friend_name = friend.username;
@@ -119,7 +112,6 @@
 
             const response = await fetch('/account/friends');
             const flist = await response.json();
-            // Initial load of all friends
             const divForFriend = document.getElementById('forbtnfriend');
             divForFriend.innerHTML = '';
 
@@ -133,7 +125,6 @@
                     },
                 });
                 const data = await get_info.json();
-                console.log(data)
                 const friend_name = data.username;
                 const friend_tag = data.tag;
                 const friend_avatar = data.avatar;

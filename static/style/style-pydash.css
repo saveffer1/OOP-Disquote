@@ -120,7 +120,7 @@ textarea {
 */
 
 .subnavbar {
-    	margin-bottom: 2.5em;
+    margin-bottom: 2.5em;
     }
     
 .subnavbar-inner {
@@ -485,11 +485,6 @@ textarea {
 }
 
 
-/* Widget Box */
-
-.widget-box {	
-	
-}
 
 .widget-box .widget-content {
 	background: #E3E3E3;

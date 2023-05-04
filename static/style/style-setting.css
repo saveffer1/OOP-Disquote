@@ -1,7 +1,4 @@
-/* body {
-    margin: 0;
-    
-  } */
+
   
   .container_setting {
     display: grid;
@@ -258,6 +255,6 @@ margin-bottom: 10px;
   width: 100px;
   height: 10px;
   color: red;
-  /* border: none; */
+
 }
 

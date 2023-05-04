@@ -1,7 +1,5 @@
 
 from datetime import datetime, timedelta
-from fastapi import Depends, HTTPException, Request
-from typing import Optional
 import jwt
 from dataclasses import dataclass
 from . import EmailStr
@@ -11,7 +9,7 @@ class TokenData:
     secret: str
     algorithm: str = "HS256"
 
-    def create_access_token(self, data: dict, expires_delta: timedelta | None = None):
+    def create_access_token(self, data: dict, expires_delta: timedelta | None = None) -> str:
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
@@ -21,7 +19,7 @@ class TokenData:
         encoded_jwt = jwt.encode(to_encode, self.secret, algorithm=self.algorithm)
         return encoded_jwt
     
-    def decode_access_token(self, token: str):
+    def decode_access_token(self, token: str) -> EmailStr:
         payload = jwt.decode(token, self.secret, algorithms=[self.algorithm])
         email: EmailStr = payload.get("sub")
         return email

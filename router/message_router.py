@@ -8,7 +8,6 @@ from fastapi.encoders import jsonable_encoder
 from jose import JWTError
 import jwt
 from model import TokenData, UserStatus, EmailStr
-from schema import UserSchema, LoginSchema, UpdateUserModel
 from fastapi.templating import Jinja2Templates
 import pathlib
 import json

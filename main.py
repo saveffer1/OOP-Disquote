@@ -7,8 +7,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request, Response, UploadFile, WebSocket, File
-from aiortc import RTCPeerConnection, RTCSessionDescription
-from aiortc.contrib.media import MediaPlayer, MediaRecorder
 from fastapi.responses import (HTMLResponse, JSONResponse, FileResponse,StreamingResponse)
 from starlette.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -135,21 +133,7 @@ async def get_image_server(request: Request, file_name: str):
     return StreamingResponse(open(file_path, "rb"), media_type=media_type)
 
 
-
-
-
-@app.get("/chat-guild", response_class=HTMLResponse)
-def chat_guild(request: Request):
-    return templates.TemplateResponse("chat-guild.html", {"request": request})
-
-
-
-@app.get("/container-server", response_class=HTMLResponse)
-def container_server(request: Request):
-    return templates.TemplateResponse("container-server.html", {"request": request})
-
-
-@app.get("/container-dm", response_class=HTMLResponse)
+@app.get("/container-dm", response_class=HTMLResponse) #use for web componant
 def container_dm(request: Request):
     return templates.TemplateResponse("container-dm.html", {"request": request})
 
@@ -159,12 +143,9 @@ def chat_dm(request: Request):
     return templates.TemplateResponse("chat-dm.html", {"request": request})
 
 
-
-
 @app.get("/friendslist", response_class=HTMLResponse)
 def friendslist(request: Request):
     return templates.TemplateResponse("friendslist.html", {"request": request})
-
 
 
 @app.get("/addfriend", response_class=HTMLResponse)
@@ -174,11 +155,6 @@ def addfriend(request: Request):
 @app.get("/pending", response_class=HTMLResponse)
 def pending(request: Request):
     return templates.TemplateResponse("pending.html", {"request": request})
-
-
-@app.get("/voicechat", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("voice.html", {"request": request})
 
 
 app.include_router(router_server, prefix='/channels')

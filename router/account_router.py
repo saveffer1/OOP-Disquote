@@ -59,12 +59,8 @@ async def register(request: Request, email: EmailStr = Form(...), username: str 
         
 @router.post('/login', status_code=200, tags=['user'])
 async def login(request: Request, email: EmailStr = Form(...), password: str = Form(...)):
-    print(email, password)
+    print("User try to login: ", email)
     if discord_account.user_login(email=email, password=password):
-        # if user.email in system.loguserged_in_users:
-        #     system.logged_in_users.remove(user.email)
-        #     raise HTTPException(status_code=409, detail='Already logged in on another device or closed the browser without logging out')
-
         access_token = token_manager.create_access_token(
             data={"sub": email},
             expires_delta=timedelta(hours=12)
@@ -83,19 +79,20 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
             httponly=True,
             max_age=43200,
         )
-
-        # resp = RedirectResponse(url='/server', )
-        # system.logged_in_users.add(user.email)
+        print("User login success: ", email)
         return resp
     else:
+        print("User login failed: ", email)
         return templates.TemplateResponse("registry.html", {"request": request, "login_message": "Wrong email or password!"}, status_code=401)
 
 @router.get('/logout', status_code=200, tags=['user'])
 @router.post('/logout', status_code=200, tags=['user'])
 async def logout(resp: RedirectResponse, request: Request):
-    #resp.delete_cookie(key="authen")
-    resp = RedirectResponse(url="/account/login",
-                            status_code=status.HTTP_303_SEE_OTHER)
+    resp = RedirectResponse(url="/account/login", status_code=status.HTTP_303_SEE_OTHER)
+    token = request.cookies.get("authen")
+    if token:  # check if token exist
+        email = token_manager.decode_access_token(token)
+        print("User logout: ", email)
     resp.delete_cookie(key="authen")
     return resp
 

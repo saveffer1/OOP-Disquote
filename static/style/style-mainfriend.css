@@ -1,25 +1,14 @@
 
-/* 
+
 
 .AddFriend {
     margin-left:10px ;
 
 }
 
-.AddFriend h2 {
 
-}
 
-.AddFriend p {
-    
-
-}
-
-.AddFriend .inputAddfriend{
-
-} */
-
-/* .AddFriend .btnaddfriend {
+ .AddFriend .btnaddfriend {
     background:  rgba(88, 101, 242, 1);
     padding:  15px;
     font-weight: bolder;
@@ -39,16 +28,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+} 
 
 
   
-/* .AddFriend .btnaddfriend:hover {
+ .AddFriend .btnaddfriend:hover {
     background:  #4752c4ff;
-  } */
+  } 
 
 
-/* .friend-direct {
+ .friend-direct {
     width: 100%;
     border-radius: 10px;
     background-color:rgba(47, 49,54, 1);
@@ -104,9 +93,9 @@
     color: #ffffff;
     background:rgba(30, 31,34, 1);
 
-} */
+} 
 
-/* .sendbox button {
+ .sendbox button {
     background:  rgba(88, 101, 242, 1);
     
 
@@ -116,18 +105,12 @@
     margin-bottom: 12px; 
     padding: 6px;
     width:220px;
-    height: 50px; */
-    /* pointer-events: none;
-    opacity: 0; */
-    /* cursor: pointer;
-    border:none;
-    font-size: 1.1rem; */
-    /* color:rgba(143, 143,145, 1); */
-    /* background:  #4752c4ff;
+    height: 50px; 
+    
     color: #ffffff;
-} */
+} 
 
-/* .line-4 hr {
+.line-4 hr {
     margin-top: 0;
     height: 2px;
     border: 0;
@@ -246,4 +229,4 @@ height: 50px;
   border-radius: 7px;
 
 
-} */
+} 

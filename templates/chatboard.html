@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chat.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-friendlist.css') }}">
     
-    <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
     <script src="/static/script/jquery.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,120 +28,76 @@
     <!-- Setting -->
     <div class="settpage" id="settpage">
         <section class="container_setting">
-    
             <div class="column1">
                 <div class="section">
-                <div class="section_black"></div>
-                <div class="section_s">
-                <a style="font-family:Mukta"><b>USER SETTING</b></a>
-                    <div class="btn_a">
-                        <li><button class="btn_s active"><a href="#">My Account</a></button></li>
-                    </div>
+                    <div class="section_black"></div>
+                    <div class="section_s">
+                    <a style="font-family:Mukta"><b>USER SETTING</b></a>
+                        <div class="btn_a">
+                            <li><button class="btn_s active"><a href="#">My Account</a></button></li>
+                        </div>
 
-                    <div class="line-4">
-                        <hr>
-                    </div>
-                        <a style="font-family:Mukta"><b>Program</b></a>
-                    <div class="btn_a">
-                    <li ><button class="btn_s" id="logoutmenu"><a href="#">Log out</a></button></li>
-                        
-                        
-                    </div>
                         <div class="line-4">
                             <hr>
                         </div>
-                </div>
+                            <a style="font-family:Mukta"><b>Program</b></a>
+                        <div class="btn_a">
+                        <li ><button class="btn_s" id="logoutmenu"><a href="#">Log out</a></button></li></div>
+                            <div class="line-4"> <hr> </div>
+                    </div>
                 </div>
             </div>
         
             <div class="column2">
                 <div class="section_content">
                     <div class="MyAccount">
-                        <a style="font-family:Mukta" class="content_head"><b>My Account</b></a>
-                        <br>
-                        <br>
+                        <a style="font-family:Mukta" class="content_head"><b>My Account</b></a><br><br>
                         <div class ="card-account" style=" width: 100%; height: 350px; border-radius: 10px; ">
-                                <div class="todd" style="background-color: aliceblue; height: 50px;  border-radius: 10px 10px 0px 0px;"></div>
-                                <div class="detail" style="background-color: rgba(30, 31,34, 1); height: 250px;  border-radius: 0px 0px 10px 10px; ">
-                                    <div class="Profile-Flist" style="margin-left:10px; display: flex;">
-                                        <!-- <img src=""  alt="" id="AvatarAccoutDisplay" > -->
-                                        
-                                            <h2 style="text-align: center; justify-content: center; font-size: 20px;" id="NameAccoutDisplay">Named</h2>
-                                    </div>
-                                    <div class="in-detail" style="background-color: rgba(43, 45,49, 1); height: 150px;margin-left: 20px; margin-right: 20px;   border-radius: 10px 10px 10px 10px; " >
-                                    
-                                        <li style="margin-left: 10px; " >
-                                            <p style="font-family: Mukta; font-size: 14px; color:rgba(181, 186,193, 1)">USERNAME <br>
-                                            <a style="font-size: 20px; "id="NameAccoutDisplayDetail"></a></p>
-                                        </li>
-                                        <!-- <li style="margin-left: 10px">
-                                            <p style="font-family: Mukta; font-size: 14px; color:rgba(181, 186,193, 1)">EMAIL <br>
-                                                <a style="font-size: 20px; "id="EmailAccoutDisplayDetail"></a></p>
-                                        </li> -->
-                                    </div>
+                            <div class="todd" style="background-color: aliceblue; height: 50px;  border-radius: 10px 10px 0px 0px;"></div>
+                            <div class="detail" style="background-color: rgba(30, 31,34, 1); height: 250px;  border-radius: 0px 0px 10px 10px; ">
+                                <div class="Profile-Flist" style="margin-left:10px; display: flex;">
+                                    <h2 style="text-align: center; justify-content: center; font-size: 20px;" id="NameAccoutDisplay">Named</h2>
                                 </div>
-
+                                <div class="in-detail" style="background-color: rgba(43, 45,49, 1); height: 150px;margin-left: 20px; margin-right: 20px;   border-radius: 10px 10px 10px 10px; " >
+                                    <li style="margin-left: 10px; " >
+                                        <p style="font-family: Mukta; font-size: 14px; color:rgba(181, 186,193, 1)">USERNAME <br>
+                                        <a style="font-size: 20px; "id="NameAccoutDisplayDetail"></a></p>
+                                    </li>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="escbtn">
-
-                        <button type="texr" style="font-family:mukta" class="btn_out_esc" id="btn_out_esc" ><a class="iconx" ><i class="fa-solid fa-xmark"></i></a>
-                            
-                        </button>
+                        <button type="texr" style="font-family:mukta" class="btn_out_esc" id="btn_out_esc" ><a class="iconx" ><i class="fa-solid fa-xmark"></i></a></button>
                     </div>
-                    <div class="this_is_myaccount">
-                        <!-- <a class="linedown">--------------</a> -->
-                        
-                    </div>
+                    <div class="this_is_myaccount"></div>
                 </div>
-            
             </div>
-        
-        
             <div id="popupout">
-                    
-                
-        
-                    <div class="popup_log_content">
-                        <div class="head_text"><b>Log Out</b></div>
-                        <p style="font-family:mukta">Are you sure you want to logout?</p>
-                    
-                        
-                        <div class="btn_section">
-                        
-                    
+                <div class="popup_log_content">
+                    <div class="head_text"><b>Log Out</b></div>
+                    <p style="font-family:mukta">Are you sure you want to logout?</p>
+                    <div class="btn_section">
                         <a href="#" class="btn_cancel" id="btn_cancel_out"  style="font-family:mukta">Cancel</a>
                         <button type="text" style="font-family:mukta" class="btn_out" id="btn_out" >Log Out</button>
-                        </div>
-                    
-                        
-                        </div>
-                
-                
+                    </div>
                 </div>
-                </section>
+            </div>
+        </section>
     </div>
-    
-
 
     <div class="rootDiv" id="rootDiv">
-        
         <div class="side-bar">
             <div id="chat-menu" class="nav">
                 <!-- guild -->
                 <div id="guild">
-                    <div class="guildSettings">
-                    
-                    </div>
-                    
+                    <div class="guildSettings"> </div>
                     <div class="guildSettings">
                         <div class="navguild">
                             <div class="guild-opener">
                                 <div class="navGuildItems">
-                                    <!-- <h4 class="guildSelectorName">Server Name</h4> -->
                                     <div class="navbar">
                                         <div class="logo"> <a id="nameofserver"></a></div>
-                    
                                         <div class="toggle_btn"> <i class="fa-solid fa-chevron-down"></i></div>
                                     </div>
                                 </div>
@@ -153,18 +108,14 @@
                                 <a>Text Channel</a>
                                 <a href="#" class="add_btn" id="add_btnTxt"><i class="fa-solid fa-plus"></i></a>
                                 <div class="ch_room">
-                                    <ul id="todoListTxt">
-                                        <!-- <li><i class="fa fa-hashtag"></i><a href="#" style="font-family: Mukta;">General</a></li></ul> -->
-                                    </ul>
+                                    <ul id="todoListTxt"> </ul>
                                 </div>
                             </div>
                             <div class="voicech">
                                 <a>Voice Channel</a>
                                 <a href="#" class="add_btn" id="add_btnV"><i class="fa-solid fa-plus"></i></a>
                                 <div class="voice_room">
-                                    <ul id="todoListVoc">
-                                        <!-- <li><i class="fa fa-hashtag"></i><a href="#" style="font-family: Mukta;">General</a></li></ul> -->
-                                    </ul>
+                                    <ul id="todoListVoc"> </ul>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +137,6 @@
                                 <div class="popup_add_content" style="width: 360px; height: 320px; padding-left: 20px; padding-top: 10px;">
                                     <h3 style="font-family:mukta">Create Channel</h3>
                                     <h6 style="font-family:mukta">Voice Channel</h6>
-                    
                                     <h4 style="font-family:mukta">Channel Name</h4><br>
                                     <input type="text" placeholder="Name Channel" style="font-family:mukta" id="todoInputV">
                                     <button type="submit" style="font-family:mukta" class="btn_add">Create Channel</button>
@@ -208,7 +158,6 @@
                 <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" id="avatar" class="userAvatar">
                 <div class="status" id="status">
                     <div class="round online_status"></div>
-
                 </div>
                 <div class="Username" id="userinfo">
                     <h4 id="username" class="username">Username</h4>
@@ -236,7 +185,6 @@
             <div class="server invite" id="invite">
                 <p class="inviteButton">+</p>
             </div>
-
             <div id="createserver" class="servermodal">
                 <!-- Modal content -->
                 <div class="modal-content">
@@ -251,19 +199,6 @@
                                     <i class="fa-solid fa-circle-plus" style="color : #fff;"></i>
                                 </div>
                         </div>
-                        
-                        <!-- ใช้สำหรับ Profile ส่วนสถานะเปลี่ยนที่ Class round  จะมี online offlie idle (สั่งเปลี่ยน class .round-idle ด้วย Display block)
-                        ใช้กับ css ไฟล์ profile-status 
-                        <div class="Profile">
-                            <img src="{{ url_for('static', path='assets/avatarprofile.png') }}" width="80" height="80" alt="" >
-                                <div class ="round idle">
-                                    
-                                        <div class="round-idle"></div>
-                                    
-                                </div>
-                        </div> -->
-
-
                         <div class="roomnameinput">
                             <h4>SERVER NAME</h4>
                             <input type="text" required="true" id="serverName" name="name" class="inputnameserver">
@@ -277,14 +212,11 @@
                     </form>
                 </div>
             </div>
-
         </div>
         <div id="chat-board" class="container">
             <div id="guild-board" >
                 <div class="in-container" style="height: 100%;">
-                
                     <div class="nav-chat">
-                
                         <div class="nav-menu">
                             <div class="icon-menu-chat">
                                 <img src="{{ url_for('static', path='/assets/pin.ico') }}" alt="pin">
@@ -297,48 +229,19 @@
                             </div>
                             <div class="search-menu-chat">
                                 <input class="search-chat" type="text" placeholder="Search">
-                                <button class="search-btn"> <img src="{{ url_for('static', path='/assets/search-icon.png') }}"
-                                        alt=""></button>
-                
+                                <button class="search-btn"> <img src="{{ url_for('static', path='/assets/search-icon.png') }}" alt=""></button>
                             </div>
-                
-                
                         </div>
                     </div>
-                
                     <div class="chat-send" id='chat-send'>
                         <div class="chatslide" id="chatslide" >
                             <div class="panelchat">
                                 <div class="chat-item-main">
-                
                                     <h2> Welcome to <br> <label id="sever_name_show"></label> Server </h2>
                                     <p>This is the beginning of this server.</p>
                                 </div>
-                                <div class="line-4">
-                                    <hr>
-                                </div>
-                                <div class="chat-item" id="todo-chat-send">
-                                    <div class="chat-item-content">
-                
-                                        <!-- <div class="chat-to-send">
-                                                <div class="Profile-Direct" style="width: 60px;" >
-                                                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >    
-                                                </div>
-                                                <div class="content-chat">
-                                                    <div class="namechat">
-                                                        <h6><span class="name">Name</span>
-                                                            <span class ="date">09/76/333 17:09 PM</span>
-                                                        </h6>
-                                                        <div class="conchat">
-                                                            dfghjkl
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div> -->
-                
-                                    </div>
-                                </div>
+                                <div class="line-4"> <hr>  </div>
+                                <div class="chat-item" id="todo-chat-send"> <div class="chat-item-content"> </div> </div>
                             </div>
                         </div>
                         <div id="text-send" class="sendinput" style="height: 60px;;">
@@ -353,52 +256,13 @@
                                 <i class="fa-solid fa-note-sticky fa-lg"></i>
                             </button>
                         </div>
-
-                
                     </div>
-
-
-                    
-                
                     <div class="members">
                         <div class="box-member" id="box-member">
                         <!-- ---------------------------------------------------------------------------------- -->
                             <div class="online-member-box">
                                 <h4>All User -- <p id="numberofuser"></p> </h4>
-                                <div class="online-member" id="useronlineshow">
-                        <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-                                    <!-- <button class="Member-room">
-                                        <div class="gridProfile">
-                                            <div class="Profile-Direct" style="width: 70px;">
-                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
-                                                <div class="round online" style="width: 10px;
-                                                    height: 10px; margin-bottom: 10px;
-                                                    margin-right: 10px;
-                                                    border :5px solid rgba(43, 45,49, 1);">
-                                                </div>
-                                            </div>
-                                            <div class="txtnamedirect">
-                                                <label id="online_nameinserver"></label>
-                                            </div>
-                                        </div>
-                                    </button> -->
-                        <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-                                    <!-- <button class="Member-room">
-                                        <div class="gridProfile">
-                                            <div class="Profile-Direct" style="width: 70px;">
-                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
-                                                <div class="round online" style="width: 10px;
-                                                        height: 10px; margin-bottom: 10px;
-                                                        margin-right: 10px;
-                                                        border :5px solid rgba(43, 45,49, 1);">
-                                                </div>
-                                            </div>
-                                            <div class="txtnamedirect">
-                                                <label>Member2</label>
-                                            </div>
-                                        </div>
-                                    </button> -->
-                                </div>
+                                <div class="online-member" id="useronlineshow"></div>
                             </div>
                         <!-- ----------------------------------------------------------------------------------- -->
                         </div>
@@ -410,12 +274,9 @@
     </div>
     
     <!-- get user info -->
-    <!-- user-box section -->
     <script src="/static/script/user-box.js" defer></script>
     <script>
         authen();
-        //var t = setInterval(authen, 20000);
-
         async function getinfo(url) {
             let response = await fetch(url, {
                 method: 'GET',
@@ -423,15 +284,11 @@
             }).then(async function (response) {
                 return response.json();
             }).then(async function (data) {
-                console.log("info",data);
                 var username = document.getElementById("username");
                 username.innerHTML = data.username;
                 localStorage.setItem("username", data.username);
                 localStorage.setItem("id-user", data.tag);
-                // localStorage.setItem("AvatarU" ,data.avatar);
-                
-                //let avatar = document.getElementById("avatar");
-                //avatar.src = `/image/server_avartar/${data.avatar}`;
+
                 await fetch(`/image/user_avartar/${data.avatar}`, {
                     method: 'GET',
                     credentials: 'include'
@@ -448,8 +305,6 @@
                         throw new Error("Failed to convert image to blob");
                     }
                 }).catch(function (error) {
-                    console.error(error);
-                    // handle error by showing a message to the user or logging it to a server
                 });
                 let discriminator = document.getElementById("discriminator");
                 discriminator.innerHTML = "#" + data.tag;
@@ -469,7 +324,6 @@
             const json = await this.getJSON();
             if (json.detail == "Authorized") {
                 await getinfo('/account/me');
-                console.log("Authorized");
             }
             else{
                 window.location.href = "/account/login";
@@ -479,37 +333,28 @@
     </script>
 
 
-    <!-- TODO: get server list && create server -->
-        <script>
+    <!-- get server list && create server -->
+    <script>
         async function get_server_list() {
-            return fetch(`/channels/getlist`, { // ลองเข้า url นี้
+            return fetch(`/channels/getlist`, { 
                 method: 'GET',
                 credentials: 'include'
             })
                 .then((response) => response.json())
-                .then((responseJson) => { return responseJson })
-                // .then((response) => {console.log(response)});
-        }
+                .then((responseJson) => { return responseJson })}
         async function loop_server() {
-            // Get the server list data
-            await get_server_list() // รอให้ get_server_list() ทำงานเสร็จก่อน
-                .then(async (data) => { //json ที่ได้จาก get_server_list() จะถูกส่งมาที่ data
-                    console.log(data);
-                    // ลบ server ทั้งหมดที่มีอยู่ในหน้าเว็บออกก่อน
+            await get_server_list() 
+                .then(async (data) => { 
                     let server = document.getElementById("server");
                     server.style.display = 'none';
                     while (server.firstChild) {
                         server.removeChild(server.firstChild);
                     }
-                    // สร้าง server ใหม่ตามจำนวนที่ได้จาก get_server_list()
-                
                     for (let i = 0; i < data.length; i++) {
                         let server = document.getElementById("server");
                         let ddiv = document.createElement("div");
                         ddiv.classList.add("server");
                         ddiv.id = data[i].id;
-                        // const ch = data[i];
-                        // console.log(ch);
                         ddiv.onclick = function () {
                             window.location = `/channels/${data[i].id}`;
                             localStorage.setItem("serverID", data[i].id);
@@ -517,25 +362,19 @@
                             localStorage.setItem("invitation", data[i].invite_code);
                             var $sid = data[i].owner;
                             let invite = data[i].id;
-
-                            
                         }; 
                         ddiv.onmouseover = function () {
-                            //display server name in popup label on mouse over server
                             let servername = data[i].name;
                             ddiv.title = servername;
                         };
                         ddiv.addEventListener("mouseout", function () {
                             let popup = document.querySelector(".serverpopup");
                             if (popup) {
-                                popup.remove();
-                            }
-                        });
+                            popup.remove();
+                        }});
                         if (data[i].image){
-                            //สำหรับ server ที่มีรูป
                             let img = document.createElement("img");
                             img.classList.add("servericon");
-                            //img.src = data[i].image;
                             await fetch(`/image/server_avartar/${data[i].image}`, {
                                 method: 'GET',
                                 credentials: 'include'
@@ -552,13 +391,11 @@
                                     throw new Error("Failed to convert image to blob");
                                 }
                             }).catch(function (error) {
-                                console.error(error);
-                                // handle error by showing a message to the user or logging it to a server
+                                // console.error(error);
                             });
                             ddiv.appendChild(img);
                             server.appendChild(ddiv);
                         }else{
-                            //สำหรับ server ที่ไม่มีรูป
                             let pp = document.createElement("p");
                             pp.classList.add("servericon");
                             let words = data[i].name.split(' ');
@@ -566,16 +403,11 @@
                             pp.innerHTML = name;
                             ddiv.appendChild(pp);
                             server.appendChild(ddiv);
-                        }
-                    }
+                        }}
                     server.style.display = 'block';
                 });
         }
-
         loop_server();
-
-
-
         var modal = document.getElementById("createserver");
         var btn = document.getElementById("invite");
         var span = document.getElementsByClassName("close")[0];
@@ -585,20 +417,15 @@
         span.onclick = function () {
             modal.style.display = "none";
         }
-
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
-
-
-
     </script>
 
-    <!-- TODO: button setting -->
+    <!--  button setting -->
     <script>
-        //script ของ setting  div
         const settingprogram = document.getElementById('settingsToggle');
         const divroot = document.getElementById('rootDiv');
         const divsetting = document.getElementById('settpage');
@@ -630,36 +457,20 @@
         });
 
         //  -----------------------change to dm container-----------------------------------
-//         window.addEventListener('load', function() {
-//   // โค้ดสำหรับฟังก์ชันที่คุณต้องการเรียกใช้งานเมื่อโหลดหน้าเว็บไซต์เสร็จสมบูรณ์ 
-//             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
-//             $(document).ready(function() { $("#chat-board").load("/container-dm");})   
-//         });
-        // document.getElementById('dm').addEventListener('click' , (e) =>{
-        // $(document).ready(function () { $("#chat-menu").load("/chat-guild"); })
-        // $(document).ready(function () { $("#chat-board").load("/container-server"); })
-        // });
+
     </script>
 
 
 
     
     <script>
-        // var link = document.getElementById('dm').onloadstart;
-        // $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
-        // $(document).ready(function() { $("#chat-board").load("/container-dm");})
-        //  // var friends = document.getElementById('friendlistload');
-        // link.click();
-        // friends.click();
-
-        
         document.getElementById('dm').addEventListener('click' , (e) =>{
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
             $(document).ready(function() { $("#chat-board").load("/container-dm");})
         });
     </script>
 
-    <!-- TODO: getchannel && create channel -->
+    <!--  getchannel && create channel -->
     {% if ch %}
     <script>
         const currentUrl = window.location.href;
@@ -672,26 +483,20 @@
                     .then((response) => response.json())
                     .then((responseJson) => { return responseJson });
             }
-
             async function loop_channels() {
                 await get_ch_list().then(async (ch) => {
-                    console.log("chanel",ch);/////ch data
-
                     let guildTch = document.getElementById('todoListTxt');
                     let guildVch = document.getElementById('todoListVoc');
                     let displaychat = document.getElementById('chat-send');
 
                     for (j = 0; j < ch.length; j++) {
-
                         let guildli = document.createElement('li');
                         let guilda = document.createElement('a');
                         let guildi = document.createElement('i');
 
                         guildli.classList.add('clickable')
-
                         guilda.id = ch[j].id;
                         guilda.innerHTML = ch[j].name;
-                        
                         guildli.appendChild(guildi);
                         guildli.appendChild(guilda);
 
@@ -704,209 +509,146 @@
                             guilda.classList.add('voicechat');
                             guildVch.append(guildli);
                         }
-                        // console.log("ch: ", ch[j].messages[0]);
                         let prevDiv;
-
                         $(".clickable").click(function () {
-
                             $(prevDiv).removeClass('channelborder');
                             $(prevDiv).css('background-color', 'transparent');
                             $(this).addClass('channelborder');
-                            
                             prevDiv = $(this);
                             var x = $(prevDiv).css('background-color', 'rgba(53, 55,61, 1)');
                             $(prevDiv).css('border-radius', '5px');
-
                         });
 
                         let chat = document.getElementById(`${ch[j].id}`);
                         chat.onclick = function () {
-                            console.log("ch: ", this.id, "type:", this.classList[0]);
                             if (this.classList[0] == 'textchat') {
                                 localStorage.setItem("channel_id", this.id);
-                                //$(document).ready(function() { $("#chat-board").load(`/container-server`);})
-                                // console.log(ch[chat].messages.content)
                                 displaychat.style.display = 'grid';
                             } else if (this.classList[0] == 'voicechat') {
-                                // $(document).ready(function() { $("#chat-board").load(`/container-server`);})
                                 displaychat.style.display = 'none';
-                            }
-                        }
-
-                    }
+                            }}}
                 });
             }
-            
-
             loop_channels();
             
-        // const roomName = document.getElementById('roomName')
-
     </script>
-    {% endif %}
+{% endif %}
 
     {% if svdm %}
     <script>   
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
             $(document).ready(function() { $("#chat-board").load("/container-dm");})
-            // getpagetoload()
-
-
     </script>
     {% endif %}
 
-    
-    <!-- TODO: setting btn -->
     <script>
         var id_user = (localStorage.getItem("id-user"));
             var email_detail = (localStorage.getItem("email"));
             var Avatar_detail = (localStorage.getItem("AvatarU"));
-
             var nameserver = (localStorage.getItem("serverName"));
             var usernameD = (localStorage.getItem("username"));
             let name_server = document.getElementById("nameofserver");
             let SettingAccout = document.getElementById("NameAccoutDisplay");
-
             let SettingAccoutDetail = document.getElementById("NameAccoutDisplayDetail");
             let SettingAccoutDetailEmail = document.getElementById("EmailAccoutDisplayDetail");
-
 
             name_server.innerHTML = nameserver;
             SettingAccout.innerHTML = usernameD + '#' + id_user;
             SettingAccoutDetail.innerHTML = usernameD + '#' + id_user;
-            // AvatarAccout.src=Avatar_detail;
-
-
             const clickA = document.getElementById('NameAccoutDisplay');
             clickA.addEventListener('click', () => {
                 navigator.clipboard.writeText(usernameD + '#' + id_user);
-                console.log('copied');
                 alert('Username Copied');
             })
     </script>
 
-    <!-- TODO:  dropdown sidebar menu-->
-    <script>
-    
-        // const roomName = document.getElementById('roomName')
-    
-        const toggleBtn = document.querySelector('.navbar')
-        const toggleBtnIcon = document.querySelector('.toggle_btn i')
-        const dropDownMenu = document.querySelector('.dropdown_menu')
-    
-        toggleBtn.onclick = function () {
+<script>
+    const toggleBtn = document.querySelector('.navbar')
+    const toggleBtnIcon = document.querySelector('.toggle_btn i')
+    const dropDownMenu = document.querySelector('.dropdown_menu')
+    toggleBtn.onclick = function () {
         dropDownMenu.classList.toggle('open')
         const isOpen = dropDownMenu.classList.contains('open')
-    
         toggleBtnIcon.classList = isOpen
         ? 'fa-solid fa-xmark'
         : 'fa-solid fa-chevron-down'
-        }
+    }
     
+    const addBtnTxt = document.getElementById('add_btnTxt');
+    const closeBtnTxt = document.getElementById('btn_cancelTxt');
+    const addBtnV = document.getElementById('add_btnV');
+    const closeBtnV = document.getElementById('btn_cancelV');
+    const popupTxt = document.getElementById('popupTxt');
+    const todoFormTxt = document.getElementById('todoFormTxt');
+    const todoInputTxt = document.getElementById('todoInputTxt');
+    const todoListTxt = document.getElementById('todoListTxt');
+    const popupV = document.getElementById('popupV');
+    const todoFormV = document.getElementById('todoFormV');
+    const todoInputV = document.getElementById('todoInputV');
+    const todoListV = document.getElementById('todoListV');
+
+    addBtnTxt.addEventListener('click', () => {
+        popupTxt.style.display ='block';
+    });
     
-        const addBtnTxt = document.getElementById('add_btnTxt');
-        const closeBtnTxt = document.getElementById('btn_cancelTxt');
-    
-        const addBtnV = document.getElementById('add_btnV');
-        const closeBtnV = document.getElementById('btn_cancelV');
-        const popupTxt = document.getElementById('popupTxt');
-        const todoFormTxt = document.getElementById('todoFormTxt');
-        const todoInputTxt = document.getElementById('todoInputTxt');
-        const todoListTxt = document.getElementById('todoListTxt');
-    
-        const popupV = document.getElementById('popupV');
-        const todoFormV = document.getElementById('todoFormV');
-        const todoInputV = document.getElementById('todoInputV');
-        const todoListV = document.getElementById('todoListV');
-    
-    
+    closeBtnTxt.addEventListener('click', () => {
+        popupTxt.style.display = 'none';
+    });
         
+    addBtnV.addEventListener('click', () => {
+        opupV.style.display ='block';
+    });
     
-        addBtnTxt.addEventListener('click', () => {
-            popupTxt.style.display ='block';
-        });
-    
-        closeBtnTxt.addEventListener('click', () => {
-            popupTxt.style.display = 'none';
-            });
-        
-        addBtnV.addEventListener('click', () => {
-                popupV.style.display ='block';
-            });
-    
-        closeBtnV.addEventListener('click', () => {
-                popupV.style.display = 'none';
-                });
+    closeBtnV.addEventListener('click', () => {
+        popupV.style.display = 'none';
+    });
                 //Send Msg
 
-        todoFormTxt.addEventListener('submit', (e) => {
+    todoFormTxt.addEventListener('submit', (e) => {
         e.preventDefault();
         const todoText = todoInputTxt.value;
-
-                    if (!todoText) {
-                        addBtnTxt.disabled=true;
-                        alert("ค่าว่าง"); 
+        if (!todoText) {
+                addBtnTxt.disabled=true;
+                alert("ค่าว่าง"); 
+            }
+        else{
+            const regex = /^[a-zA-Z0-9\s]+$/;
+            if (!regex.test(todoText)) {
+                event.target.value = todoText.slice(0, -1);
+                    alert("ห้ามใช้อักษระพิเศษ"); 
                 }
-                // const todoItem = document.createElement('li');
-                // const todoLink = document.createElement('a');
-                // const todoIcon = document.createElement('i');
-                // todoLink.href = todoText;
-                // todoLink.style.fontFamily = 'Mukta';
-                // todoLink.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;' + todoText;
-                // todoIcon.classList.add('fa', 'fa-volume-high');
-                // todoItem.appendChild(todoIcon);
-                // todoItem.appendChild(todoLink);
-                // todoListV.appendChild(todoItem);
-                // todoInputV.value = '';
-
-                // let Servid = parseInt(svid);
-                else  {
-                    const regex = /^[a-zA-Z0-9\s]+$/;
-                    if (!regex.test(todoText)) {
-                        event.target.value = todoText.slice(0, -1);
-                        alert("ห้ามใช้อักษระพิเศษ"); 
-                        
-                    }
                 else {
-                let type1 ='text'
-                
-                let Servid = parseInt(svid);
-                async function CreateCh(url = `/channels/${Servid}/create_channel`, data = {
-                    ch_name: todoText,
-                    ch_type: type1,
-                    ch_category: 'Cat'
-                    }) {
-                    try {
-                        const response = await fetch(url, {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        redirect: 'follow',
-                        referrerPolicy: 'no-referrer',
-                        body: JSON.stringify(data)
-                        }).then(response => response.json())
-                        .then(data => {
-                            if (data.detail == 'success') {
-                                window.location.href = `/channels/${Servid}`;
-                            } else {
-                                // console.log('Channel not created');
-                            }
-                        })
-                    } catch (error) {
-                        console.error(error);
-                    }
-                    }
-
+                    let type1 ='text'
+                    let Servid = parseInt(svid);
+                    async function CreateCh(url = `/channels/${Servid}/create_channel`, data = {
+                        ch_name: todoText,
+                        ch_type: type1,
+                        ch_category: 'Cat' }) {
+                        try {
+                            const response = await fetch(url, {
+                            method: 'POST',
+                            mode: 'cors',
+                            cache: 'no-cache',
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/json' 
+                            },
+                            redirect: 'follow',
+                            referrerPolicy: 'no-referrer',
+                            body: JSON.stringify(data)
+                            }).then(response => response.json())
+                            .then(data => {
+                                if (data.detail == 'success') {
+                                    window.location.href = `/channels/${Servid}`;
+                                }
+                            })
+                        } catch (error) {
+                            // console.error(error);
+                        }
+                        }
                     CreateCh();
-                console.log(todoText);
-                todoInputV.value = '';
-                popupTxt.style.display = 'none';
-                
-                
+                    todoInputV.value = '';
+                    popupTxt.style.display = 'none';
         }}});
     
         todoFormV.addEventListener('submit', (e) => {
@@ -940,184 +682,142 @@
                                 }
                             })
                     } catch (error) {
-                        console.error(error);
+                        // console.error(error);
                     }
                     }
-
                     CreateCh();
-                    
-                
                 todoInputV.value = '';
                 popupTxt.style.display = 'none';
                 todoInputV.value = '';
                 popupV.style.display = 'none';
-                
             }
-            
             });
-            
-    
-    
-    </script>
-
-    
-    <!-- TODO: ส่งได้ล่ะหน้าหนังเจี๊ยก ทำ scollbar เลื่อนตามข้อความด้วย -->
-
-    <script>
-
-        const todochatsend = document.getElementById('todo-chat-send');
-        const InputSendMessage = document.getElementById('sendMessage');
-
-        const textsend = document.getElementById('sendtextchat');
-
-        InputSendMessage.addEventListener('submit', (e) => {
-            e.preventDefault();
-            var sendtext = textsend.value;
-            if (sendtext) {
-                let chanel_id = localStorage.getItem("channel_id");
-                let j = parseInt(chanel_id);
-                let k = parseInt(svid);
+</script>
 
 
+
+<script>
+    const todochatsend = document.getElementById('todo-chat-send');
+    const InputSendMessage = document.getElementById('sendMessage');
+    const textsend = document.getElementById('sendtextchat');
+    InputSendMessage.addEventListener('submit', (e) => {
+        e.preventDefault();
+        var sendtext = textsend.value;
+        if (sendtext) {
+            let chanel_id = localStorage.getItem("channel_id");
+            let j = parseInt(chanel_id);
+            let k = parseInt(svid);
                 async function postData(url = `/msg/${j}/sendmsg`, data = { 
                     chanel_id: j ,
                     server_id: k,
                     msg: sendtext
-                }) 
-                {
-                        const response =  await fetch(url, {
-                            method: "POST", 
-                            credentials: "include", 
-                            headers: {
+                }) {
+                    const response =  await fetch(url, {
+                        method: "POST", 
+                        credentials: "include", 
+                        headers: {
                             "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(data),
-                        });
+                        }, body: JSON.stringify(data), });
 // -----------------------------   ส่วนที่แสดงการส่งข้อความบน chatboard  ------------------------------------------------------------
                         const data11 = await response.json();
-                textsend.value = '';
-                    }
+                textsend.value = ''; }
                 postData(); 
             }});
 </script>
 
-<!-- TODO Fetch Message -->
+
 <script>
-    //renew message
     let lastMsgId = null;
     let addedMsgIds = new Set();
     async function loadMessages() {
-            let sRid = svid;
-            let cRid = localStorage.getItem("channel_id");
-            // const url1 = `/msg/${sRid}/${cRid}/getlist${lastMsgId ? `?lastMsgId=${lastMsgId}` : ''}`;
-            const url1 = `/msg/${sRid}/${cRid}/getlist${lastMsgId ? `?lastMsgId=${lastMsgId}` : ''}`;
-            const todochatsend = document.getElementById('todo-chat-send');
-            try {
-                const res = await fetch(url1);
-                const data = await res.json();
-                // Update lastMsgId with the ID of the last message in the response
-                if (data.length > 0) {
-                    if (lastMsgId === null) {
-                        todochatsend.innerHTML = '';
-                    }
-                    data.forEach((msg) => {
-                        if (!addedMsgIds.has(msg.id)) {
-                            console.log(msg.id + ': ' + msg.content);
-                        }
-                    });
+        let sRid = svid;
+        let cRid = localStorage.getItem("channel_id");
+        const url1 = `/msg/${sRid}/${cRid}/getlist${lastMsgId ? `?lastMsgId=${lastMsgId}` : ''}`;
+        const todochatsend = document.getElementById('todo-chat-send');
+        try {
+            const res = await fetch(url1);
+            const data = await res.json();
+            if (data.length > 0) {
+                if (lastMsgId === null) {
+                    todochatsend.innerHTML = '';
+                }
                     lastMsgId = data[data.length - 1].id;
                 }
-
-                // Append the new messages to the chat box
                 for (const msg of data) {
                     if (!addedMsgIds.has(msg.id)) {
-                    addedMsgIds.add(msg.id);
-                    const todochattosend = document.createElement('div');
-                    const todoProfileDirect = document.createElement('div');
-                    const todocontentchat = document.createElement('div');
-                    const todoimage = document.createElement('img');
-                    const todonamechat = document.createElement('div');
-                    const todoconchat = document.createElement('div');
-                    const todoitem31 = document.createElement('div');
-                    const todoHeadSix = document.createElement('h6');
-                    const todoSpan1 = document.createElement('span');
-                    const todoSpan2 = document.createElement('span');
-                    const todate = new Date();
-                    const tododateDate = new Date().toISOString().split('T')[0];
-                    let namemeM = (localStorage.getItem("username"));
-                    todate.getHours() + ":" + todate.getMinutes()
-                    const nameMember = 'Name ';
-                    todochattosend.classList.add('chat-to-send');
-                    todoProfileDirect.classList.add('Profile-Direct');
-                    todoProfileDirect.style.width = '60px';
-                    todoProfileDirect.appendChild(todoimage);
-                    todocontentchat.classList.add('content-chat');
-                    todonamechat.classList.add('namechat');
-                    todoconchat.classList.add('conchat');
-                    todoconchat.innerHTML = msg.content;
+                        addedMsgIds.add(msg.id);
+                        const todochattosend = document.createElement('div');
+                        const todoProfileDirect = document.createElement('div');
+                        const todocontentchat = document.createElement('div');
+                        const todoimage = document.createElement('img');
+                        const todonamechat = document.createElement('div');
+                        const todoconchat = document.createElement('div');
+                        const todoitem31 = document.createElement('div');
+                        const todoHeadSix = document.createElement('h6');
+                        const todoSpan1 = document.createElement('span');
+                        const todoSpan2 = document.createElement('span');
+                        const todate = new Date();
+                        const tododateDate = new Date().toISOString().split('T')[0];
+                        let namemeM = (localStorage.getItem("username"));
+                        todate.getHours() + ":" + todate.getMinutes()
+                        const nameMember = 'Name ';
+                        todochattosend.classList.add('chat-to-send');
+                        todoProfileDirect.classList.add('Profile-Direct');
+                        todoProfileDirect.style.width = '60px';
+                        todoProfileDirect.appendChild(todoimage);
+                        todocontentchat.classList.add('content-chat');
+                        todonamechat.classList.add('namechat');
+                        todoconchat.classList.add('conchat');
+                        todoconchat.innerHTML = msg.content;
+                        todoSpan1.classList.add('name');
 
-                    todoSpan1.classList.add('name');
-
-                    await  fetch(`/account/get_account/${msg.sender_id}`) // get username
-                        .then(response => response.json())
-                        .then(data => {
-                            todoSpan1.innerHTML = data.username + ' ';
-                            fetch(`/image/user_avartar/${data.avatar}`, {
-                                    method: 'GET',
-                                    credentials: 'include'
-                                }).then(async function (response) {
-                                    if (response.ok) {
-                                        return response.blob();
-                                    } else {
-                                        throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
-                                    }
-                                }).then(async function (blob) {
-                                    if (blob) {
-                                        todoimage.src = URL.createObjectURL(blob);
-                                    } else {
-                                        throw new Error("Failed to convert image to blob");
-                                    }
-                                }).catch(function (error) {
-                                    console.error(error);
-                                    // handle error by showing a message to the user or logging it to a server
-                                });
-                            
-                    });
-
-                    todoSpan2.classList.add('date');
-                    todoSpan2.innerHTML = msg.date
-                    todoHeadSix.appendChild(todoSpan1);
-                    todoHeadSix.appendChild(todoSpan2);
-                    todonamechat.appendChild(todoHeadSix);
-                    todonamechat.appendChild(todoconchat);
-                    todocontentchat.appendChild(todonamechat);
-                    todochattosend.appendChild(todoProfileDirect);
-                    todochattosend.appendChild(todocontentchat);
-                    todochatsend.appendChild(todochattosend);
-                    todochattosend.scrollIntoView();
-
-                    todochatsend.appendChild(todochattosend);
-                    // lastMsgId = data.length > 0 ? data[data.length - 1].id : lastMsgId;
-                }
-            }
-
-                // Scroll to the bottom of the chat box
-                todochatsend.scrollTop = todochatsend.scrollHeight;
+                        await  fetch(`/account/get_account/${msg.sender_id}`) // get username
+                            .then(response => response.json())
+                            .then(data => {
+                                todoSpan1.innerHTML = data.username + ' ';
+                                fetch(`/image/user_avartar/${data.avatar}`, {
+                                        method: 'GET',
+                                        credentials: 'include'
+                                    }).then(async function (response) {
+                                        if (response.ok) {
+                                            return response.blob();
+                                        } else {
+                                            throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+                                        }
+                                    }).then(async function (blob) {
+                                        if (blob) {
+                                            todoimage.src = URL.createObjectURL(blob);
+                                        } else {
+                                            throw new Error("Failed to convert image to blob");
+                                        }
+                                    }).catch(function (error) {
+                                        // console.error(error);
+                                    });
+                        });
+                        todoSpan2.classList.add('date');
+                        todoSpan2.innerHTML = msg.date
+                        todoHeadSix.appendChild(todoSpan1);
+                        todoHeadSix.appendChild(todoSpan2);
+                        todonamechat.appendChild(todoHeadSix);
+                        todonamechat.appendChild(todoconchat);
+                        todocontentchat.appendChild(todonamechat);
+                        todochattosend.appendChild(todoProfileDirect);
+                        todochattosend.appendChild(todocontentchat);
+                        todochatsend.appendChild(todochattosend);
+                        todochattosend.scrollIntoView();
+                        todochatsend.appendChild(todochattosend);
+                }}
+            todochatsend.scrollTop = todochatsend.scrollHeight;
             } catch (err) {
-                console.error(err);
-            }
-        }
+                //  console.error(err);
+            }}
     loadMessages();
-    // TODO: uncomment setInterval
-//    setInterval(loadMessages, 500); // 0.5 seconds
-
 </script>
 
 
-<!-- TODO copyinvitelink function -->
+
 <script>
     const code_invite = (localStorage.getItem("invitation"));
-
     let invitelink_btn = document.getElementById('copy-invite');
     invitelink_btn.addEventListener('click', () => {
         curr = window.location.href;
@@ -1132,20 +832,13 @@
             });
     });
 </script>
-    
 
-
-
-
-<!--  online status in server -->
 <script>
-    
     let user_online = (localStorage.getItem("username"));
     let ServerN = (localStorage.getItem("serverName"));
     let servername = document.getElementById("sever_name_show");
-    servername.innerHTML = ServerN ;
     const usercount = document.getElementById("numberofuser");
-    
+    servername.innerHTML = ServerN ;
     usercount.innerHTML = 0;
     async function get_member_list() {
             return fetch(`/channels/member_list/${svid}`, {
@@ -1153,13 +846,8 @@
                 credentials: 'include'
             }).then((response) => response.json())
                 .then(async (responseJson) => { 
-                console.log("userมีที้งหมด :",responseJson.length)
                 usercount.innerText = responseJson.length;
-
-                //////////////////////////////////////////////////////////////////
-
                 for (let i = 0; i < responseJson.length; i++){
-                    console.log('ค่าจากfncบน = ',responseJson[i])
                     async function get_name_by_id(){
                         return fetch(`/account/get_name/${responseJson[i]}`,{
                             method: 'GET',
@@ -1167,34 +855,24 @@
                             }).then((data) => data.json())  
                                 .then( async (data) => { 
                                 let user_name = data.username;
-                                console.log("username  is = :",user_name)
-                                
-                                // createSERVERmember();
-                                // console.log(nameofmember)
-                                // console.log(document.getElementsById('box-member'))
                                 const nameofmember = document.createElement("label");
                                 const useronshow = document.getElementById('useronlineshow');
-                // console.log("createSERVERmember is work ")
                                 const member_room = document.createElement('button');
                                 const gridProfile = document.createElement('div');
                                 const ProfileDirect = document.createElement('div');
                                 const img = document.createElement('img');
                                 const round = document.createElement('div');
                                 const txtnamedirect = document.createElement('div');
-                                // const nameofmember = document.createElement('label');
-                                // console.log("createSERVERmember is working ")
                                 member_room.classList.add('Member-room');
                                 gridProfile.classList.add('gridProfile');
                                 ProfileDirect.classList.add('Profile-Direct');
                                 ProfileDirect.style.width = '70px';
                                 img.src = "{{ url_for('static', path='assets/disquote.png') }}";
                                 round.classList.add('round');
-                               
                                 round.classList.add('online');
                                 txtnamedirect.classList.add('txtnamedirect');
                                 nameofmember.classList.add('membername');
                                 nameofmember.innerHTML = user_name;
-                                // console.log("createSERVERmember is worked ")
                                 txtnamedirect.appendChild(nameofmember);
                                 ProfileDirect.appendChild(img);
                                 ProfileDirect.appendChild(round);
@@ -1202,69 +880,11 @@
                                 gridProfile.appendChild(txtnamedirect);
                                 member_room.appendChild(gridProfile);
                                 useronshow.appendChild(member_room);
-
-                            })
-                            
-                        }
-                        
+                            })}
                         get_name_by_id();
-                }
-            });
+                }});
             }
             get_member_list();  
-
-        // async   function createSERVERmember(){
-                // const useronshow = document.getElementById('useronlineshow');
-                // // console.log("createSERVERmember is work ")
-                // const member_room = document.createElement('button');
-                // const gridProfile = document.createElement('div');
-                // const ProfileDirect = document.createElement('div');
-                // const img = document.createElement('img');
-                // const round = document.createElement('div');
-                // const txtnamedirect = document.createElement('div');
-                // const nameofmember = document.createElement('label');
-                // // console.log("createSERVERmember is working ")
-                // member_room.classList.add('Member-room');
-                // gridProfile.classList.add('gridProfile');
-                // ProfileDirect.classList.add('Profile-Direct');
-                // ProfileDirect.style.width = '70px';
-                // img.src = "{{ url_for('static', path='assets/disquote.png') }}";
-                // round.classList.add('round');
-                // round.classList.add('online');
-                // txtnamedirect.classList.add('txtnamedirect');
-                // nameofmember.classList.add('membername');
-                // // console.log("createSERVERmember is worked ")
-                // txtnamedirect.appendChild(nameofmember);
-                // ProfileDirect.appendChild(img);
-                // ProfileDirect.appendChild(round);
-                // gridProfile.appendChild(ProfileDirect);
-                // gridProfile.appendChild(txtnamedirect);
-                // member_room.appendChild(gridProfile);
-                // useronshow.appendChild(member_room);
-                // const boxmember = document.getElementsById('box-member')
-                // boxmember.appendChild(member_room);
-                // .appendChild(member_room);
-                // document.getElementsByClassName('memberroom').appendChild(member_room);
-
-            // }
-            
-
-            // <button class="Member-room">
-            //                             <div class="gridProfile">
-            //                                 <div class="Profile-Direct" style="width: 70px;">
-            //                                     <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
-            //                                     <div class="round online" style="width: 10px;
-            //                                         height: 10px; margin-bottom: 10px;
-            //                                         margin-right: 10px;
-            //                                         border :5px solid rgba(43, 45,49, 1);">
-            //                                     </div>
-            //                                 </div>
-            //                                 <div class="txtnamedirect">
-            //                                     <label id="online_nameinserver"></label>
-            //                                 </div>
-            //                             </div>
-            // </button>
-
 </script>
 
 

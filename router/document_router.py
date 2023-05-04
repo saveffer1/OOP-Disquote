@@ -19,11 +19,12 @@ def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
         )
     return credentials.username
 
+# swagger ui host/admin/doc
 @router.get("/doc")
 async def get_documentation(username: str = Depends(get_current_username)):
     return get_swagger_ui_html(openapi_url="/admin/openapi.json", title="docs")
 
-
+# redoc ui host/admin/redoc
 @router.get("/redoc")
 async def get_redocumentation(username: str = Depends(get_current_username)):
     return get_redoc_html(openapi_url="/admin/openapi.json", title="redoc")

@@ -1,19 +1,21 @@
-import multiprocessing
 import os
 import platform
 import socket
 import ctypes
 import subprocess
-import psutil, shutil
-import string
-import wmi
-from datetime import timedelta
+import psutil
 from dataclasses import dataclass
 
+# cloned linux functions from pydash and fastdash
+    # https://github.com/dgilland/pydash
+    # https://github.com/psiace-archive/fastdash
+    
+# tested on windows 11
+# untested on linux
 @dataclass
 class Report():
 
-    def get_uptime(self):
+    def get_uptime(self) -> str:
         """
         Get uptime
         """
@@ -34,15 +36,14 @@ class Report():
         finally:
             return data
 
-    def get_cpus(self):
+    def get_cpus(self) -> dict:
         """
         Get the number of CPUs and model/type
         """
         data = {}
         try:
             if platform.system() == 'Windows':
-                output = subprocess.check_output(
-                    'wmic cpu get name /format:csv', shell=True)
+                output = subprocess.check_output('wmic cpu get name /format:csv', shell=True)
                 lines = output.decode().strip().split('\r\r\n')
                 # Count the number of rows in the CSV file
                 data['type'] = lines[1].split(',')[1].strip()
@@ -61,153 +62,22 @@ class Report():
 
         return data
 
-    def get_users(self):
-        """
-        Get the current logged in users
-        """
-        try:
-            pipe = os.popen("who |" + "awk '{print $1, $2, $6}'")
-            data = pipe.read().strip().split("\n")
-            pipe.close()
-
-            if data == [""]:
-                data = None
-            else:
-                data = [i.split(None, 3) for i in data]
-
-        except Exception as err:
-            data = str(err)
-
-        return data
     
-    def get_ipaddress(self):
+    def get_ipaddress(self) -> str:
         """
         Get the IP Address and other information for all network interfaces
         """
         return socket.gethostbyname(socket.gethostname())
         #return socket.gethostbyname_ex(socket.gethostname())[-1]
 
-    def get_traffic(self, request):
-        """
-        Get the traffic for the specified interface
-        """
-        data = {}
-        try:
-            if platform.system() == 'Windows':
-                output = subprocess.check_output('netstat -e', shell=True)
-                lines = output.decode().split('\r\n')
-                for line in lines:
-                    if request in line:
-                        data['traffic_in'] = int(line.split()[1])
-                        data['traffic_out'] = int(line.split()[4])
-                        break
-            else:  # Assuming Linux
-                output = subprocess.check_output('cat /proc/net/dev', shell=True)
-                lines = output.decode().split('\n')
-                for line in lines:
-                    if request in line:
-                        data['traffic_in'] = int(line.split(':')[1].split()[0])
-                        data['traffic_out'] = int(line.split(':')[1].split()[8])
-                        break
-        except subprocess.CalledProcessError as err:
-            data = str(err)
-
-        return data
-
-    def get_platform(self):
+    def get_platform(self) -> str:
         """
         Get the OS name, hostname and kernel
         """
         return platform.system()
 
-    def get_disk(self):
-        """
-        Get disk usage
-        """
-        try:
-            if platform.system() == 'Windows':
-                drives = []
-                for letter in string.ascii_uppercase:
-                    if os.path.exists(letter + ":\\"):
-                        drives.append(letter + ":\\")
 
-                data = []
-                for drive in drives:
-                    total, used, free = shutil.disk_usage(drive)
-                    percent = (used / total) * 100
-                    disk_usage = {"drive": drive, "total": total,
-                                "used": used, "free": free, "percent": percent}
-                    data.append(disk_usage)
-            else:
-                pipe = os.popen(
-                    "df -Ph | "
-                    + "grep -v Filesystem | "
-                    + "awk '{print $1, $2, $3, $4, $5, $6}'"
-                )
-                data = pipe.read().strip().split("\n")
-                pipe.close()
-
-                data = [i.split(None, 6) for i in data]
-
-        except Exception as err:
-            data = str(err)
-
-        return data
-
-    def get_disk_rw(self):
-        """
-        Get the disk reads and writes
-        """
-        try:
-            if platform.system() == 'Windows':
-                c = wmi.WMI()
-                partitions = []
-                for disk in c.Win32_LogicalDisk():
-                    partitions.append({
-                        'device': disk.DeviceID,
-                        'mountpoint': disk.Caption,
-                        'filesystem': disk.FileSystem,
-                        'total_size': int(disk.Size),
-                        'used': int(disk.Size) - int(disk.FreeSpace),
-                        'free': int(disk.FreeSpace),
-                        'percent_used': int(disk.Size - disk.FreeSpace) / int(disk.Size) * 100
-                    })
-            else:
-                pipe = os.popen(
-                    "cat /proc/partitions | grep -v 'major' | awk '{print $4}'")
-                data = pipe.read().strip().split("\n")
-                pipe.close()
-
-                rws = []
-                for i in data:
-                    if i.isalpha():
-                        pipe = os.popen(
-                            "cat /proc/diskstats | grep -w '" +
-                            i + "'|awk '{print $4, $8}'"
-                        )
-                        rw = pipe.read().strip().split()
-                        pipe.close()
-
-                        rws.append([i, rw[0], rw[1]])
-
-                if not rws:
-                    pipe = os.popen(
-                        "cat /proc/diskstats | grep -w '" +
-                        data[0] + "'|awk '{print $4, $8}'"
-                    )
-                    rw = pipe.read().strip().split()
-                    pipe.close()
-
-                    rws.append([data[0], rw[0], rw[1]])
-
-                data = rws
-
-        except Exception as err:
-            data = str(err)
-
-        return data
-
-    def get_mem(self):
+    def get_mem(self) -> dict:
         """
         Get memory usage
         """
@@ -259,7 +129,7 @@ class Report():
 
         return data
 
-    def get_cpu_usage(self):
+    def get_cpu_usage(self) -> dict:
         """
         Get the CPU usage and running processes
         """
@@ -325,37 +195,3 @@ class Report():
 
         return data
 
-    def get_load(self):
-        """
-        Get load average
-        """
-        data = ""
-        try:
-            if platform.system() == 'Windows':
-                data = psutil.cpu_percent()
-            else:  # Assuming Linux
-                with open('/proc/loadavg', 'r') as f:
-                    data = f.read().strip().split()[0]
-        except Exception as err:
-            data = str(err)
-
-        return data
-
-    def get_netstat(self):
-        """
-        Get ports and applications
-        """
-        try:
-            pipe = os.popen(
-                "ss -tnp | grep ESTAB | awk '{print $4, $5}'| sed 's/::ffff://g' | awk -F: '{print $1, $2}' "
-                "| awk 'NF > 0' | sort -n | uniq -c"
-            )
-            data = pipe.read().strip().split("\n")
-            pipe.close()
-
-            data = [i.split(None, 4) for i in data]
-
-        except Exception as err:
-            data = str(err)
-
-        return data

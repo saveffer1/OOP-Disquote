@@ -64,16 +64,13 @@
                     }
                     return response.json();
                 })
-                .then(data => { //data.detail success
-                    console.log(data)
-                    // handle success response
+                .then(data => { 
                     if (data.detail == "success"){
                         window.location.href = "/channels/" + '@me';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // handle error
                 });
                 
         });
@@ -97,15 +94,12 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data);
-                    // handle success response
                     if (data.detail == "success") {
                         window.location.href = "/channels/@me";
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // handle error
                 });
         });
     </script>

@@ -5,7 +5,6 @@ from fastapi.encoders import jsonable_encoder
 from jose import JWTError
 import jwt
 from model import TokenData, UserStatus, EmailStr
-from schema import UserSchema, LoginSchema, UpdateUserModel
 from fastapi.templating import Jinja2Templates
 import pathlib
 import json
@@ -20,8 +19,6 @@ token_manager = TokenData(secret=SECRET, algorithm='HS256')
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
-
-
 
 @router.get('/ping', status_code=200, tags=['server'])
 @router.post('/ping', status_code=200, tags=['server'])
@@ -42,8 +39,6 @@ async def get_dm(request: Request):
     token = request.cookies.get("authen")
     if token:
         try:
-            user_email = token_manager.decode_access_token(token)
-            user_id = discord_account.get_user_id(user_email)
             dm_channel = templates.TemplateResponse("chatboard.html", {"request": request, "svdm": "dm"})
             return dm_channel
         except:
@@ -73,11 +68,8 @@ async def get_server(request: Request, server_id: int):
             email = token_manager.decode_access_token(token)
             server = discord_server.get_server_by_id(server_id)
             if server:
-                channels = server.get_channel_list()
                 return templates.TemplateResponse("chatboard.html", {"request": request, "ch": "yes"})
-                # return {"request": request, "ch": "yes"}
             return templates.TemplateResponse("chatboard.html", {"request": request})
-            #return {"ch": channels}
         except:
             return RedirectResponse(url="/account/logout", status_code=status.HTTP_303_SEE_OTHER)
     else:
@@ -94,8 +86,6 @@ async def create_channel(request: Request, server_id: int, ch_name: str = Body(.
     token = request.cookies.get("authen")
     if token:
         try:
-            user_email = token_manager.decode_access_token(token)
-            user_id = discord_account.get_user_id(user_email)
             discord_server.add_channel(server_id, ch_name, ch_type, ch_category)
             return {"status_code": 200, "detail": "success"}
         except:
@@ -174,11 +164,6 @@ async def join_the_server(request: Request, invite_code: str = Body(...), confir
                         discord_server.join_server(server_id, user_id)
                         return {"status_code": 200, "detail": "success", "prompt": "accepted"}
                     else:
-                        print()
-                        print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-                        print("----------already in server-----------")
-                        print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-                        print()
                         return {"status_code": 200, "detail": "success", "prompt": "already in server"}
                 except:
                     return {"datail": "error none type after decode cookie"}

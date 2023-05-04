@@ -4,35 +4,9 @@
         <div class="line-4">
             <hr>
         </div>  
-
         <div class="forbtnfriend" id="forlooppend">
-            <!-- <button>
-            <div class="grid_3">
-                <div class="Profile-Flist">
-                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
-                    <div class ="round online">
- 
-                </div>                    
-                </div>
-                    <div class="avatarname">
-                        <h2 style="color: rgba(148, 155,164, 1);">NameFriend
-                          <br>  <label style="color: rgba(161, 165,172, 1); font-size:12px ">Incoming Friend Request</label>
-                        </h2>       
-                    </div> -->
-             
-            <!-- </div> -->
-           
-            <!-- </button> -->
-            <!-- คน 2 -->
-            <!-- <div class="line-4">
-                <hr>
-            </div> -->
-          
-
         </div>
-
         <div class="">
-            
         </div>
     </div>
 
@@ -46,14 +20,15 @@
     async function getFriendSend() {
             const response = await fetch('/account/request_list');
             const data = await response.json();
-            // console.log(data);
+            const divPending = document.getElementById("forlooppend");
+            while(divPending.firstChild){
+                divPending.removeChild(divPending.firstChild);
+            }
             for (j = 0; j < data.length; j++) {
                     
                 let namesendFname =data[j].name
                 let namesendFID =data[j].id
             
-                // console.log(j);
-                    const divPending = document.getElementById("forlooppend");
 
                     //Div
                     const todobutton = document.createElement('button');
@@ -107,7 +82,6 @@
 
                     //ใส่ labelใน h2
                     todoh2grip2.appendChild(labelAvatar);
-                    // console.log(nameofSendF);
 
                     //h2 ไปใน
                     todoavatarname.appendChild(todoh2grip2);
@@ -183,7 +157,6 @@
                     coutpend.innerHTML="PENDING - "+data[j].length;
 
                     roundpend1.addEventListener('click', () =>  {
-                        console.log("accept"+namesendFID)
                         async function SendAccept(){
                             const response = await fetch('/account/friends_request_prompt', {
                                 method: 'POST',
@@ -197,15 +170,13 @@
                                 
                             });
                             const data = await response.json();
-                            console.log(data);
-                            console.log("ได้แล้วนะเจีํยกๆ")
                         }
-                        SendAccept();
+                        SendAccept().then(() => {
+                            getFriendSend();
+                        });
                     });
 
                     roundpend2.addEventListener('click', () =>  {
-                        console.log("reject"+namesendFID)
-
                         async function SendReject(){
                             const response = await fetch('/account/friends_request_prompt', {
                                 method: 'POST',
@@ -219,10 +190,10 @@
                                 
                             });
                             const data = await response.json();
-                            console.log(data);
-                            console.log("ลบแล้วนะเจีํยกๆ")
                         }
-                        SendReject();
+                        SendReject().then(() => {
+                            getFriendSend();
+                        });
                     });
                     
 
@@ -231,28 +202,7 @@
             }
             
             getFriendSend();
-        
-        
-        
 </script>
 
 
 
-
-
-
-<script>        
-    //   const btnaccept = document.getElementById('roundaccept')
-    
-    //  btnaccept.addEventListener('click', () =>  {
-    //     console.log("Accept");
-    //   })
-
-    
-
-    // const btnignore = document.querySelector('.roundignore');
-    // btnignore.addEventListener('click', () =>  {
-    //     console.log("Ignore")
-    // })
-
-</script>   
