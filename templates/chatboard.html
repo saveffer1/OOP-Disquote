@@ -147,7 +147,7 @@
                     </div>
                     <div class="dropdown_menu">
                         <li><a href="#" id="copy-invite">invite Link</a></li>
-                        <li><a href="#" class="action_btn">Leave</a></li>
+                        <li><a href="#" id="leave" class="action_btn">Leave</a></li>
                     </div>
                 </div>
                 <!-- guild -->
@@ -814,6 +814,29 @@
                 alert('Failed to copy text: ', err);
             });
     });
+</script>
+
+<script>
+    const pathSegments = window.location.pathname.split('/');
+    const serverid = pathSegments[pathSegments.length - 1];
+
+    exit = document.getElementById("leave");
+    exit.addEventListener('click', () => {
+        // console.log('clicked')
+        async function removemeout() {
+            return fetch(`/channels/leave_server/${serverid}`, {
+                method: 'POST',
+                credentials: 'include'
+            }).then((res) => res.json())
+            .then(async (responseJson) => {
+                if (responseJson.detail == 'success'){
+                    // console.log('clicked')
+                    window.location.href = '/channels/@me'
+                }
+            })
+        }
+        removemeout();
+    })
 </script>
 
 <script>

@@ -219,4 +219,3 @@ async def get_friend(request: Request, user_name: str):
                 results.append({"id": account["id"], "username": account["username"], "tag": account["tag"],
                             "status": account["status"], "avatar": account["avatar"]})
         return results
-    

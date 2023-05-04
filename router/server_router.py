@@ -169,3 +169,16 @@ async def join_the_server(request: Request, invite_code: str = Body(...), confir
                     return {"datail": "error none type after decode cookie"}
     else:
         return {"status_code": 200, "detail": "success", "prompt": "rejected"}
+
+@router.post("/leave_server/{server_id}", status_code=200, tags=['server'])
+async def exit_server(request: Request, server_id: int):
+    token = request.cookies.get("authen")
+    if token:  # check if token exist
+        email = token_manager.decode_access_token(token)
+        server = discord_server.get_server_by_id(server_id)
+        user = discord_account.get_user_account(email)
+        user_id = user.id()
+        print(server.get_member_list())
+        server.remove_member(user_id)
+        print(server.get_member_list())
+        return  {"detail": "success"}

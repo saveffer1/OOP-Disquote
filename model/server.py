@@ -27,7 +27,8 @@ class Server:
     _channel_id: int = 0
     
     def info(self) -> dict:
-        return {"id": self._id, 
+        return {
+                "id": self._id, 
                 "name": self._name, 
                 "owner_id": self._owner_id,
                 "image": self._image,
@@ -64,6 +65,8 @@ class Server:
     def remove_member(self, member_id: int):
         if member_id in self._members:
             self._members.remove(member_id)
+            print('good choice')
+            
 
     def change_owner(self, user_id: int) -> None:
         self.owner_id = user_id
