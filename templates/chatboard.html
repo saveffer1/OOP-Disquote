@@ -146,9 +146,7 @@
                         </div>
                     </div>
                     <div class="dropdown_menu">
-                        <li><a href="#">Server Setting</a></li>
                         <li><a href="#" id="copy-invite">invite Link</a></li>
-                        <li><a href="#">Leave Server</a></li>
                         <li><a href="#" class="action_btn">Leave</a></li>
                     </div>
                 </div>
@@ -218,15 +216,6 @@
                 <div class="in-container" style="height: 100%;">
                     <div class="nav-chat">
                         <div class="nav-menu">
-                            <div class="icon-menu-chat">
-                                <img src="{{ url_for('static', path='/assets/pin.ico') }}" alt="pin">
-                            </div>
-                            <div class="icon-menu-chat">
-                                <img src="{{ url_for('static', path='/assets/member.png') }}" alt="member">
-                            </div>
-                            <div class="icon-menu-chat">
-                                <h5>member?</h5>
-                            </div>
                             <div class="search-menu-chat">
                                 <input class="search-chat" type="text" placeholder="Search">
                                 <button class="search-btn"> <img src="{{ url_for('static', path='/assets/search-icon.png') }}" alt=""></button>
@@ -245,9 +234,8 @@
                             </div>
                         </div>
                         <div id="text-send" class="sendinput" style="height: 60px;;">
-                            <form id="sendMessage" style="
-                            width: 100%;">
-                                <input type="text" placeholder="Enter a Username#0000" id="sendtextchat">
+                            <form id="sendMessage" style="width: 100%;">
+                                <input type="text" placeholder="What do you want to send" id="sendtextchat">
                             </form>
                             <button id='sticker'>
                                 <i class="fa-regular fa-face-smile fa-xl"> </i>
@@ -331,8 +319,6 @@
         }
 
     </script>
-
-
     <!-- get server list && create server -->
     <script>
         async function get_server_list() {
@@ -460,9 +446,6 @@
 
     </script>
 
-
-
-    
     <script>
         document.getElementById('dm').addEventListener('click' , (e) =>{
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
@@ -488,7 +471,6 @@
                     let guildTch = document.getElementById('todoListTxt');
                     let guildVch = document.getElementById('todoListVoc');
                     let displaychat = document.getElementById('chat-send');
-
                     for (j = 0; j < ch.length; j++) {
                         let guildli = document.createElement('li');
                         let guilda = document.createElement('a');
@@ -603,7 +585,6 @@
         popupV.style.display = 'none';
     });
                 //Send Msg
-
     todoFormTxt.addEventListener('submit', (e) => {
         e.preventDefault();
         const todoText = todoInputTxt.value;
@@ -644,8 +625,7 @@
                             })
                         } catch (error) {
                             // console.error(error);
-                        }
-                        }
+                        }}
                     CreateCh();
                     todoInputV.value = '';
                     popupTxt.style.display = 'none';
@@ -693,7 +673,6 @@
             }
             });
 </script>
-
 
 
 <script>
@@ -755,6 +734,7 @@
                         const todoitem31 = document.createElement('div');
                         const todoHeadSix = document.createElement('h6');
                         const todoSpan1 = document.createElement('span');
+                        todoSpan1.style.fontSize="18px";
                         const todoSpan2 = document.createElement('span');
                         const todate = new Date();
                         const tododateDate = new Date().toISOString().split('T')[0];
@@ -770,7 +750,7 @@
                         todoconchat.classList.add('conchat');
                         todoconchat.innerHTML = msg.content;
                         todoSpan1.classList.add('name');
-
+                    
                         await  fetch(`/account/get_account/${msg.sender_id}`) // get username
                             .then(response => response.json())
                             .then(data => {
@@ -802,8 +782,11 @@
                         todonamechat.appendChild(todoconchat);
                         todocontentchat.appendChild(todonamechat);
                         todochattosend.appendChild(todoProfileDirect);
+                        todocontentchat.style.marginLeft='20px';
                         todochattosend.appendChild(todocontentchat);
                         todochatsend.appendChild(todochattosend);
+                        todochattosend.style.marginTop="7px";
+                        todochattosend.style.marginBottom="7px";
                         todochattosend.scrollIntoView();
                         todochatsend.appendChild(todochattosend);
                 }}
@@ -812,8 +795,8 @@
                 //  console.error(err);
             }}
     loadMessages();
+    setInterval(loadMessages, 100);
 </script>
-
 
 
 <script>

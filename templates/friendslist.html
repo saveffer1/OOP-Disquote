@@ -84,7 +84,7 @@
                 const divForFriend = document.getElementById('forbtnfriend');
                 divForFriend.innerHTML = '';
 
-                const get_info = await fetch(`/account/get_account_by_name/${query}`, {
+                const get_info = await fetch(`/account/search_friend/${query}`, {
                     method: 'GET',
                     credentials: 'include',
                     headers: {'Content-Type': 'application/json',},

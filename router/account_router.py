@@ -199,8 +199,24 @@ async def get_account(request: Request, user_id: int):
 async def get_account_by_name(request: Request, user_name: str):
     results = []
     for user in discord_account.get_user_list():
-        if user.username().lower() == user_name.lower():
+        if user.username().lower() in user_name.lower():
             account = user.info()
             results.append({"id": account["id"], "username": account["username"], "tag": account["tag"],
-                           "status": account["status"], "avatar": account["avatar"]})
+                        "status": account["status"], "avatar": account["avatar"]})
     return results
+
+@router.get('/search_friend/{user_name}', status_code=200, tags=['user'])
+async def get_friend(request: Request, user_name: str):
+    token = request.cookies.get("authen")
+    if token:
+        email = token_manager.decode_access_token(token)
+        user = discord_account.get_user_account(email)
+        results = []
+        for friend_id in user.get_friend_list():
+            friend = discord_account.get_user_account_by_id(friend_id)
+            if friend.username().lower().startswith(user_name.lower()):
+                account = friend.info()
+                results.append({"id": account["id"], "username": account["username"], "tag": account["tag"],
+                            "status": account["status"], "avatar": account["avatar"]})
+        return results
+    
