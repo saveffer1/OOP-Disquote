@@ -12,7 +12,7 @@ class Invite():
     _code: str = None
     
     def generate_code(self):
-        self._code = "INVITE-" + str(self._server_id) + str(self._server_name)
+        self._code = "INVITE-" + str(self._server_id) + str(self._server_name).replace(" ", "")
         return self._code
     
 @dataclass
@@ -67,6 +67,9 @@ class Server:
     def add_member(self, member_id: int) -> None:
         if member_id not in self._members:
             self._members.append(member_id)
+            # print(self._members)
+        else:
+            print("not add to server")
 
     def remove_member(self, member_id: int):
         if member_id in self._members:

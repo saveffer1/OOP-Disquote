@@ -557,7 +557,7 @@ body {
   padding: 10px;
   background-color: rgb(30,31,34);
   border: none;
-  /* border-radius: 5px; */
+  border-radius: 0px;
   outline: none;
   color: var(--text-gray);
   font-size: 17px;
@@ -1040,3 +1040,10 @@ text-align: center;
 border-radius: 7px;
 }
 
+.SearchFrindForm{
+  display: flex;
+}
+
+/* #todoListTxt li {
+  padding: 10px 0 10px 0;
+} */

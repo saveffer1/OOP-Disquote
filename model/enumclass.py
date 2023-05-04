@@ -5,6 +5,5 @@ from enum import Enum
 
 class UserStatus(Enum):
     online = 1
-    idel = 2
-    dnd = 3
-    invisible = 4
+    idle = 2
+    invisible = 3

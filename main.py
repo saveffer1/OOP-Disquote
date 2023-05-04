@@ -6,7 +6,9 @@ import shutil
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Request, Response, UploadFile, File
+from fastapi import FastAPI, Request, Response, UploadFile, WebSocket, File
+from aiortc import RTCPeerConnection, RTCSessionDescription
+from aiortc.contrib.media import MediaPlayer, MediaRecorder
 from fastapi.responses import (HTMLResponse, JSONResponse, FileResponse,StreamingResponse)
 from starlette.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -172,6 +174,12 @@ def addfriend(request: Request):
 @app.get("/pending", response_class=HTMLResponse)
 def pending(request: Request):
     return templates.TemplateResponse("pending.html", {"request": request})
+
+
+@app.get("/voicechat", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("voice.html", {"request": request})
+
 
 app.include_router(router_server, prefix='/channels')
 app.include_router(router_account, prefix='/account')

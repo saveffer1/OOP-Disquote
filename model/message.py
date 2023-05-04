@@ -44,9 +44,10 @@ class Message:
     
     def info(self) -> dict:
         return {
-            "sender": self._sender_id,
+            "id": self._id,
+            "sender_id": self._sender_id,
             "content": self._content,
-            "date": self._date
+            "date": self._date.strftime("%m/%d/%Y %I:%M %p")
         }
     
     

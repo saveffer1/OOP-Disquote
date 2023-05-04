@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Response, Request, Form, Body
+from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Response, Request, Form, Body, status
 from fastapi.responses import (HTMLResponse, JSONResponse, FileResponse, StreamingResponse)
 from starlette.responses import RedirectResponse
 from fastapi.encoders import jsonable_encoder
@@ -73,7 +73,8 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
         token = jsonable_encoder(access_token)
 
         #resp = templates.TemplateResponse("chatboard.html", {"request": request, "login_message": "success"}, status_code=200)
-        resp = RedirectResponse(url='/channels/@me', status_code=308)
+        resp = RedirectResponse(url='/channels/@me',
+                                status_code=status.HTTP_303_SEE_OTHER)
         resp.set_cookie(
             "authen",
             value=f"{token}",
@@ -93,7 +94,8 @@ async def login(request: Request, email: EmailStr = Form(...), password: str = F
 @router.post('/logout', status_code=200, tags=['user'])
 async def logout(resp: RedirectResponse, request: Request):
     #resp.delete_cookie(key="authen")
-    resp = RedirectResponse(url="/account/login", status_code=308)
+    resp = RedirectResponse(url="/account/login",
+                            status_code=status.HTTP_303_SEE_OTHER)
     resp.delete_cookie(key="authen")
     return resp
 
@@ -128,12 +130,7 @@ async def get_friends(request: Request):
     token = request.cookies.get("authen")
     if token:
         email = token_manager.decode_access_token(token)
-        user = discord_account.get_user_account(email)
-        friends = []
-        for friend_id in user.get_friend_list():
-            friend = discord_account.get_user_account_by_id(friend_id)
-            friends.append(friend)
-        return friends
+        return discord_account.get_user_friend_list(email)
     
 # รายชื่อคำขอเป็นเพื่อน
 @router.get('/request_list', status_code=200, tags=['user'])
@@ -143,9 +140,9 @@ async def get_friends_request(request: Request):
         email = token_manager.decode_access_token(token)
         user = discord_account.get_user_account(email)
         friends = []
-        for friend_id in user.request_list:
-            friend = discord_account.get_user_name_by_id(friend_id)
-            friends.append(friend)
+        for friend_id in user.request_list():
+            friend_name = discord_account.get_username_by_id(friend_id)
+            friends.append({"id": friend_id, "name": friend_name})
         return friends
             
 # ขอเป็นเพื่อน การใช้งาน /account/friends_request/{ไอดีของเพื่อนที่จะขอเป็นเพื่อน}
@@ -164,12 +161,14 @@ async def friends_request(request: Request, friend_name: str, friend_tag: str):
     
 # รับเพื่อน การใช้งาน ให้ post id ของคนที่จะรับเป็นเพื่อน กับ boolean ว่าจะรับหรือไม่ true = รับ false = ปฏิเสธ
 @router.post('/friends_request_prompt', status_code=200, tags=['user'])
-async def friend_prompt(request: Request, friend_id: int = Body(...), prompt: bool = Body(...)):
+async def friend_prompt(request: Request, friend_id: int = Body(...), accept: bool = Body(...)):
     token = request.cookies.get("authen")
     if token:
         email = token_manager.decode_access_token(token)
         user = discord_account.get_user_account(email)
-        user.request_list(int(friend_id), prompt)
+        if accept:
+            user.add_friend(friend_id)
+        user.del_request(friend_id)
         return {"status_code": 200, "prompt_f": "success"}
 
 # ลบเพื่อน การใช้งาน ให้ post id ของคนที่จะลบเป็นเพื่อน
@@ -186,6 +185,15 @@ async def del_friend(request: Request, friend_id: int):
 async def get_name(request: Request, user_id: int):
     user = discord_account.get_user_account_by_id(user_id)
     if user:
-        return user.username()
+        return {"username": user.username()}            
     else:
         return {"status_code": 400, "get_name_f": "fail user not found"}
+
+@router.get('/get_account/{user_id}', status_code=200, tags=['user'])
+async def get_account(request: Request, user_id: int):
+    user = discord_account.get_user_account_by_id(user_id)
+    if user:
+        account = user.info()
+        return {"username": account["username"], "tag": account["tag"], "avatar": account["avatar"]}
+    else:
+        return {"status_code": 400, "get_account_f": "fail user not found"}

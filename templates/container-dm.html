@@ -38,3 +38,159 @@
             $(document).ready(function() { $("#friend-list").load("/pending");})  
         });
 </script>
+
+<script>
+    const divKononline = document.getElementById("kononlinefriend");
+    // const divSearchFriend = document.getElementById("konoflinelist");
+    //const divSearchinFriend = document.getElementById("konoflinelist");
+    const divForFriend = document.getElementById("forbtnfriend");
+    
+    getFriendlidt();
+
+
+
+
+async function getFriendlidt(){
+
+            const divForFriend = document.getElementById("forbtnfriend");
+            const response = await fetch('/account/friends');
+            const data = await response.json();            
+            for (j = 0; j < data.length; j++) { 
+                let idfriend = data[j]
+                const url2 = `/account/get_name/${idfriend}`;
+                        const response2 = await fetch(url2, {
+                        method: "GET", 
+                        credentials: "include", 
+                        headers: {
+                        "Content-Type": "application/json",
+                        },
+                        });
+                const data2 = await response2.json();
+                console.log("data2",data2.username); 
+                let  searchnamee = ' ';
+                let nameoffriend = data2.username;    
+                async  function showfriendlist() {
+                    console.log('showfriendlist ทำงาน');
+                    const divloopFrind = document.createElement('div');
+                    // divloopFrind.classlist.add('forbtnfriend');
+                    //Div
+                    const todobutton = document.createElement('button');
+                    const todogrid_3 = document.createElement('div');
+                    //grip1
+                    const todoProfileFlist = document.createElement('div');
+                    //grip2
+                    const todoavatarname = document.createElement('div');
+                    //inside grip_1
+                    const imgprofile =document.createElement('img');
+                    const todoroundon =document.createElement('div');
+                    //inside grip_2
+                    const todoh2grip2 = document.createElement('h2');
+                    //inside todo
+                    const labelAvatar = document.createElement('label');
+                    //btn
+                    const imgaccept = document.createElement('img');
+                    const imgignore = document.createElement('img');
+                        
+                    //div pend1
+                    const roundpend1 = document.createElement('div');
+                    const roundpend2 = document.createElement('div');
+                        
+                    //grip3
+                    const todobtnfriend = document.createElement('div');
+                    const coutpend = document.getElementById('numofpening');
+                    // console.log(data[j]);
+                    //setimage 
+                    imgprofile.src ="{{ url_for('static', path='/assets/disquote.png') }}";
+                    todoroundon.classList.add('round'+'online');
+                    //class profilelf
+                    todoProfileFlist.classList.add('Profile-Flist');
+                    todoProfileFlist.appendChild(imgprofile);
+                    todoProfileFlist.appendChild(todoroundon);
+                    //set label
+                    labelAvatar.style.color = 'rgba(161, 165, 172, 1)';
+                    labelAvatar.style.fontSize='12px';
+                    // labelAvatar.innerHTML="Friend";
+                    //set h2
+                    todoh2grip2.style.color ='rgba(148, 155, 164, 1)';
+                    todoh2grip2.innerHTML=nameoffriend+'<br>';
+                    //ใส่ labelใน h2
+                    todoh2grip2.appendChild(labelAvatar);
+                    // console.log(nameofSendF);
+                    //h2 ไปใน
+                    todoavatarname.appendChild(todoh2grip2);
+                    todoavatarname.classList.add('avatarname');
+                    //btn accept และ lgnore
+                    //ac
+                    imgaccept.src ="{{ url_for('static', path='/assets/message.png') }}";
+                    imgaccept.width=20;
+                    imgaccept.height=20;
+                    imgaccept.style.marginTop='11px';
+                    imgaccept.style.filter='invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%)';
+                    //ignore
+                    imgignore.src ="{{ url_for('static', path='/assets/three-dots.png') }}";
+                    imgignore.width=20;
+                    imgignore.height=20;
+                    imgignore.style.marginTop='11px';
+                    imgignore.style.filter='invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%)';
+                    //round1
+                    roundpend1.classList.add('roundaccept');
+                    roundpend1.id='accept';
+                    roundpend1.style.bottom=0;
+                    roundpend1.style.background='#ffffff';
+                    roundpend1.style.marginBottom='20px';
+                    roundpend1.style.marginRight='24px';
+                    roundpend1.style.width='40px';
+                    roundpend1.style.height='40px';
+                    roundpend1.style.alignItems='start';
+                    roundpend1.style.borderRadius='25px';
+                    roundpend1.style.background='rgba(30, 31, 34, 1)';
+                    //andim1
+                    roundpend1.appendChild(imgaccept);
+                    //round2
+                    roundpend2.classList.add('roundignore');
+                    roundpend2.id='ignore';
+                    roundpend2.style.bottom=0;
+                    roundpend2.style.background='#ffffff';
+                    roundpend2.style.marginBottom='20px';
+                    roundpend2.style.marginRight='24px';
+                    roundpend2.style.width='40px';
+                    roundpend2.style.height='40px';
+                    roundpend2.style.alignItems='start';
+                    roundpend2.style.borderRadius='25px';
+                    roundpend2.style.background='rgba(30, 31, 34, 1)';
+                    //adim2
+                    roundpend2.appendChild(imgignore);
+                    //ยัด round3
+                    todobtnfriend.classList.add('btnfriend');
+                    todobtnfriend.style.grid='grip';
+                    todobtnfriend.style.gridTemplateColumns='0.2fr 0.2fr';
+                    todobtnfriend.style.gap='2px';
+                    todobtnfriend.style.justifyContent='end';
+                    todobtnfriend.style.alignItems='center';
+                    todobtnfriend.style.marginBottom='2px';
+                    todobtnfriend.appendChild(roundpend1);
+                    todobtnfriend.appendChild(roundpend2);
+                    //ยัดเข้า grid
+                    todogrid_3.classList.add('grid_3');
+                    todogrid_3.appendChild(todoProfileFlist);
+                    todogrid_3.appendChild(todoavatarname);
+                    todogrid_3.appendChild(todobtnfriend);
+                    todobutton.appendChild(todogrid_3);
+                    divloopFrind.appendChild(todobutton);
+                    divloopFrind.classList.add('forbtnfriend');
+                    divloopFrind.id='forbtnfriend';
+                    divKononline.appendChild(divloopFrind);
+                } 
+                showfriendlist();         
+            }
+            }
+
+
+            
+</script>
+
+<script>
+    function clearInput() {
+    document.querySelector('.input-friends-box').value = '';
+}
+</script>

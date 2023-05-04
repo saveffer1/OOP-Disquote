@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Response, Request, Form, Body
+from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Response, Request, Form, Body, status
 from fastapi.responses import (HTMLResponse, JSONResponse, FileResponse, StreamingResponse)
 from starlette.responses import RedirectResponse
 from fastapi.encoders import jsonable_encoder
@@ -47,9 +47,9 @@ async def get_dm(request: Request):
             dm_channel = templates.TemplateResponse("chatboard.html", {"request": request, "svdm": "dm"})
             return dm_channel
         except:
-            return RedirectResponse(url="/account/logout", status_code=308)
+            return RedirectResponse(url="/account/logout", status_code=status.HTTP_303_SEE_OTHER)
     else:
-        return RedirectResponse(url="/account/login", status_code=308)
+        return RedirectResponse(url="/account/login", status_code=status.HTTP_303_SEE_OTHER)
 
 @router.get("/getlist", status_code=200, tags=['server'])
 async def get_list_server(request: Request):
@@ -57,23 +57,31 @@ async def get_list_server(request: Request):
     if token:
         try:
             user_email = token_manager.decode_access_token(token)
+            user_id = discord_account.get_user_id(user_email)
+            return discord_server.get_user_server_list(user_id)
         except:
-            return RedirectResponse(url="/account/logout", status_code=308)
-        user_id = discord_account.get_user_id(user_email)
-        return discord_server.get_user_server_list(user_id)
+            return RedirectResponse(url="/account/logout", status_code=status.HTTP_303_SEE_OTHER)
     else:
-        return RedirectResponse(url="/account/login", status_code=308)
+        return RedirectResponse(url="/account/login", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @router.get("/{server_id}", status_code=200, tags=['channel'])
 async def get_server(request: Request, server_id: int):
-    server = discord_server.get_server_by_id(server_id)
-    if server:
-        channels = server.get_channel_list()
-        return templates.TemplateResponse("chatboard.html", {"request": request, "ch": "yes"})
-        # return {"request": request, "ch": "yes"}
-    return templates.TemplateResponse("chatboard.html", {"request": request})
-    #return {"ch": channels}
+    token = request.cookies.get("authen")
+    if token:
+        try:
+            email = token_manager.decode_access_token(token)
+            server = discord_server.get_server_by_id(server_id)
+            if server:
+                channels = server.get_channel_list()
+                return templates.TemplateResponse("chatboard.html", {"request": request, "ch": "yes"})
+                # return {"request": request, "ch": "yes"}
+            return templates.TemplateResponse("chatboard.html", {"request": request})
+            #return {"ch": channels}
+        except:
+            return RedirectResponse(url="/account/logout", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        return RedirectResponse(url="/account/login", status_code=status.HTTP_303_SEE_OTHER)
     
 @router.get("/{server_id}/get_ch_list", status_code=200, tags=['channel'])
 async def get_ch_list(request: Request, server_id: int):
@@ -91,9 +99,9 @@ async def create_channel(request: Request, server_id: int, ch_name: str = Body(.
             discord_server.add_channel(server_id, ch_name, ch_type, ch_category)
             return {"status_code": 200, "detail": "success"}
         except:
-            return RedirectResponse(url="/account/logout", status_code=308)
+            return RedirectResponse(url="/account/logout", status_code=status.HTTP_303_SEE_OTHER)
     else:
-        return RedirectResponse(url="/account/login", status_code=308)
+        return RedirectResponse(url="/account/login", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @router.post("/create_server", status_code=200, tags=['server'])
@@ -122,21 +130,26 @@ async def create_server(request: Request, image: UploadFile = File(...), name: s
                             with open(file_location, "wb") as f:
                                 f.write(content)
                         except Exception as e:
-                            return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'file error', 'detail': f'{e}'}, status_code=500)
+                            return templates.TemplateResponse("chatboard.html", {"request": request, 'crsv_message': 'file error', 'detail': f'{e}'}, status_code=500)
                         finally:
                             discord_server.add_server(name, user_id, f"{file_rename}")
                             image.file.close()
-                            return RedirectResponse(url="/channels/@me", status_code=308)
+                            return RedirectResponse(url="/channels/@me", status_code=status.HTTP_303_SEE_OTHER)
                 else:
-                    return templates.TemplateResponse("registry.html", {"request": request, 'reg_message': 'max size 8MB', 'detail': ''}, status_code=413)
+                    return templates.TemplateResponse("chatboard.html", {"request": request, 'crsv_message': 'max size 8MB', 'detail': ''}, status_code=413)
             else:
                 discord_server.add_server(name, user_id)
-                return RedirectResponse(url="/channels/@me", status_code=308)
+                return RedirectResponse(url="/channels/@me", status_code=status.HTTP_303_SEE_OTHER)
         except:
-            return RedirectResponse(url="/account/logout", status_code=308)
+            return RedirectResponse(url="/account/logout", status_code=status.HTTP_303_SEE_OTHER)
     else:
-        return RedirectResponse(url="/account/login", status_code=308)
+        return RedirectResponse(url="/account/login", status_code=status.HTTP_303_SEE_OTHER)
 
+
+@router.get("/member_list/{server_id}", status_code=200, tags=['server'])
+def get_member_list(server_id: int):
+    member_list = discord_server.get_member_server_list(server_id)
+    return member_list
 
 @router.get("/{server_id}/{invite_code}", status_code=200, tags=['server'])
 def goto_invite(request: Request, invite_code: str):
@@ -145,22 +158,29 @@ def goto_invite(request: Request, invite_code: str):
         server_id = discord_server.get_server_id_by_invite(invite_code)
         return templates.TemplateResponse("inviteconfirm.html", {"request": request, "invite_code": invite_code, "invite_to_server_id": server_id})
     else:
-        return RedirectResponse(url="/account/login", status_code=308)
+        return RedirectResponse(url="/account/login", status_code=status.HTTP_303_SEE_OTHER)
 
 @router.post("/join_server", status_code=200, tags=['server'])
-async def join_server(request: Request, invite_code: str = Body(...), confirm: bool = Body(...)):
-    token = request.cookies.get("authen")
+async def join_the_server(request: Request, invite_code: str = Body(...), confirm: bool = Body(...)):
     if confirm:
+        token = request.cookies.get("authen")
         if token:
-            try:
-                user_email = token_manager.decode_access_token(token)
-                user_id = discord_account.get_user_id(user_email)
-                server_id = discord_server.get_server_id_by_invite(invite_code)
-                if not discord_server.member_in_server(user_id, server_id):
-                    discord_server.join_server(user_id, server_id)
-                return RedirectResponse(url="/channels/@me", status_code=308)
-            except:
-                return RedirectResponse(url="/account/logout", status_code=308)
-        else:
-            return RedirectResponse(url="/account/login", status_code=308)
-    return RedirectResponse(url="/channels/@me", status_code=308)
+                try:
+                    user_email = token_manager.decode_access_token(token)
+                    user_id = discord_account.get_user_id(user_email)
+                    print("User ID: ", user_id)
+                    server_id = discord_server.get_server_id_by_invite(invite_code)
+                    if not discord_server.member_in_server(server_id, user_id):
+                        discord_server.join_server(server_id, user_id)
+                        return {"status_code": 200, "detail": "success", "prompt": "accepted"}
+                    else:
+                        print()
+                        print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+                        print("----------already in server-----------")
+                        print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+                        print()
+                        return {"status_code": 200, "detail": "success", "prompt": "already in server"}
+                except:
+                    return {"datail": "error none type after decode cookie"}
+    else:
+        return {"status_code": 200, "detail": "success", "prompt": "rejected"}

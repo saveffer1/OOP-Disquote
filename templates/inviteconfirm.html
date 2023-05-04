@@ -42,8 +42,10 @@
 {% if invite_code %}
     <script>
         const cururl = "{{ invite_code }}";
+        const currentUrl = window.location.href;
         const btnAccept = document.getElementById('accept');
         const btnCancel = document.getElementById('cancel');
+
         btnAccept.addEventListener('click', () => {
             fetch("/channels/join_server", {
                 method: 'POST',
@@ -55,21 +57,25 @@
                     invite_code: cururl,
                     confirm: true
                 })
-            })
+            }) 
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     return response.json();
                 })
-                .then(data => {
-                    console.log(data);
+                .then(data => { //data.detail success
+                    console.log(data)
                     // handle success response
+                    if (data.detail == "success"){
+                        window.location.href = "/channels/" + '@me';
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     // handle error
                 });
+                
         });
 
         btnCancel.addEventListener('click', () => {
@@ -93,6 +99,9 @@
                 .then(data => {
                     console.log(data);
                     // handle success response
+                    if (data.detail == "success") {
+                        window.location.href = "/channels/@me";
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);

@@ -36,19 +36,8 @@
                 <a style="font-family:Mukta"><b>USER SETTING</b></a>
                     <div class="btn_a">
                         <li><button class="btn_s active"><a href="#">My Account</a></button></li>
-                        <!-- <li><button class="btn_s"><a href="#">Profiles</a></button></li> -->
                     </div>
-                    <!-- <div class="line-4">
-                        <hr>
-                    </div> -->
-                <!-- <a style="font-family:Mukta"><b>APP SETTING</b></a>
-                    <div class="btn_a">
-                        <li><button class="btn_s "><a href="#">Vocie & Video</a></button></li>
-                        
-                        
-                    </div> -->
-                
-        
+
                     <div class="line-4">
                         <hr>
                     </div>
@@ -79,7 +68,6 @@
                                         
                                             <h2 style="text-align: center; justify-content: center; font-size: 20px;" id="NameAccoutDisplay">Named</h2>
                                     </div>
-                                   
                                     <div class="in-detail" style="background-color: rgba(43, 45,49, 1); height: 150px;margin-left: 20px; margin-right: 20px;   border-radius: 10px 10px 10px 10px; " >
                                     
                                         <li style="margin-left: 10px; " >
@@ -98,8 +86,7 @@
                     <div class="escbtn">
 
                         <button type="texr" style="font-family:mukta" class="btn_out_esc" id="btn_out_esc" ><a class="iconx" ><i class="fa-solid fa-xmark"></i></a>
-                            <br>
-                            ESC
+                            
                         </button>
                     </div>
                     <div class="this_is_myaccount">
@@ -353,7 +340,6 @@
                                 </div>
                             </div>
                         </div>
-                
                         <div id="text-send" class="sendinput" style="height: 60px;;">
                             <form id="sendMessage" style="
                             width: 100%;">
@@ -366,14 +352,19 @@
                                 <i class="fa-solid fa-note-sticky fa-lg"></i>
                             </button>
                         </div>
+
                 
                     </div>
+
+
+                    
                 
                     <div class="members">
                         <div class="box-member">
+                        <!-- ---------------------------------------------------------------------------------- -->
                             <div class="online-member-box">
-                                <h4>ONLINE -- x </h4>
-                                <div class="online-member">
+                                <h4>All User -- <p id="numberofuser"></p> </h4>
+                                <!-- <div class="online-member">
                                     <button class="Member-room">
                                         <div class="gridProfile">
                                             <div class="Profile-Direct" style="width: 70px;">
@@ -389,7 +380,7 @@
                                             </div>
                                         </div>
                                     </button>
-                
+
                                     <button class="Member-room">
                                         <div class="gridProfile">
                                             <div class="Profile-Direct" style="width: 70px;">
@@ -405,60 +396,14 @@
                                             </div>
                                         </div>
                                     </button>
-                
-                
-                
-                
-                                </div>
-                
+                                </div> -->
                             </div>
-                
-                            <div class="offline-member-box">
-                                <h4>OFFLINE -- x </h4>
-                                <div class="offline-member">
-                
-                                    <button class="Member-room">
-                                        <div class="gridProfile">
-                                            <div class="Profile-Direct" style="width: 70px;">
-                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
-                                                <div class="round offline-direct" style="width: 10px;
-                                                    height: 10px; margin-bottom: 10px;
-                                                    margin-right: 10px; 
-                                                    border :5px solid rgba(43, 45,49, 1)"></div>
-                
-                                            </div>
-                                            <div class="txtnamedirect">
-                                                <label>Member3</label>
-                                            </div>
-                                        </div>
-                                    </button>
-                
-                
-                                    <button class="Member-room">
-                                        <div class="gridProfile">
-                                            <div class="Profile-Direct" style="width: 70px;">
-                                                <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
-                                                <div class="round offline-direct" style="width: 10px;
-                                                    height: 10px; margin-bottom: 10px;
-                                                    margin-right: 10px;
-                                                    border :5px solid rgba(43, 45,49, 1);"></div>
-                                            </div>
-                                            <div class="txtnamedirect">
-                                                <label>Member4</label>
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
+                        <!-- ----------------------------------------------------------------------------------- -->
                         </div>
-                
                     </div>
-                
                 </div>
             </div>
-            
         </div>
-
         
     </div>
     
@@ -522,7 +467,7 @@
             const json = await this.getJSON();
             if (json.detail == "Authorized") {
                 await getinfo('/account/me');
-                console.log("Authorized")
+                console.log("Authorized");
             }
             else{
                 window.location.href = "/account/login";
@@ -569,7 +514,8 @@
                             localStorage.setItem("serverName", data[i].name);
                             localStorage.setItem("invitation", data[i].invite_code);
                             var $sid = data[i].owner;
-                            
+                            let invite = data[i].id;
+
                             
                         }; 
                         ddiv.onmouseover = function () {
@@ -681,22 +627,35 @@
             window.location.href = "/account/logout";
         });
 
-         // -----------------------change to dm container-----------------------------------
+        //  -----------------------change to dm container-----------------------------------
+//         window.addEventListener('load', function() {
+//   // โค้ดสำหรับฟังก์ชันที่คุณต้องการเรียกใช้งานเมื่อโหลดหน้าเว็บไซต์เสร็จสมบูรณ์ 
+//             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
+//             $(document).ready(function() { $("#chat-board").load("/container-dm");})   
+//         });
+        // document.getElementById('dm').addEventListener('click' , (e) =>{
+        // $(document).ready(function () { $("#chat-menu").load("/chat-guild"); })
+        // $(document).ready(function () { $("#chat-board").load("/container-server"); })
+        // });
+    </script>
+
+
+
+    
+    <script>
+        // var link = document.getElementById('dm').onloadstart;
+        // $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
+        // $(document).ready(function() { $("#chat-board").load("/container-dm");})
+        //  // var friends = document.getElementById('friendlistload');
+        // link.click();
+        // friends.click();
+
+        
         document.getElementById('dm').addEventListener('click' , (e) =>{
             $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
             $(document).ready(function() { $("#chat-board").load("/container-dm");})
         });
-
     </script>
-
-    <!-- {% if svdm %}
-    <script>
-        var link = document.getElementById('dm');
-         // var friends = document.getElementById('friendlistload');
-        link.click();
-        // friends.click();
-    </script>
-    {% endif %}  -->
 
     <!-- TODO: getchannel && create channel -->
     {% if ch %}
@@ -726,6 +685,8 @@
                         let guilda = document.createElement('a');
                         let guildi = document.createElement('i');
 
+                        guildli.classList.add('clickable')
+
                         guilda.id = ch[j].id;
                         guilda.innerHTML = ch[j].name;
                         
@@ -742,6 +703,19 @@
                             guildVch.append(guildli);
                         }
                         // console.log("ch: ", ch[j].messages[0]);
+                        let prevDiv;
+
+                        $(".clickable").click(function () {
+
+                            $(prevDiv).removeClass('channelborder');
+                            $(prevDiv).css('background-color', 'transparent');
+                            $(this).addClass('channelborder');
+                            
+                            prevDiv = $(this);
+                            var x = $(prevDiv).css('background-color', 'rgba(53, 55,61, 1)');
+                            $(prevDiv).css('border-radius', '5px');
+
+                        });
 
                         let chat = document.getElementById(`${ch[j].id}`);
                         chat.onclick = function () {
@@ -756,6 +730,7 @@
                                 displaychat.style.display = 'none';
                             }
                         }
+
                     }
                 });
             }
@@ -768,6 +743,17 @@
     </script>
     {% endif %}
 
+    {% if svdm %}
+    <script>   
+            $(document).ready(function() { $("#chat-menu").load("/chat-dm");})  
+            $(document).ready(function() { $("#chat-board").load("/container-dm");})
+            // getpagetoload()
+
+
+    </script>
+    {% endif %}
+
+    
     <!-- TODO: setting btn -->
     <script>
         var id_user = (localStorage.getItem("id-user"));
@@ -855,7 +841,6 @@
         e.preventDefault();
         const todoText = todoInputTxt.value;
 
-               
                     if (!todoText) {
                         addBtnTxt.disabled=true;
                         alert("ค่าว่าง"); 
@@ -906,7 +891,7 @@
                             if (data.detail == 'success') {
                                 window.location.href = `/channels/${Servid}`;
                             } else {
-                                console.log('Channel not created');
+                                // console.log('Channel not created');
                             }
                         })
                     } catch (error) {
@@ -915,9 +900,6 @@
                     }
 
                     CreateCh();
-                    
-                    
-
                 console.log(todoText);
                 todoInputV.value = '';
                 popupTxt.style.display = 'none';
@@ -953,7 +935,6 @@
                                 if (data.detail == 'success') {
                                     window.location.href = `/channels/${Servid}`;
                                 } else {
-                                    console.log('Channel not created');
                                 }
                             })
                     } catch (error) {
@@ -963,7 +944,6 @@
 
                     CreateCh();
                     
-                console.log(todoText);
                 
                 todoInputV.value = '';
                 popupTxt.style.display = 'none';
@@ -996,275 +976,146 @@
                 let j = parseInt(chanel_id);
                 let k = parseInt(svid);
 
+
                 async function postData(url = `/msg/${j}/sendmsg`, data = { 
                     chanel_id: j ,
                     server_id: k,
                     msg: sendtext
-                }) {
+                }) 
+                {
                         const response =  await fetch(url, {
                             method: "POST", 
-                            cache: "no-cache",
                             credentials: "include", 
                             headers: {
                             "Content-Type": "application/json",
                             },
-                            redirect: "follow", 
                             body: JSON.stringify(data),
                         });
 // -----------------------------   ส่วนที่แสดงการส่งข้อความบน chatboard  ------------------------------------------------------------
                         const data11 = await response.json();
-                        if (data11.message == 'success') {
-                            textsend.value = '';
-
-                            const response1 = await fetch(`/msg/${k}/${j}/getlist`, {
-                                method: "GET", 
-                                cache: "no-cache",
-                                credentials: "include", 
-                                headers: {
-                                "Content-Type": "application/json",
-                                },
-                                redirect: "follow"
-                            });   const data1 = await response1.json();
-    
-    {
-        // guilda.id = ch[j].id;
-        // console.log("data1 len", data1.length);
-        // console.log("data1", data1);
-                    let senderby = data1[data1.length-1].sender;
-                    let contentby = data1[data1.length-1].content;
-                    let dateby = data1[data1.length-1].date;
-
-
-                        const url2 = `/account/get_name/${senderby}`;
-
-                        const response2 = await fetch(url2, {
-                        method: "GET", 
-                        cache: "no-cache",
-                        credentials: "include", 
-                        headers: {
-                        "Content-Type": "application/json",
-                        },
-                        redirect: "follow"
-                        });
-                    const data2 = await response2.json();
-                    // console.log("data2", data2);
-                        let    namesen=data2;
-                        const todochattosend = document.createElement('div');
-                        const todoProfileDirect = document.createElement('div');
-                        const todocontentchat = document.createElement('div');
-                const todoimage = document.createElement('img');
-                const todonamechat = document.createElement('div');
-                const todoconchat = document.createElement('div');
-                const todoitem31 =document.createElement('div');
-                
-
-                const todoHeadSix = document.createElement('h6');
-                const todoSpan1 = document.createElement('span');
-                const todoSpan2 = document.createElement('span');
-
-
-                const todate = new Date();
-                const tododateDate = new Date().toISOString().split('T')[0];
-                
-                let namemeM = (localStorage.getItem("username"));
-                
-                todate.getHours() + ":" + todate.getMinutes() 
-                
-
-                const nameMember = 'Name ';
-
-                todochattosend.classList.add('chat-to-send');
-
-                todoProfileDirect.classList.add('Profile-Direct');
-                todoProfileDirect.style.width='60px';
-
-
-                todoimage.src ="{{ url_for('static', path='/assets/disquote.png') }}";
-
-                todoProfileDirect.appendChild(todoimage);
-
-                //เสร็จของProfileDirect
-
-
-
-                //addclass contentchat
-                todocontentchat.classList.add('content-chat');
-
-                //addclass namechat
-                todonamechat.classList.add('namechat');
-                //addclass conchat
-                todoconchat.classList.add('conchat');
-                //เอาText เข้า         
-                todoconchat.innerHTML=contentby;
-                //addclass span1
-                todoSpan1.classList.add('name');
-                //เอาtext เข้า
-                todoSpan1.innerHTML=namesen+' ';
-                
-                //todoSpan1.innerHTML=nameMember;
-                //addclass span1
-                todoSpan2.classList.add('date');
-                //เอาtext เข้า
-                // todoSpan2.innerHTML=tododateDate   + '  ' + todate.getHours() + ":" + todate.getMinutes() ;
-                todoSpan2.innerHTML=dateby
-                todoHeadSix.appendChild(todoSpan1);
-                todoHeadSix.appendChild(todoSpan2);
-                //เอา h6 และ และ div  conchat
-                todonamechat.appendChild(todoHeadSix);
-                todonamechat.appendChild(todoconchat);
-                todocontentchat.appendChild(todonamechat);
-                todochattosend.appendChild(todoProfileDirect);
-                todochattosend.appendChild(todocontentchat);
-                todochatsend.appendChild(todochattosend);
-                todochattosend.scrollIntoView(); // ไปตำแหน่งล่าสุดของข้อความ
                 textsend.value = '';
-                
-    }
-                        }
                     }
-                    
-                postData();
+                postData(); 
             }});
-
-            // function updatemessage() {
-            //     var innerDiv = document.querySelector("#chat-send");
-            //     innerDiv.innerHTML = "New content";
-            // }
-
-
-            
-
 </script>
 
-<!-- Fetch Message -->
-
+<!-- TODO Fetch Message -->
 <script>
-    
-    async function fetchsend() {
-    // const channel_id = localStorage.getItem("channel_id");
-    // const server_id = localStorage.getItem("serverID");
-    let sRid = svid;
-    let cRid =  localStorage.getItem("channel_id");
+    //renew message
+    let lastMsgId = null;
+    let addedMsgIds = new Set();
+    async function loadMessages() {
+            let sRid = svid;
+            let cRid = localStorage.getItem("channel_id");
+            // const url1 = `/msg/${sRid}/${cRid}/getlist${lastMsgId ? `?lastMsgId=${lastMsgId}` : ''}`;
+            const url1 = `/msg/${sRid}/${cRid}/getlist${lastMsgId ? `?lastMsgId=${lastMsgId}` : ''}`;
+            const todochatsend = document.getElementById('todo-chat-send');
+            try {
+                const res = await fetch(url1);
+                const data = await res.json();
+                // Update lastMsgId with the ID of the last message in the response
+                if (data.length > 0) {
+                    if (lastMsgId === null) {
+                        todochatsend.innerHTML = '';
+                    }
+                    data.forEach((msg) => {
+                        if (!addedMsgIds.has(msg.id)) {
+                            console.log(msg.id + ': ' + msg.content);
+                        }
+                    });
+                    lastMsgId = data[data.length - 1].id;
+                }
 
-    const url1 = `/msg/${sRid}/${cRid}/getlist`;
-   
+                // Append the new messages to the chat box
+                for (const msg of data) {
+                    if (!addedMsgIds.has(msg.id)) {
+                    addedMsgIds.add(msg.id);
+                    const todochattosend = document.createElement('div');
+                    const todoProfileDirect = document.createElement('div');
+                    const todocontentchat = document.createElement('div');
+                    const todoimage = document.createElement('img');
+                    const todonamechat = document.createElement('div');
+                    const todoconchat = document.createElement('div');
+                    const todoitem31 = document.createElement('div');
+                    const todoHeadSix = document.createElement('h6');
+                    const todoSpan1 = document.createElement('span');
+                    const todoSpan2 = document.createElement('span');
+                    const todate = new Date();
+                    const tododateDate = new Date().toISOString().split('T')[0];
+                    let namemeM = (localStorage.getItem("username"));
+                    todate.getHours() + ":" + todate.getMinutes()
+                    const nameMember = 'Name ';
+                    todochattosend.classList.add('chat-to-send');
+                    todoProfileDirect.classList.add('Profile-Direct');
+                    todoProfileDirect.style.width = '60px';
+                    todoProfileDirect.appendChild(todoimage);
+                    todocontentchat.classList.add('content-chat');
+                    todonamechat.classList.add('namechat');
+                    todoconchat.classList.add('conchat');
+                    todoconchat.innerHTML = msg.content;
 
-    const response1 = await fetch(url1, {
-        method: "GET", 
-        cache: "no-cache",
-        credentials: "include", 
-        headers: {
-        "Content-Type": "application/json",
-        },
-        redirect: "follow"
-    });
-    const data1 = await response1.json();
-    
-    for (j = 0; j < data1.length; j++) {
-        // guilda.id = ch[j].id;
-       let senderby = data1[j].sender;
-       let contentby = data1[j].content;
-       let dateby = data1[j].date;
+                    todoSpan1.classList.add('name');
 
+                    await  fetch(`/account/get_account/${msg.sender_id}`) // get username
+                        .then(response => response.json())
+                        .then(data => {
+                            todoSpan1.innerHTML = data.username + ' ';
+                            fetch(`/image/user_avartar/${data.avatar}`, {
+                                    method: 'GET',
+                                    credentials: 'include'
+                                }).then(async function (response) {
+                                    if (response.ok) {
+                                        return response.blob();
+                                    } else {
+                                        throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+                                    }
+                                }).then(async function (blob) {
+                                    if (blob) {
+                                        todoimage.src = URL.createObjectURL(blob);
+                                    } else {
+                                        throw new Error("Failed to convert image to blob");
+                                    }
+                                }).catch(function (error) {
+                                    console.error(error);
+                                    // handle error by showing a message to the user or logging it to a server
+                                });
+                            
+                    });
 
-        const url2 = `/account/get_name/${senderby}`;
+                    todoSpan2.classList.add('date');
+                    todoSpan2.innerHTML = msg.date
+                    todoHeadSix.appendChild(todoSpan1);
+                    todoHeadSix.appendChild(todoSpan2);
+                    todonamechat.appendChild(todoHeadSix);
+                    todonamechat.appendChild(todoconchat);
+                    todocontentchat.appendChild(todonamechat);
+                    todochattosend.appendChild(todoProfileDirect);
+                    todochattosend.appendChild(todocontentchat);
+                    todochatsend.appendChild(todochattosend);
+                    todochattosend.scrollIntoView();
 
-        const response2 = await fetch(url2, {
-        method: "GET", 
-        cache: "no-cache",
-        credentials: "include", 
-        headers: {
-        "Content-Type": "application/json",
-        },
-        redirect: "follow"
-    });
-    const data2 = await response2.json();
-    // console.log(data2);
-        let    namesen=data2;
-        const todochattosend = document.createElement('div');
-                const todoProfileDirect = document.createElement('div');
-                const todocontentchat = document.createElement('div');
-                const todoimage = document.createElement('img');
-               
-                const todonamechat = document.createElement('div');
-                const todoconchat = document.createElement('div');
-                const todoitem31 =document.createElement('div');
-                
+                    todochatsend.appendChild(todochattosend);
+                    // lastMsgId = data.length > 0 ? data[data.length - 1].id : lastMsgId;
+                }
+            }
 
-                const todoHeadSix = document.createElement('h6');
-                const todoSpan1 = document.createElement('span');
-                const todoSpan2 = document.createElement('span');
-
-
-                const todate = new Date();
-                const tododateDate = new Date().toISOString().split('T')[0];
-                
-                let namemeM = (localStorage.getItem("username"));
-                
-                todate.getHours() + ":" + todate.getMinutes() 
-                
-
-                const nameMember = 'Name ';
-
-                todochattosend.classList.add('chat-to-send');
-
-                todoProfileDirect.classList.add('Profile-Direct');
-                todoProfileDirect.style.width='60px';
-
-
-                todoimage.src ="{{ url_for('static', path='/assets/disquote.png') }}";
-
-                todoProfileDirect.appendChild(todoimage);
-
-                //เสร็จของProfileDirect
-
-
-
-                //addclass contentchat
-                todocontentchat.classList.add('content-chat');
-
-                //addclass namechat
-                todonamechat.classList.add('namechat');
-                //addclass conchat
-                todoconchat.classList.add('conchat');
-                //เอาText เข้า         
-                todoconchat.innerHTML=contentby;
-                //addclass span1
-                todoSpan1.classList.add('name');
-                //เอาtext เข้า
-                todoSpan1.innerHTML=namesen+' ';
-                
-                //todoSpan1.innerHTML=nameMember;
-                //addclass span1
-                todoSpan2.classList.add('date');
-                //เอาtext เข้า
-                // todoSpan2.innerHTML=tododateDate   + '  ' + todate.getHours() + ":" + todate.getMinutes() ;
-                 todoSpan2.innerHTML=dateby
-                todoHeadSix.appendChild(todoSpan1);
-                todoHeadSix.appendChild(todoSpan2);
-                //เอา h6 และ และ div  conchat
-                todonamechat.appendChild(todoHeadSix);
-                todonamechat.appendChild(todoconchat);
-                todocontentchat.appendChild(todonamechat);
-                todochattosend.appendChild(todoProfileDirect);
-                todochattosend.appendChild(todocontentchat);
-                todochatsend.appendChild(todochattosend);
-                todochattosend.scrollIntoView(); // ไปตำแหน่งล่าสุดของข้อความ
-                textsend.value = '';
-                
-    }
-    
-    // console.log(data); // log the response to the console
-    // const senderby = data('sender');
-    // console.log(senderby);
-    }
-    fetchsend();
-
+                // Scroll to the bottom of the chat box
+                todochatsend.scrollTop = todochatsend.scrollHeight;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    loadMessages();
+    // TODO: uncomment setInterval
+//    setInterval(loadMessages, 500); // 0.5 seconds
 
 </script>
 
+
+<!-- TODO copyinvitelink function -->
 <script>
     const code_invite = (localStorage.getItem("invitation"));
+
     let invitelink_btn = document.getElementById('copy-invite');
     invitelink_btn.addEventListener('click', () => {
         curr = window.location.href;
@@ -1281,30 +1132,49 @@
 </script>
     
 
-    <!-- TODO:get  ข้อความทั้งหมด -->
-    <!-- <script>
-    //     async function getmessage() {
-    //         let response = await fetch(`/msg${svid}/${channel_id}/getlist`, {
-    //             method: 'POST',
-    //             credentials: 'include'
-    //         }).then(async function (data) {
 
-    //         }
-    //         )};
-    // </script> -->
 
+
+<!--  online status in server -->
 <script>
     
     let user_online = (localStorage.getItem("username"));
-    let name_box = document.getElementById("online_name");
-    name_box.innerHTML = user_online;;  
-
-
+    // let name_box = document.getElementById("online_name");
+    // name_box.innerHTML = user_online;
     let ServerN = (localStorage.getItem("serverName"));
-    
     let servername = document.getElementById("sever_name_show");
-    servername.innerHTML = ServerN ;;  
+    servername.innerHTML = ServerN ;
+    const usercount = document.getElementById("numberofuser");
+    usercount.innerHTML = 0;
+    console.log(usercount.textContent);
+    
+    async function get_member_list() {
+            return fetch(`/channels/member_list/${svid}`, {
+                method: 'GET',
+                credentials: 'include'
+            }).then((response) => response.json())
+                .then((responseJson) => { 
+                let data = responseJson;
+                console.log("usercopunt :",responseJson)
+                usercount.innerText = data.length;
+                async function get_name_by_id(){
+                    return fetch(`/account/get_name/${data}`,{
+                        method: 'GET',
+                        credentials: 'include'
+                    }).then((response) => response.json())  
+                        .then((responseJson) => { 
+                            console.log('get_name_by_id ทำงาน')
+                    //         //for(i=0;i<responseJson.length;i++){
+                    //             let name_box = document.getElementById("online_name");
+                    //             name_box.innerHTML = responseJson[i].username;
+                    })
+                }
+                get_name_by_id();
+                });
+            }
+    get_member_list();
 </script>
+
 
 
 </body>

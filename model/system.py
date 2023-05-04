@@ -25,8 +25,9 @@ class AccountSystem():
     def get_admin_list(self) -> list:
         return [admin for admin in self._admin_account.values()]
     
-    def get_user_account(self, email: EmailStr) -> User:
-        return self._user_account[email]
+    def get_user_account(self, email: EmailStr) -> User | None:
+        if self._user_account.get(email):
+            return self._user_account[email]
     
     def get_user_id(self, email: EmailStr) -> int:
         account = self.get_user_account(email)
@@ -121,7 +122,7 @@ class AccountSystem():
         """ get username by user id """
         for user in self._user_account.values():
             if user.id() == user_id:
-                return user.get_username()
+                return user.username()
         return None
     
     def get_user_account_by_id (self, user_id: int) -> User | None:
@@ -139,13 +140,10 @@ class AccountSystem():
                 return user
         return None
     
-    def get_friend_list(self, email: EmailStr) -> dict:
+    def get_user_friend_list(self, email: EmailStr) -> list:
         """ get user friend list """
-        friends = dict()
-        for friend_id in self.get_user_account(email).get_friend_list():
-            friend_name = self.get_username_by_id(friend_id)
-            friends[friend_id] = friend_name
-        return friends
+        account = self.get_user_account(email)
+        return account.get_friend_list()
 
 #-------------------------------------------------------------------------------------------
     
@@ -176,8 +174,16 @@ class ServerSystem():
                 return server
         return None
         # return self._servers
+
     
-    def member_in_server(self, member_id: int, server_id: int) -> bool:
+    def get_member_server_list(self, server_id: int) -> list:
+        """ get member in server """
+        server = self.get_server_by_id(server_id)
+        if server:
+            return server.get_member_list()
+            
+        
+    def member_in_server(self, server_id: int, member_id: int) -> bool:
         """ check member in server """
         server = self.get_server_by_id(server_id)
         if member_id in server.get_member_list():
@@ -215,10 +221,15 @@ class ServerSystem():
     def join_server(self, server_id: int, user_id: int) -> bool:
         """ join server """
         server = self.get_server_by_id(server_id)
+        print("here")
         if server:
             server.add_member(user_id)
+            print("added")
+            print(server.get_member_list())
+            # print(Server.info())
             return True
         else:
+            print("not added")
             return False
     
     def leave_server(self, server_id: int, user_id: int) -> bool:

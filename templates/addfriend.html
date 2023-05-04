@@ -5,7 +5,7 @@
     <div id="formSendfriend">
     <div class="sendbox">
         <input type="text" placeholder="Enter a Username#0000"  id="inputFriendID"> 
-        <button   style="font-family:Mukta" id="SendFriend">Send Friend Request</button>
+        <button   style="font-family:Mukta; font-size:15px" id="SendFriend">Send Request</button>
     </div>
     </div>
 </div>
@@ -31,7 +31,14 @@
                             }
                             })
                     .then((response) => response.json())
-                    .then((json) => console.log(json));
+                    .then((json) => {
+                        console.log(json)
+                        if(json.req_f=="success"){
+                               alert("Sent Friend Request  successfully")
+                        }else  {
+                            alert("Failed to send friend request please check the username and tag!!!!")
+                        }
+                    })
                         }addfriend();
                     }                  
                         
@@ -42,3 +49,4 @@
 
 
 </script>
+

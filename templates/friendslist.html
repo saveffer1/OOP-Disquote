@@ -1,215 +1,132 @@
 
 
-<div class="search-friends-box" id="search-box">
-    <input class="input-friends-box" type="text" placeholder="Search">
-    <button class="search-friend-btn">
-        <img src="{{ url_for('static', path='/assets/search-icon.png') }}" alt="">
-    </button>
-</div>
+ <div class="search-friends-box" id="search-box">
+    
+    <form id="SearchFrindForm" style="display: flex;">
+        <input class="input-friends-box" type="text" placeholder="Search"  >
+        <button class="search-friend-btn">
+            <img src="{{ url_for('static', path='/assets/search-icon.png') }}" alt="">
+        </button>
+    </form>
+    </div>
 <br>
 
 
 <div class="statuslist">
-    
-
-    <div class="kononline">
-        <h2 style="font-family:Mukta">ONLINE - X</h2>
+    <div class="kononline" id="kononlinefriend">
+        <h2 style="font-family:Mukta" id="countoffried">ONLINE</h2>
         <div class="line-4">
             <hr>
         </div>
-       
-        <div class="forbtnfriend">
-            <button>
-            <div class="grid_3">
-                <div class="Profile-Flist">
-                    <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
-                    <div class ="round online">
-                                        
-                        
-                    
-                </div>
-                        
-                </div>
-    
-                    <div class="avatarname">
-                        <h2>NameFriend
-                          <br>  <label>Online</label>
-                        </h2>
-                       
-                    </div>
-           
-            <div clas="btnfriend" style="  display:grid;
-            grid-template-columns: 0.2fr 0.2fr;
-            gap: 2px; justify-content: end; align-items: center; margin-bottom: 2px;">
-            
-                
-                
-                    <div class ="round" style="
-                    bottom: 0 ;
-                    background: #000000;
-                    margin-bottom: 20px;
-                    margin-right: 24px;
-                    width: 40px;
-                    height: 40px;
-                    align-items:start ;
-                    border-radius: 25px;
-                    background: rgba(30, 31,34, 1);">
-                       
-                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
-                        <img src="{{ url_for('static', path='assets/message.png') }}" width="20" height="20" alt="" style="margin-top: 11px;
-                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
-                    </div>
-                        
-                    <div class ="round" style="
-                    bottom: 0 ;
-                    background: #000000;
-                    margin-bottom: 20px;
-                    margin-right: 24px;
-                    width: 40px;
-                    height: 40px;
-                    align-items:start ;
-                    border-radius: 25px;
-                    background: rgba(30, 31,34, 1);">
-                       
-                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
-                        <img src="{{ url_for('static', path='assets/three-dots.png') }}" width="20" height="20" alt="" style="margin-top: 9px;
-                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
-                    </div>
-
-                
-                    
-                        
-                
-
-                   
-                
-    
-              
-            </div>
-            </div>
-           
-            </button>
-            <!-- คน 2 -->
-            <div class="line-4">
-                <hr>
-            </div>
-          
-
-        </div>
-              
-            
-
-            
-            
-        
-    </div>
-
-
-    <div class="konoffline">
-        <h2 style="font-family:Mukta">OFFLINE - X</h2>
-    <div class="line-4">
-        <hr>
-    </div>
-
-    <div class="forbtnfriend">
-        <button>
-        <div class="grid_3">
-            <div class="Profile-Flist">
-                <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
-                <div class ="round offline-direct">
-                                    
-                    
-                
-            </div>
-                    
-            </div>
-
-                <div class="avatarname">
-                    <h2>NameFriend
-                      <br>  <label>Online</label>
-                    </h2>
-                   
-                </div>
-       
-        <div clas="btnfriend" style="  display:grid;
-        grid-template-columns: 0.2fr 0.2fr;
-        gap: 2px; justify-content: end; align-items: center; margin-bottom: 2px;">
-        
-            
-            
-                <div class ="round" style="
-                bottom: 0 ;
-                background: #000000;
-                margin-bottom: 20px;
-                margin-right: 24px;
-                width: 40px;
-                height: 40px;
-                align-items:start ;
-                border-radius: 25px;
-                background: rgba(30, 31,34, 1);">
-                   
-                    <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
-                    <img src="{{ url_for('static', path='assets/message.png') }}" width="20" height="20" alt="" style="margin-top: 11px;
-                    filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
-                </div>
-                
-                
-                <div class ="round" style="
-                bottom: 0 ;
-                background: #000000;
-                margin-bottom: 20px;
-                margin-right: 24px;
-                width: 40px;
-                height: 40px;
-                align-items:start ;
-                border-radius: 25px;
-                background: rgba(30, 31,34, 1);">
-                    <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
-                    <img src="{{ url_for('static', path='assets/three-dots.png') }}" width="20" height="20" alt="" style="margin-top: 9px;
-                    filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
-                </div>
-
-              
-                
-                    
-            
-
-               
-            
-
-          
-        </div>
-        </div>
-       
-        </button>
-        <div class="line-4">
-            <hr>
-        </div>
-    </div>
-
-        
-    </div>
-
-
+    </div> 
 </div>
 
 
+<div class="konoffline" id="konoflinelist">
 
-
-
-
+</div> 
+</div>
 <script>
 
-        async function getFriendlidt(){
-            const response = await fetch('/account/friends');
-            const data = await response.json();
-            console.log(data);
-            return data;
-        }
-
-        getFriendlidt();
+    
+   
 
 
 
 
+// async function getFriendlidt(){
+
+//             const divForFriend = document.getElementById("forbtnfriend");
+//             const response = await fetch('/account/friends');
+//             const data = await response.json();            
+//             for (j = 0; j < data.length; j++) { 
+//                 let idfriend = data[j]
+//                 const url2 = `/account/get_name/${idfriend}`;
+//                         const response2 = await fetch(url2, {
+//                         method: "GET", 
+//                         credentials: "include", 
+//                         headers: {
+//                         "Content-Type": "application/json",
+//                         },
+//                         });
+//                 const data2 = await response2.json();
+//                 console.log("data2",data2.username); 
+//                 let  searchnamee = ' ';
+//                 let nameoffriend = data2.username; 
+                
+                
+//                 async  function showfriendlist() {
+//                     console.log('showfriendlist ทำงาน');
+//                     const divloopFrind = document.createElement('div');
+
+//                     const todobutton = document.createElement('button');
+//                     const todogrid_3 = document.createElement('div');
+//                     const todoProfileFlist = document.createElement('div');
+//                     const todoavatarname = document.createElement('div');
+//                     const imgprofile =document.createElement('img');
+//                     const todoroundon =document.createElement('div');
+//                     const todoh2grip2 = document.createElement('h2');
+//                     const labelAvatar = document.createElement('label');
+//                     const imgaccept = document.createElement('img');
+//                     const imgignore = document.createElement('img');
+//                     const roundpend1 = document.createElement('div');
+//                     const roundpend2 = document.createElement('div');
+
+//                     const todobtnfriend = document.createElement('div');
+//                     const coutpend = document.getElementById('numofpening');
+
+//                     imgprofile.src ="{{ url_for('static', path='/assets/disquote.png') }}";
+//                     todoroundon.classList.add('round'+'online');
+//                     todoProfileFlist.classList.add('Profile-Flist');
+//                     todoProfileFlist.appendChild(imgprofile);
+//                     todoProfileFlist.appendChild(todoroundon);
+//                     labelAvatar.style.color = 'rgba(161, 165, 172, 1)';
+//                     labelAvatar.style.fontSize='12px';
+//                     todoh2grip2.style.color ='rgba(148, 155, 164, 1)';
+//                     todoh2grip2.innerHTML=nameoffriend+'<br>';
+//                     todoh2grip2.appendChild(labelAvatar);
+//                     todoavatarname.appendChild(todoh2grip2);
+//                     todoavatarname.classList.add('avatarname');
+                 
+//                     imgaccept.width=20;
+//                     imgaccept.height=20;
+//                     imgaccept.style.marginTop='11px';
+//                     imgaccept.style.filter='invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%)';
+//                     imgignore.src ="{{ url_for('static', path='/assets/three-dots.png') }}";
+//                     imgignore.width=20;
+//                     imgignore.height=20;
+//                     imgignore.style.marginTop='11px';
+//                     imgignore.style.filter='invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%)';
+//                     roundpend1.classList.add('roundaccept');
+//                     roundpend1.id='accept';
+//                     roundpend1.appendChild(imgaccept);
+//                     roundpend2.classList.add('roundignore');
+//                     roundpend2.id='ignore';
+//                     roundpend2.appendChild(imgignore);
+//                     todobtnfriend.classList.add('btnfriend');
+//                     todobtnfriend.appendChild(roundpend1);
+//                     todobtnfriend.appendChild(roundpend2);
+//                     todogrid_3.classList.add('grid_3');
+//                     todogrid_3.appendChild(todoProfileFlist);
+//                     todogrid_3.appendChild(todoavatarname);
+//                     todogrid_3.appendChild(todobtnfriend);
+//                     todobutton.appendChild(todogrid_3);
+//                     divloopFrind.appendChild(todobutton);
+//                     divloopFrind.classList.add('forbtnfriend');
+//                     divloopFrind.id='forbtnfriend';
+//                     divKononline.appendChild(divloopFrind);
+//                 } 
+
+//                 showfriendlist();         
+//             }
+//     }
+
+
+            
+</script>
+
+<script>
+    function clearInput() {
+    document.querySelector('.input-friends-box').value = '';
+}
 </script>

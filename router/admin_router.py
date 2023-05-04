@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Response, Request, Form
+from fastapi import APIRouter, HTTPException, UploadFile, File, Depends, Response, Request, Form, Body, status
 from fastapi.responses import (HTMLResponse, JSONResponse, FileResponse, StreamingResponse)
 from starlette.responses import RedirectResponse
 from fastapi.encoders import jsonable_encoder
@@ -38,7 +38,8 @@ async def login(request: Request, email: EmailStr = Form(None), password: str = 
             token = jsonable_encoder(access_token)
 
             # resp = templates.TemplateResponse("chatboard.html", {"request": request, "login_message": "success"}, status_code=200)
-            resp = RedirectResponse(url='/admin/dashboard', status_code=308)
+            resp = RedirectResponse(
+                url='/admin/dashboard', status_code=status.HTTP_303_SEE_OTHER)
             resp.set_cookie(
                 "admin_authen",
                 value=f"{token}",
@@ -58,7 +59,7 @@ async def login(request: Request, email: EmailStr = Form(None), password: str = 
 @router.get('/logout', status_code=200, tags=['admin'])
 def logout(request: Request, response: Response):
     response.delete_cookie("admin_authen")
-    return RedirectResponse(url='/admin/login', status_code=308)
+    return RedirectResponse(url='/admin/login', status_code=status.HTTP_303_SEE_OTHER)
 
 @router.get('/dashboard', status_code=200, tags=['admin'])
 @router.post('/dashboard', status_code=200, tags=['admin'])

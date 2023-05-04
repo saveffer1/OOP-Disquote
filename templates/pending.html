@@ -1,85 +1,32 @@
 <div class="pending-class">
     <div class="penddingcontent">
-        <h2 style="font-family:Mukta; font-size:1.2rem;" >PENDING - X</h2>
+        <h2 style="font-family:Mukta; font-size:1.2rem;" id="numofpening" ></h2>
         <div class="line-4">
             <hr>
         </div>  
 
-        <div class="forbtnfriend">
-            <button>
+        <div class="forbtnfriend" id="forlooppend">
+            <!-- <button>
             <div class="grid_3">
                 <div class="Profile-Flist">
                     <img src="{{ url_for('static', path='assets/disquote.png') }}"  alt="" >
                     <div class ="round online">
-                                        
-                        
-                    
+ 
+                </div>                    
                 </div>
-                        
-                </div>
-    
                     <div class="avatarname">
                         <h2 style="color: rgba(148, 155,164, 1);">NameFriend
                           <br>  <label style="color: rgba(161, 165,172, 1); font-size:12px ">Incoming Friend Request</label>
-                        </h2>
-                       
-                    </div>
+                        </h2>       
+                    </div> -->
+             
+            <!-- </div> -->
            
-            <div clas="btnfriend" style="  display:grid;
-            grid-template-columns: 0.2fr 0.2fr;
-            gap: 2px; justify-content: end; align-items: center; margin-bottom: 2px;">
-            
-                
-                
-                    <div class ="round"  id="pend1" style=" 
-                    bottom: 0 ;
-                    background: #000000;
-                    margin-bottom: 20px;
-                    margin-right: 24px;
-                    width: 40px;
-                    height: 40px;
-                    align-items:start ;
-                    border-radius: 25px;
-                    background: rgba(30, 31,34, 1);">
-                       
-                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
-                        <img src="{{ url_for('static', path='assets/check.png') }}" width="20" height="20" alt="" style="margin-top: 11px;
-                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
-                    </div>
-                        
-                    <div class ="round" id="pend2" style="
-                    bottom: 0 ;
-                    background: #000000;
-                    margin-bottom: 20px;
-                    margin-right: 24px;
-                    width: 40px;
-                    height: 40px;
-                    align-items:start ;
-                    border-radius: 25px;
-                    background: rgba(30, 31,34, 1);">
-                       
-                        <!-- <i class="fa-solid fa-message fa-xl" style="color: #dbdde0; "></i> -->
-                        <img src="{{ url_for('static', path='assets/close.png') }}" width="17" height="17" alt="" style="margin-top: 12px;
-                        filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);" >
-                    </div>
-
-                
-                    
-                        
-                
-
-                   
-                
-    
-              
-            </div>
-            </div>
-           
-            </button>
+            <!-- </button> -->
             <!-- คน 2 -->
-            <div class="line-4">
+            <!-- <div class="line-4">
                 <hr>
-            </div>
+            </div> -->
           
 
         </div>
@@ -96,13 +43,197 @@
 
 
 <script>
-    
-        async function getFriend() {
+    async function getFriendSend() {
             const response = await fetch('/account/request_list');
             const data = await response.json();
-            console.log("หัี",data);
-            return data;
-        }getFriend();
+            // console.log(data);
+            for (j = 0; j < data.length; j++) {
+                    
+                let namesendFname =data[j].name
+                let namesendFID =data[j].id
+            
+                // console.log(j);
+                    const divPending = document.getElementById("forlooppend");
+
+                    //Div
+                    const todobutton = document.createElement('button');
+                    const todogrid_3 = document.createElement('div');
+
+                    //grip1
+                    const todoProfileFlist = document.createElement('div');
+
+                    //grip2
+                    const todoavatarname = document.createElement('div');
+
+                    //inside grip_1
+                    const imgprofile =document.createElement('img');
+                    const todoroundon =document.createElement('div');
+
+                    //inside grip_2
+                    const todoh2grip2 = document.createElement('h2');
+                    //inside todo
+                    const labelAvatar = document.createElement('label');
+
+                    //btn
+                    const imgaccept = document.createElement('img');
+                    const imgignore = document.createElement('img');
+                        
+                    //div pend1
+                    const roundpend1 = document.createElement('div');
+                    const roundpend2 = document.createElement('div');
+                        
+                    //grip3
+                    const todobtnfriend = document.createElement('div');
+                    const coutpend = document.getElementById('numofpening');
+                    // console.log(data[j]);
+                    //setimage 
+                    imgprofile.src ="{{ url_for('static', path='/assets/disquote.png') }}";
+
+                    todoroundon.classList.add('round'+'online');
+
+                    //class profilelf
+                    todoProfileFlist.classList.add('Profile-Flist');
+                    todoProfileFlist.appendChild(imgprofile);
+                    todoProfileFlist.appendChild(todoroundon);
+
+                    //set label
+                    labelAvatar.style.color = 'rgba(161, 165, 172, 1)';
+                    labelAvatar.style.fontSize='12px';
+                    labelAvatar.innerHTML="Incoming Friend Request";
+
+                    //set h2
+                    todoh2grip2.style.color ='rgba(148, 155, 164, 1)';
+                    todoh2grip2.innerHTML=namesendFname+'<br>';
+
+                    //ใส่ labelใน h2
+                    todoh2grip2.appendChild(labelAvatar);
+                    // console.log(nameofSendF);
+
+                    //h2 ไปใน
+                    todoavatarname.appendChild(todoh2grip2);
+                    todoavatarname.classList.add('avatarname');
+                    
+                    //btn accept และ lgnore
+                    //ac
+                    imgaccept.src ="{{ url_for('static', path='/assets/check.png') }}";
+                    imgaccept.width=20;
+                    imgaccept.height=20;
+                    imgaccept.style.marginTop='11px';
+                    imgaccept.style.filter='invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%)';
+                    //ignore
+                    imgignore.src ="{{ url_for('static', path='/assets/close.png') }}";
+                    imgignore.width=20;
+                    imgignore.height=20;
+                    imgignore.style.marginTop='11px';
+                    imgignore.style.filter='invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%)';
+
+                    //round1
+                    roundpend1.classList.add('roundaccept');
+                    
+                    roundpend1.id='accept'+namesendFID;
+                    roundpend1.style.bottom=0;
+                    roundpend1.style.background='#ffffff';
+                    roundpend1.style.marginBottom='20px';
+                    roundpend1.style.marginRight='24px';
+                    roundpend1.style.width='40px';
+                    roundpend1.style.height='40px';
+                    roundpend1.style.alignItems='start';
+                    roundpend1.style.borderRadius='25px';
+                    roundpend1.style.background='rgba(30, 31, 34, 1)';
+
+                    //andim1
+                    roundpend1.appendChild(imgaccept);
+                    //round2
+                    roundpend2.classList.add('roundignore');
+                    roundpend2.id='ignore'+namesendFID;
+                    roundpend2.style.bottom=0;
+                    roundpend2.style.background='#ffffff';
+                    roundpend2.style.marginBottom='20px';
+                    roundpend2.style.marginRight='24px';
+                    roundpend2.style.width='40px';
+                    roundpend2.style.height='40px';
+                    roundpend2.style.alignItems='start';
+                    roundpend2.style.borderRadius='25px';
+                    roundpend2.style.background='rgba(30, 31, 34, 1)';
+                    //adim2
+                    roundpend2.appendChild(imgignore);
+
+                    //ยัด round3
+                    todobtnfriend.classList.add('btnfriend');
+                    todobtnfriend.style.grid='grip';
+                    todobtnfriend.style.gridTemplateColumns='0.2fr 0.2fr';
+                    todobtnfriend.style.gap='2px';
+                    todobtnfriend.style.justifyContent='end';
+                    todobtnfriend.style.alignItems='center';
+                    todobtnfriend.style.marginBottom='2px';
+
+                    todobtnfriend.appendChild(roundpend1);
+                    todobtnfriend.appendChild(roundpend2);
+                    //ยัดเข้า grid
+
+                    todogrid_3.classList.add('grid_3');
+                    
+                    todogrid_3.appendChild(todoProfileFlist);
+                    todogrid_3.appendChild(todoavatarname);
+                    todogrid_3.appendChild(todobtnfriend);
+
+                    todobutton.appendChild(todogrid_3);
+                    divPending.appendChild(todobutton);
+
+                    coutpend.innerHTML="PENDING - "+data[j].length;
+
+                    roundpend1.addEventListener('click', () =>  {
+                        console.log("accept"+namesendFID)
+                        async function SendAccept(){
+                            const response = await fetch('/account/friends_request_prompt', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    friend_id:namesendFID,
+                                    accept: true
+                                })
+                                
+                            });
+                            const data = await response.json();
+                            console.log(data);
+                            console.log("ได้แล้วนะเจีํยกๆ")
+                        }
+                        SendAccept();
+                    });
+
+                    roundpend2.addEventListener('click', () =>  {
+                        console.log("reject"+namesendFID)
+
+                        async function SendReject(){
+                            const response = await fetch('/account/friends_request_prompt', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    friend_id:namesendFID,
+                                    accept: false
+                                })
+                                
+                            });
+                            const data = await response.json();
+                            console.log(data);
+                            console.log("ลบแล้วนะเจีํยกๆ")
+                        }
+                        SendReject();
+                    });
+                    
+
+                }
+                
+            }
+            
+            getFriendSend();
+        
+        
+        
 </script>
 
 
@@ -111,14 +242,17 @@
 
 
 <script>        
-    const btnaccept = document.getElementById('pend1');
-    btnaccept.addEventListener('click', () =>  {
-        console.log("Accept")
-    })
+    //   const btnaccept = document.getElementById('roundaccept')
+    
+    //  btnaccept.addEventListener('click', () =>  {
+    //     console.log("Accept");
+    //   })
 
-    const btnignore = document.getElementById('pend2');
-    btnignore.addEventListener('click', () =>  {
-        console.log("Ignore")
-    })
+    
 
-</script>  
+    // const btnignore = document.querySelector('.roundignore');
+    // btnignore.addEventListener('click', () =>  {
+    //     console.log("Ignore")
+    // })
+
+</script>   

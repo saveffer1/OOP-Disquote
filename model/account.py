@@ -33,6 +33,15 @@ class Admin(Account):
     def logout(self):
         print("Admin logout")
 
+    def id(self) -> int:
+        return self._id
+
+    def username(self) -> str:
+        return self._username
+
+    def email(self) -> EmailStr:
+        return self._email
+
 
 @dataclass
 class User(Account):
@@ -52,6 +61,9 @@ class User(Account):
     def username(self) -> str:
         return self._username
     
+    def email(self) -> EmailStr:
+        return self._email
+
     def tag(self) -> str:
         return self._tag
     
@@ -77,23 +89,22 @@ class User(Account):
     def get_friend_list(self) -> list:
         return self._friends
 
+    def add_friend(self, id: int):
+        if id not in self._friends:
+            self._friends.append(id)
+        
     def unfriend(self, id: int):
         self._friends.remove(id)
     
-    @property
     def request_list(self) -> list:
         return self._friends_request
 
-
-    @request_list.setter
-    def request_list(self, id: int, accept: bool):
-        if accept:
-            self._friends.append(id)
-        self._friends_request.remove(id)
-
-    
     def add_request(self, id: int):
-        self._friends_request.append(id)
+        if id not in self._friends_request:
+            self._friends_request.append(id)
+    
+    def del_request(self, id: int):
+        self._friends_request.remove(id)
     
     def info(self) -> dict:
         return {"id": self._id, "username": self._username, "tag": self._tag, "avatar": self._avatar, "status": self._status.value} 

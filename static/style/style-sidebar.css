@@ -140,6 +140,7 @@ header:hover , header:active{
     align-items: start;
     color: darkgray;
     text-align: left;
+    cursor: default;
 }
 
 .ch_room , .voice_room {
@@ -235,7 +236,7 @@ input {
     padding: 6px;
     border: 1px solid gray;
     border-radius: 10px;
-    -webkit-border-radius: 10px;
+    /* -webkit-border-radius: 10px; */
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
@@ -267,9 +268,16 @@ input {
     margin-bottom: 10px;
 }
 
-#todoListTxt li {
-    list-style: none;
+#todoListTxt li ,#todoListVoc li {
+    list-style: none;    
+    padding: 10px 10px 10px 10px !important;
+    cursor: pointer;
+
 }
+
+/* #todoListVoc li {
+    list-style: none;
+} */
 
 #todoListV li {
     list-style: none;
