@@ -959,7 +959,8 @@ body {
 }
 
 .avatarname h2 {
-  font-size: 1.2rem;
+  color:#ffffff;
+  
 }
 
 .avatarname label {
@@ -1044,6 +1045,12 @@ border-radius: 7px;
   display: flex;
 }
 
-/* #todoListTxt li {
-  padding: 10px 0 10px 0;
-} */
+.online-member-box h4 {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}

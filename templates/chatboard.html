@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-profile-status.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-mainfriend.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/style-friendlist.css') }}">
     
     <!-- <link rel="stylesheet" href="{{ url_for('static', path='/style/style-chatboard-bak.css') }}"> -->
     <script src="/static/script/jquery.js"></script>
@@ -279,7 +280,7 @@
 
         </div>
         <div id="chat-board" class="container">
-           <div id="guild-board" >
+            <div id="guild-board" >
                 <div class="in-container" style="height: 100%;">
                 
                     <div class="nav-chat">
@@ -360,12 +361,13 @@
                     
                 
                     <div class="members">
-                        <div class="box-member">
+                        <div class="box-member" id="box-member">
                         <!-- ---------------------------------------------------------------------------------- -->
                             <div class="online-member-box">
                                 <h4>All User -- <p id="numberofuser"></p> </h4>
-                                <!-- <div class="online-member">
-                                    <button class="Member-room">
+                                <div class="online-member" id="useronlineshow">
+                        <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+                                    <!-- <button class="Member-room">
                                         <div class="gridProfile">
                                             <div class="Profile-Direct" style="width: 70px;">
                                                 <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
@@ -376,12 +378,12 @@
                                                 </div>
                                             </div>
                                             <div class="txtnamedirect">
-                                                <label id="online_name"></label>
+                                                <label id="online_nameinserver"></label>
                                             </div>
                                         </div>
-                                    </button>
-
-                                    <button class="Member-room">
+                                    </button> -->
+                        <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+                                    <!-- <button class="Member-room">
                                         <div class="gridProfile">
                                             <div class="Profile-Direct" style="width: 70px;">
                                                 <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
@@ -395,8 +397,8 @@
                                                 <label>Member2</label>
                                             </div>
                                         </div>
-                                    </button>
-                                </div> -->
+                                    </button> -->
+                                </div>
                             </div>
                         <!-- ----------------------------------------------------------------------------------- -->
                         </div>
@@ -1139,40 +1141,130 @@
 <script>
     
     let user_online = (localStorage.getItem("username"));
-    // let name_box = document.getElementById("online_name");
-    // name_box.innerHTML = user_online;
     let ServerN = (localStorage.getItem("serverName"));
     let servername = document.getElementById("sever_name_show");
     servername.innerHTML = ServerN ;
     const usercount = document.getElementById("numberofuser");
-    usercount.innerHTML = 0;
-    console.log(usercount.textContent);
     
+    usercount.innerHTML = 0;
     async function get_member_list() {
             return fetch(`/channels/member_list/${svid}`, {
                 method: 'GET',
                 credentials: 'include'
             }).then((response) => response.json())
-                .then((responseJson) => { 
-                let data = responseJson;
-                console.log("usercopunt :",responseJson)
-                usercount.innerText = data.length;
-                async function get_name_by_id(){
-                    return fetch(`/account/get_name/${data}`,{
-                        method: 'GET',
-                        credentials: 'include'
-                    }).then((response) => response.json())  
-                        .then((responseJson) => { 
-                            console.log('get_name_by_id ทำงาน')
-                    //         //for(i=0;i<responseJson.length;i++){
-                    //             let name_box = document.getElementById("online_name");
-                    //             name_box.innerHTML = responseJson[i].username;
-                    })
+                .then(async (responseJson) => { 
+                console.log("userมีที้งหมด :",responseJson.length)
+                usercount.innerText = responseJson.length;
+
+                //////////////////////////////////////////////////////////////////
+
+                for (let i = 0; i < responseJson.length; i++){
+                    console.log('ค่าจากfncบน = ',responseJson[i])
+                    async function get_name_by_id(){
+                        return fetch(`/account/get_name/${responseJson[i]}`,{
+                            method: 'GET',
+                            credentials: 'include'
+                            }).then((data) => data.json())  
+                                .then( async (data) => { 
+                                let user_name = data.username;
+                                console.log("username  is = :",user_name)
+                                
+                                // createSERVERmember();
+                                // console.log(nameofmember)
+                                // console.log(document.getElementsById('box-member'))
+                                const nameofmember = document.createElement("label");
+                                const useronshow = document.getElementById('useronlineshow');
+                // console.log("createSERVERmember is work ")
+                                const member_room = document.createElement('button');
+                                const gridProfile = document.createElement('div');
+                                const ProfileDirect = document.createElement('div');
+                                const img = document.createElement('img');
+                                const round = document.createElement('div');
+                                const txtnamedirect = document.createElement('div');
+                                // const nameofmember = document.createElement('label');
+                                // console.log("createSERVERmember is working ")
+                                member_room.classList.add('Member-room');
+                                gridProfile.classList.add('gridProfile');
+                                ProfileDirect.classList.add('Profile-Direct');
+                                ProfileDirect.style.width = '70px';
+                                img.src = "{{ url_for('static', path='assets/disquote.png') }}";
+                                round.classList.add('round');
+                               
+                                round.classList.add('online');
+                                txtnamedirect.classList.add('txtnamedirect');
+                                nameofmember.classList.add('membername');
+                                nameofmember.innerHTML = user_name;
+                                // console.log("createSERVERmember is worked ")
+                                txtnamedirect.appendChild(nameofmember);
+                                ProfileDirect.appendChild(img);
+                                ProfileDirect.appendChild(round);
+                                gridProfile.appendChild(ProfileDirect);
+                                gridProfile.appendChild(txtnamedirect);
+                                member_room.appendChild(gridProfile);
+                                useronshow.appendChild(member_room);
+
+                            })
+                            
+                        }
+                        
+                        get_name_by_id();
                 }
-                get_name_by_id();
-                });
+            });
             }
-    get_member_list();
+            get_member_list();  
+
+        // async   function createSERVERmember(){
+                // const useronshow = document.getElementById('useronlineshow');
+                // // console.log("createSERVERmember is work ")
+                // const member_room = document.createElement('button');
+                // const gridProfile = document.createElement('div');
+                // const ProfileDirect = document.createElement('div');
+                // const img = document.createElement('img');
+                // const round = document.createElement('div');
+                // const txtnamedirect = document.createElement('div');
+                // const nameofmember = document.createElement('label');
+                // // console.log("createSERVERmember is working ")
+                // member_room.classList.add('Member-room');
+                // gridProfile.classList.add('gridProfile');
+                // ProfileDirect.classList.add('Profile-Direct');
+                // ProfileDirect.style.width = '70px';
+                // img.src = "{{ url_for('static', path='assets/disquote.png') }}";
+                // round.classList.add('round');
+                // round.classList.add('online');
+                // txtnamedirect.classList.add('txtnamedirect');
+                // nameofmember.classList.add('membername');
+                // // console.log("createSERVERmember is worked ")
+                // txtnamedirect.appendChild(nameofmember);
+                // ProfileDirect.appendChild(img);
+                // ProfileDirect.appendChild(round);
+                // gridProfile.appendChild(ProfileDirect);
+                // gridProfile.appendChild(txtnamedirect);
+                // member_room.appendChild(gridProfile);
+                // useronshow.appendChild(member_room);
+                // const boxmember = document.getElementsById('box-member')
+                // boxmember.appendChild(member_room);
+                // .appendChild(member_room);
+                // document.getElementsByClassName('memberroom').appendChild(member_room);
+
+            // }
+            
+
+            // <button class="Member-room">
+            //                             <div class="gridProfile">
+            //                                 <div class="Profile-Direct" style="width: 70px;">
+            //                                     <img src="{{ url_for('static', path='assets/disquote.png') }}" alt="">
+            //                                     <div class="round online" style="width: 10px;
+            //                                         height: 10px; margin-bottom: 10px;
+            //                                         margin-right: 10px;
+            //                                         border :5px solid rgba(43, 45,49, 1);">
+            //                                     </div>
+            //                                 </div>
+            //                                 <div class="txtnamedirect">
+            //                                     <label id="online_nameinserver"></label>
+            //                                 </div>
+            //                             </div>
+            // </button>
+
 </script>
 
 

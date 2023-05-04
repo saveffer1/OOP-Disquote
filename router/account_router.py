@@ -189,11 +189,21 @@ async def get_name(request: Request, user_id: int):
     else:
         return {"status_code": 400, "get_name_f": "fail user not found"}
 
+
 @router.get('/get_account/{user_id}', status_code=200, tags=['user'])
 async def get_account(request: Request, user_id: int):
     user = discord_account.get_user_account_by_id(user_id)
     if user:
         account = user.info()
-        return {"username": account["username"], "tag": account["tag"], "avatar": account["avatar"]}
-    else:
-        return {"status_code": 400, "get_account_f": "fail user not found"}
+        return {"username": account["username"], "tag": account["tag"], "status": account["status"], "avatar": account["avatar"]}
+
+
+@router.get('/get_account_by_name/{user_name}', status_code=200, tags=['user'])
+async def get_account_by_name(request: Request, user_name: str):
+    results = []
+    for user in discord_account.get_user_list():
+        if user.username().lower() == user_name.lower():
+            account = user.info()
+            results.append({"id": account["id"], "username": account["username"], "tag": account["tag"],
+                           "status": account["status"], "avatar": account["avatar"]})
+    return results

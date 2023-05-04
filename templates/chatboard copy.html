@@ -652,22 +652,14 @@
     {% if svdm %}
     <script>
         var link = document.getElementById('dm');
-        // // var friends = document.getElementById('friendlistload');
         link.click();
-        // friends.click();
     </script>
     {% endif %} 
 
 
     {% if ch %}
     <script>
-        // $(document).ready(function () { $("#chat-menu").load("/chat-guild"); })
-        // $(document).ready(function () { $("#chat-board").load("/container-server"); })
 
-        // $(document).ready(function () {
-        //         // $("#chat-menu").load("/chat-guild");
-        //         $("#chat-board").load("/container-server");
-        // })
 
         const currentUrl = window.location.href;
         const svid = currentUrl.split("/").pop(); 

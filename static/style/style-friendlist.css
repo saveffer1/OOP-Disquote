@@ -1,0 +1,24 @@
+.btnfriend {
+    display: grid;
+    grid-template-columns: 0.2fr 0.2fr;
+    gap: 2px;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+
+
+.fimg{
+    width: 20px;
+    height: 20px;
+    margin-top: 11px;
+    filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);
+}
+
+.threedot {
+    width: 20px;
+    height: 20px;
+    margin-top: 9px;
+    filter: invert(82%) sepia(14%) saturate(115%) hue-rotate(175deg) brightness(88%) contrast(91%);
+}

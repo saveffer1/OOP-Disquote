@@ -9,10 +9,19 @@ system_annoucer = AnnouceSystem()
 
 ## this is a mockup section
 discord_account.add_admin(email="admin@mail.com", username="admin", password="1234")
-discord_account.add_user(email="admin@mail.com", username="admin", password="1234")
-discord_account.add_user(email="admin@min.com", username="HEE", password="1234")
-discord_account.add_user(email="theway@mail.com", username="theway", password="1234")
-discord_account.add_user(email="todie@mail.com", username="todie", password="1234")
+
+discord_account.add_user(email="admin@mail.com", username="admin", password="1234") #0
+discord_account.add_user(email="admin@min.com", username="HEE", password="1234") #1
+discord_account.add_user(email="theway@mail.com", username="theway", password="1234") #2
+discord_account.add_user(email="todie@mail.com", username="todie", password="1234") #3
+
+hee = discord_account.get_user_account(email="admin@mail.com")
+theway = discord_account.get_user_account(email="theway@mail.com")
+todie = discord_account.get_user_account(email="todie@mail.com")
+
+hee.state = 1
+theway.state = 2
+todie.state = 3
 
 discord_account.get_user_account("admin@mail.com").add_request(1)
 discord_account.get_user_account("admin@mail.com").add_request(2)
